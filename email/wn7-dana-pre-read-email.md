@@ -20,7 +20,7 @@ A recorded check can't tell us what the Guide saw or understood, so this isn't a
 
 A short video could explain the recovery path well. I don't think explanation alone will change what happens on live calls. At the September 18 shift feedback session, Micah described not remembering whether the offer included a subscription or a discount, then holding to ask a Lead: "the time on the call nobody sees when they say 'just use the script.'" Priya summed up the session as "a search problem, an eligibility problem, a conversation problem, and a completion problem."
 
-Only part of that is a training problem. Guides also need consistent recovery guidance, alignment on Plus handling, a working Orbit workflow and access, a reliable route to their Lead when they're stuck, and reinforcement based on what happens on real calls. That's why the package is a small set of connected supports rather than one course, and why it names the owners who would need to confirm each dependency. It's also built to answer Marisol's point from October 1: more than five minutes is acceptable if it helps Guides and protects service levels, but there has to be a reason to believe it will work.
+Only part of that is a training problem. Guides also need consistent recovery guidance, alignment on Plus handling, a working Orbit workflow and access, a reliable route to their Lead when they're stuck, and reinforcement based on what happens on real calls. That's why the package is a small set of connected supports rather than one course. It's also built to answer Marisol's point from October 1: more than five minutes is acceptable if it helps Guides and protects service levels, but there has to be a reason to believe it will work.
 
 **Why Leads go first**
 
@@ -43,9 +43,9 @@ The package is organized in three folders.
 
 **Where to start**
 
-I'd start with 01 — Start Here. The three overviews take a few minutes together and will show whether you want to go into the full plan, the learning resources, or both.
+I'd start with 01 — Start Here. The overviews take a few minutes and will show whether you want the full plan, the resources, or both.
 
-This is a proposal, not an approved rollout. Several pieces depend on their owners' confirmation before any Guide sees them, including the Plus guidance, the Orbit workflow and access, delivery of the practice, and pilot teams and practice time. The rollout is staged, so pilot evidence decides whether it expands, and it's modular: Guides would see the Call Path, the practice and the slide, while the other materials are for Leads.
+This is a proposal, not an approved rollout. Several pieces need their owners' confirmation before any Guide sees them; the Ownership Map lists them. The rollout is staged, so pilot evidence decides whether it expands, and it's modular: Guides would see only the Call Path, the practice and the slide.
 
 When we meet, I'd most like your reaction to the approach and to the assumptions behind it, especially where you see the evidence or the dependencies differently.
 
