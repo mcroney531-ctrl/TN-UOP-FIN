@@ -14,7 +14,7 @@ Thank you for sending Renee's Orbit exports and the background. You asked for a 
 
 In a systematic Orbit sample of 204 eligible General Care calls from September 21–30, 115 (56%) went through generic troubleshooting instead of recovery. Even among the 159 calls with a serial check recorded, 70 still ended in generic troubleshooting.
 
-A recorded check can't tell us what the Guide saw or understood, so this isn't a proven root cause. But awareness alone doesn't appear to explain the gap. Guides seem to struggle to recognize the pattern, interpret the Orbit result, and act on it consistently. That matters for upset callers too: a customer asked to repeat restarts they've already tried has good reason to be frustrated.
+A recorded check can't tell us what the Guide saw or understood, so this isn't a proven root cause. But awareness alone doesn't appear to explain the gap. The gap may involve recognizing the pattern, interpreting the Orbit result, and translating that result into the right recovery action. That matters for upset callers too: a customer asked to repeat restarts they've already tried has good reason to be frustrated.
 
 **Why I'm proposing more than a video**
 
@@ -45,7 +45,7 @@ The package is organized in three folders.
 
 I'd start with 01 — Start Here. The overviews take a few minutes and will show whether you want the full plan, the resources, or both.
 
-This is a proposal, not an approved rollout. Several pieces need their owners' confirmation before any Guide sees them; the Ownership Map lists them. The rollout is staged, so pilot evidence decides whether it expands, and it's modular: Guides would see only the Call Path, the practice and the slide.
+This is a proposal, not an approved rollout. Several pieces need their owners' confirmation before any Guide sees them; the Ownership Map lists them. The rollout is staged, so pilot evidence decides whether it expands, and it's modular: Guides use the Call Path and individual practice, while Leads use the meeting and coaching materials and introduce the shared sequence through existing huddles.
 
 When we meet, I'd most like your reaction to the approach and to the assumptions behind it, especially where you see the evidence or the dependencies differently.
 
