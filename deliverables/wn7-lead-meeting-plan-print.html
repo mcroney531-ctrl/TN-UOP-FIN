@@ -169,6 +169,10 @@
   .seq div { background: var(--navy); color: #fff; border-radius: 5pt; padding: 6pt 7pt; font-size: 7.8pt; display: flex; flex-direction: column; }
   .seq b { display: block; font-size: 9.2pt; margin-bottom: 1pt; }
   .seq span { display: block; color: #d6dfec; margin-bottom: 4pt; }
+  .seq em.split { display: flex; gap: 3pt; border-top: 0; padding-top: 0; }
+  .seq em.split i { flex: 1; font-style: normal; border-top: 1px solid rgba(255,255,255,.3); padding-top: 3pt; }
+  .req { font-weight: 700; font-size: 9.2pt; color: var(--navy); margin: 0; }
+  .probes { padding-left: 11pt; font-size: 8.2pt; color: var(--muted); }
   .seq em { display: block; font-style: normal; margin-top: auto; padding-top: 3pt; border-top: 1px solid rgba(255,255,255,.3); font-weight: 600; font-size: 7.4pt; color: #fff; }
   .branches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5pt; margin-bottom: 8pt; }
   .branches div { border-left: 3pt solid var(--c); background: var(--bg); border-radius: 0 4pt 4pt 0; padding: 4pt 7pt; font-size: 8.2pt; }
@@ -300,13 +304,14 @@
         </table>
         <p class="sm muted" style="margin:4pt 0 0">A recorded serial check doesn't show the Guide saw or understood the result. Keep that open.</p>
       </div>
-      <div class="ask"><span class="tagl">Ask Leads</span>
-        <ol>
+      <div class="ask"><span class="tagl">Ask Leads · required</span>
+        <p class="req">What would you ask or check first, before deciding how to coach?</p>
+        <span class="tagl" style="margin-top:5pt">Optional probes, if time allows</span>
+        <ul class="probes">
           <li>What does this record tell you, and what doesn't it?</li>
           <li>Why might the Guide have kept troubleshooting?</li>
-          <li><b>What would you ask or check first, before deciding how to coach?</b></li>
           <li>How would your coaching change depending on what you find?</li>
-        </ol>
+        </ul>
       </div>
     </div>
     <div class="g2 tight">
@@ -345,7 +350,7 @@
     <div><b>Verify</b><span>Eligibility checked; result read correctly</span><em>Verification</em></div>
     <div><b>Decide</b><span>Path matches the verified result</span><em>Decision</em></div>
     <div><b>Complete</b><span>Both transactions done, or follow-up documented</span><em>Recovery</em></div>
-    <div><b>Explain &amp; Document</b><span>Done, pending, next step; recorded for the next contact</span><em>Communication · Documentation</em></div>
+    <div><b>Explain &amp; Document</b><span>Done, pending, next step; recorded for the next contact</span><em class="split"><i>Communication</i><i>Documentation</i></em></div>
   </div>
   <p class="sm muted" style="margin:3pt 0 7pt">Labels under each step are the six observable indicators Leads look for in reviewed calls (from the rollout plan).</p>
 
@@ -360,7 +365,7 @@
     <tbody>
       <tr><td>Didn't know the next step</td><td>Walk through the Call Path; short practice on the decision</td><td><span class="pill c">Coach</span></td></tr>
       <tr><td>Couldn't read the Orbit result</td><td>Point to the approved, validated guidance; flag gaps in the thread</td><td><span class="pill c">Coach</span> <span class="pill f">Flag</span></td></tr>
-      <tr><td>Access, permission, or process blocker</td><td>Don't coach it. Escalate through the Lead thread to Care Systems</td><td><span class="pill e">Escalate</span></td></tr>
+      <tr><td>Access, permission, or process blocker</td><td>Don't coach it. Use the established escalation route to Care Systems; share recurring blockers in the Lead thread</td><td><span class="pill e">Escalate</span></td></tr>
       <tr><td>Felt expected to keep troubleshooting</td><td>Clarify: once eligibility is verified, stop the restart loop. Flag to Quality so review expectations match</td><td><span class="pill c">Coach</span> <span class="pill f">Flag</span></td></tr>
       <tr><td>Plus action unresolved at call end</td><td>Confirm follow-up was opened, explained, and documented, with no unconfirmed timing promised; confirm ownership through the approved route</td><td><span class="pill u">Follow-up</span></td></tr>
       <tr><td>Other or unclear</td><td>Log it in the thread so Quality can look for patterns</td><td><span class="pill f">Flag</span></td></tr>
