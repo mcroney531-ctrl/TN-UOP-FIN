@@ -182,6 +182,8 @@
   .section-head h2 { margin: 0; font-size: clamp(28px, 3.6vw, 38px); line-height: 1.15; letter-spacing: -.015em; }
   .section-count { color: var(--ink-muted); font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
   .section-intro { margin: 12px 0 0; max-width: 680px; color: var(--ink-soft); }
+  /* Guides section: full-bleed soft blue tint that fades in and out (border-image bleed avoids page scroll) */
+  .section.band { border-top: 0; border-image: linear-gradient(180deg, var(--bg) 0, #eef3f9 240px, #f5f7f9 55%, var(--bg) 100%) fill 0 // 0 100vmax; clip-path: inset(0 -100vmax); padding-bottom: 8px; }
   .project h3 { margin: 0 0 14px; font-size: clamp(24px, 3vw, 30px); line-height: 1.2; letter-spacing: -.01em; }
 
   /* Placeholder panel until real visuals exist */
@@ -276,7 +278,7 @@
 <main class="wrap">
 
   <section class="section" id="lead" aria-labelledby="lead-h">
-    <div class="section-head"><h2 id="lead-h">Leads</h2><span class="section-count">Section A – 3 resources</span></div>
+    <div class="section-head"><h2 id="lead-h">Resources for Leads</h2><span class="section-count">Section A – 3 resources</span></div>
     <p class="section-intro">Guides go to their Leads for answers mid-call, so the rollout starts with Leads. The working meeting builds one shared standard; the two one-page references keep it in use during call reviews and coaching.</p>
     <ol class="projects">
       <li class="project" id="lead-meeting">
@@ -320,8 +322,8 @@
     </ol>
   </section>
 
-  <section class="section" id="guide" aria-labelledby="guide-h">
-    <div class="section-head"><h2 id="guide-h">Guides</h2><span class="section-count">Section B – 2 resources</span></div>
+  <section class="section band" id="guide" aria-labelledby="guide-h">
+    <div class="section-head"><h2 id="guide-h">Resources for Guides</h2><span class="section-count">Section B – 2 resources</span></div>
     <p class="section-intro">On a live call, Guides need the next step, not another course. The Call Path supports the call; the practice scenario lets Guides make the decision once before it counts. Both point to Beacon rather than restating it.</p>
     <ol class="projects">
       <li class="project" id="guide-call-path">
