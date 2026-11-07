@@ -97,7 +97,7 @@ parts = ['''<div class="masthead">
     </svg>
   <div class="wrap">
     <div>
-      <p class="mast-for">For interviewers · Not part of Dana's package</p>
+      <p class="mast-for">Interviewer note · Not part of Dana's package</p>
       <p class="mast-name">Design Decision Log</p>
       <p class="mast-role">Companion to <i>Behind the Design: WN7 Recovery Strategy</i></p>
     </div>
