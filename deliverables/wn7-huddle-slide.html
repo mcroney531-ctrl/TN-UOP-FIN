@@ -30,40 +30,40 @@
   /* Banner */
   .banner {
     display: flex; align-items: center; justify-content: space-between; gap: 2cqw;
-    padding: 1.5cqw 3.4cqw 1.4cqw; color: #fff;
+    padding: 1.25cqw 3.4cqw 1.15cqw; color: #fff;
     background:
       radial-gradient(120% 140% at 100% 0%, rgba(74, 112, 176, .28) 0%, rgba(74, 112, 176, 0) 55%),
       linear-gradient(115deg, var(--navy-deep) 0%, var(--navy-mid) 45%, var(--navy) 100%);
   }
   .eyebrow { margin: 0; font-size: 1.05cqw; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; opacity: .85; }
-  .banner h1 { margin: .35cqw 0 0; font-size: 2.9cqw; line-height: 1.08; font-weight: 700; letter-spacing: -.01em; }
-  .banner .sub { margin: .45cqw 0 0; font-size: 1.35cqw; opacity: .9; }
+  .banner h1 { margin: .2cqw 0 0; font-size: 2.9cqw; line-height: 1.08; font-weight: 700; letter-spacing: -.01em; }
+  .banner .sub { margin: .3cqw 0 0; font-size: 1.35cqw; opacity: .9; }
   .logo { width: 11cqw; height: auto; flex: none; }
 
   /* Sequence */
-  .body { padding: 1.6cqw 3.4cqw 0; display: grid; grid-template-rows: auto auto; align-content: start; }
+  .body { padding: 1.3cqw 3.4cqw 0; display: grid; grid-template-rows: auto auto; align-content: start; }
   .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.6cqw; }
-  .step { position: relative; background: #fff; border: .1cqw solid var(--line); border-top: .45cqw solid var(--navy); border-radius: .7cqw; padding: 1.15cqw 1.25cqw 1.2cqw; }
+  .step { position: relative; background: #fff; border: .1cqw solid var(--line); border-top: .45cqw solid var(--navy); border-radius: .7cqw; padding: 1cqw 1.25cqw 1.05cqw; }
   .step:not(:last-child)::after {
     content: ""; position: absolute; top: 2.05cqw; right: -1.35cqw; width: 1.1cqw; height: 1.1cqw;
     border-top: .3cqw solid var(--cobalt); border-right: .3cqw solid var(--cobalt); transform: rotate(45deg);
   }
   .num { display: inline-grid; place-items: center; width: 2.3cqw; height: 2.3cqw; border-radius: 50%; background: var(--navy); color: #fff; font-size: 1.2cqw; font-weight: 700; }
-  .step h2 { margin: .6cqw 0 .35cqw; font-size: 1.95cqw; line-height: 1.1; letter-spacing: -.01em; color: var(--navy); }
+  .step h2 { margin: .45cqw 0 .3cqw; font-size: 1.95cqw; line-height: 1.1; letter-spacing: -.01em; color: var(--navy); }
   .step p { margin: 0; font-size: 1.22cqw; line-height: 1.38; color: var(--ink-soft); }
-  .step p + p { margin-top: .45cqw; }
+  .step p + p { margin-top: .35cqw; }
   .step b { color: var(--ink); font-weight: 600; }
   .step .cue { display: inline; color: var(--muted); font-size: 1.05cqw; }
   .step code { font: 600 1.08cqw ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--tint); color: var(--navy); padding: .05cqw .35cqw; border-radius: .25cqw; }
   .step.decide { border-top-color: var(--cobalt); }
 
   /* Branches from Decide (column 3), spanning columns 2–4 */
-  .branches { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 1.6cqw; margin-top: 2.2cqw; }
-  .branches::before { /* stem from Decide */ content: ""; position: absolute; left: 50%; top: -2.2cqw; height: 1.1cqw; width: .25cqw; background: var(--cobalt); transform: translateX(-50%); }
-  .branches::after { /* crossbar */ content: ""; position: absolute; top: -1.1cqw; left: calc((100% - 6.4cqw) * .3 + 1.6cqw); right: calc((100% - 6.4cqw) * .3 + 1.6cqw); height: .25cqw; background: var(--cobalt); }
+  .branches { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 1.6cqw; margin-top: 1.9cqw; }
+  .branches::before { /* stem from Decide */ content: ""; position: absolute; left: 50%; top: -1.9cqw; height: .95cqw; width: .25cqw; background: var(--cobalt); transform: translateX(-50%); }
+  .branches::after { /* crossbar */ content: ""; position: absolute; top: -.95cqw; left: calc((100% - 6.4cqw) * .3 + 1.6cqw); right: calc((100% - 6.4cqw) * .3 + 1.6cqw); height: .25cqw; background: var(--cobalt); }
   .branch-label { grid-column: 1; align-self: center; margin: 0; padding-right: 1cqw; font-size: 1.15cqw; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); line-height: 1.35; text-align: right; }
-  .branch { position: relative; border-radius: .7cqw; padding: .95cqw 1.15cqw 1cqw; background: #fff; border: .12cqw solid var(--line); }
-  .branch::before { content: ""; position: absolute; left: 50%; top: -1.1cqw; height: 1.1cqw; width: .25cqw; background: var(--cobalt); transform: translateX(-50%); }
+  .branch { position: relative; border-radius: .7cqw; padding: .8cqw 1.15cqw .85cqw; background: #fff; border: .12cqw solid var(--line); }
+  .branch::before { content: ""; position: absolute; left: 50%; top: -.95cqw; height: .95cqw; width: .25cqw; background: var(--cobalt); transform: translateX(-50%); }
   .branch h3 { margin: 0 0 .3cqw; display: flex; align-items: center; gap: .6cqw; font-size: 1.5cqw; line-height: 1.15; color: var(--ink); }
   .mark { flex: none; display: inline-grid; place-items: center; width: 1.9cqw; height: 1.9cqw; border-radius: 50%; font-size: 1.15cqw; font-weight: 700; }
   .b-yes { border-color: var(--navy); background: var(--tint); } .b-yes .mark { background: var(--navy); color: #fff; }
@@ -73,12 +73,12 @@
   .branch p b { color: var(--ink); }
 
   /* Next steps */
-  .next { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6cqw; margin: 1.6cqw 3.4cqw 1.3cqw; }
+  .next { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6cqw; margin: 1.35cqw 3.4cqw 1.1cqw; }
   .next div { display: flex; align-items: center; gap: 1cqw; padding: 1cqw 1.3cqw; border-radius: .7cqw; background: var(--navy); color: #fff; }
   .next .k { flex: none; font-size: 1cqw; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .78; writing-mode: horizontal-tb; }
   .next p { margin: 0; font-size: 1.32cqw; line-height: 1.3; font-weight: 500; }
   .next p b { font-weight: 700; }
-  .foot { display: flex; justify-content: space-between; gap: 2cqw; padding: .7cqw 3.4cqw .8cqw; border-top: .1cqw solid var(--line); font-size: .92cqw; color: var(--muted); }
+  .foot { display: flex; justify-content: space-between; gap: 2cqw; padding: .6cqw 3.4cqw .7cqw; border-top: .1cqw solid var(--line); font-size: .92cqw; color: var(--muted); }
 
   /* Phone: reflow, readable sizes */
   @media (max-width: 760px) {
@@ -151,8 +151,8 @@
         <li class="step decide"><span class="num" aria-hidden="true">3</span><h2>Decide</h2>
           <p>Choose the path by <b>what Orbit returned</b>, not by the product name or symptoms.</p></li>
         <li class="step"><span class="num" aria-hidden="true">4</span><h2>Complete</h2>
-          <p>Replacement: <b>confirmation number</b><br>Plus credit: shows <code>Applied</code></p>
-          <p><span class="cue">Either missing? Not complete. Keep the case open.</span></p></li>
+          <p><b>For an eligible serial, both:</b><br>Replacement: <b>confirmation number</b><br>Plus credit: shows <code>Applied</code></p>
+          <p><span class="cue">Either still open? Recovery isn't complete. Keep the case open.</span></p></li>
         <li class="step"><span class="num" aria-hidden="true">5</span><h2>Explain &amp; Document</h2>
           <p>What's done, what's still open, what happens next, and who owns it.</p></li>
       </ol>

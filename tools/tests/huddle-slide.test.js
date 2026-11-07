@@ -13,7 +13,7 @@ const ok = (n, c) => console.log((c ? 'PASS ' : 'FAIL ') + n);
     ok(`${n}: no horizontal scroll`, await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     ok(`${n}: five steps in order`, await p.evaluate(() => [...document.querySelectorAll('.step h2')].map(x => x.textContent).join('|') === 'Recognize|Verify|Decide|Complete|Explain & Document'));
     ok(`${n}: three paths (Call Path labels)`, await p.evaluate(() => [...document.querySelectorAll('.branch h3')].map(x => x.textContent.replace(/^\W+/, '').trim()).join('|') === 'Eligible|Not eligible|No clear result'));
-    ok(`${n}: Complete names both confirmation checks`, await p.evaluate(() => { const t = document.querySelectorAll('.step')[3].textContent; return /confirmation number/.test(t) && /Applied/.test(t) && /Not complete/.test(t); }));
+    ok(`${n}: Complete names both confirmation checks`, await p.evaluate(() => { const t = document.querySelectorAll('.step')[3].textContent; return /confirmation number/.test(t) && /Applied/.test(t) && /For an eligible serial, both/.test(t) && /Recovery isn't complete/.test(t); }));
     ok(`${n}: closing points to Call Path, Lead and fallback, practice`, await p.evaluate(() => { const t = document.querySelector('.next').textContent; return /Guide Call Path/.test(t) && /Lead/.test(t) && /fallback/.test(t) && /Make the Call/.test(t); }));
     ok(`${n}: no activity beyond the slide (quiz, role-play, group practice)`, await p.evaluate(() => !/quiz|role-play|roleplay|group practice/i.test(document.body.textContent)));
     if (w > 760) {

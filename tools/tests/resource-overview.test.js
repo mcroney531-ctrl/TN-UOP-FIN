@@ -29,7 +29,7 @@ const ok = (n, c) => console.log((c ? 'PASS ' : 'FAIL ') + n);
     }
     const hrefs = await p.evaluate(() => [...document.querySelectorAll('a.more')].map(a => a.getAttribute('href')));
     const fs = require('fs'), path = require('path');
-    ok(`${n}: ${hrefs.length} resource links all resolve to files`, hrefs.length === 6 && hrefs.every(h => fs.existsSync(path.join('/home/user/TN-UOP-FIN/deliverables', h))));
+    ok(`${n}: ${hrefs.length} resource links all resolve to files`, hrefs.length === 8 && hrefs.every(h => fs.existsSync(path.join('/home/user/TN-UOP-FIN/deliverables', h))));
     ok(`${n}: links open in new tab with noopener`, await p.evaluate(() => [...document.querySelectorAll('a.more')].every(a => a.target === '_blank' && a.rel.includes('noopener'))));
     ok(`${n}: proposal note present`, (await p.textContent('header')).includes('not a launch-ready kit'));
     ok(`${n}: no remote requests except fonts`, reqs.every(u => /fonts\.(googleapis|gstatic)/.test(u)));
