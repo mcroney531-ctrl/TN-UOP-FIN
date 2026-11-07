@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WN7 Call Path (print)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: Letter; margin: 0; }
+  :root {
+    --ink: #1d2433; --muted: #5a6376; --line: #d6dae3; --bg: #f3f5f9;
+    --navy: #1f3a68; --navy-soft: #e7edf6; --green: #2f7d4f; --green-soft: #e6f2ea;
+    --amber: #94660f; --amber-soft: #f8f0de; --red: #a03d3d; --red-soft: #f7e6e6; --grey: #b4bac7;
+    --display: "Inter", "Segoe UI", Arial, sans-serif; --body: "Inter", "Segoe UI", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; background: #888; }
+  body { color: var(--ink); font: 8.9pt/1.36 var(--body); }
+  .page { width: 8.5in; height: 11in; background: #fff; position: relative; overflow: hidden; margin: 0 auto 12px; padding: 0.5in 0.6in 0.62in; page-break-after: always; break-after: page; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  @media print { html, body { background: #fff; } .page { margin: 0; } }
+  h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.15; margin: 0; letter-spacing: -0.015em; }
+  h2 { font-size: 17pt; color: var(--navy); margin-bottom: 3pt; }
+  h3 { font-size: 11pt; margin-bottom: 4pt; }
+  p { margin: 0 0 6pt; }
+  ul { margin: 0; padding-left: 13pt; }
+  li { margin: 0 0 1.5pt; }
+  li::marker { color: var(--muted); }
+  .eyebrow { font-size: 7.5pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 3pt; }
+  .lede { font-size: 10pt; color: var(--muted); }
+  .muted { color: var(--muted); }
+  .sm { font-size: 7.9pt; }
+  .pfoot { position: absolute; left: 0.6in; right: 0.6in; bottom: 0.3in; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 5pt; }
+
+  /* Cover band */
+  .band { background: var(--navy); color: #fff; margin: -0.5in -0.6in 14pt; padding: 0.42in 0.6in 0.32in; }
+  .band img { height: 46pt; display: block; margin-bottom: 14pt; }
+  .band .eyebrow { color: #b9c6dd; }
+  .band h1 { font-size: 24pt; color: #fff; margin-bottom: 5pt; }
+  .band .lede { color: #d6dfec; max-width: 6in; }
+  .tags { display: flex; gap: 5pt; flex-wrap: wrap; margin-top: 9pt; }
+  .tag { font-size: 7pt; font-weight: 600; padding: 1.5pt 7pt; border-radius: 99px; border: 1px solid rgba(255,255,255,.45); }
+
+  .success { border-left: 4pt solid var(--navy); background: var(--bg); padding: 8pt 11pt; margin: 8pt 0 10pt; font: 600 10.6pt/1.42 var(--display); letter-spacing: -0.01em; }
+  .quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6pt; }
+  .q { border: 1px solid var(--line); border-top: 3pt solid var(--c); border-radius: 5pt; padding: 6pt 8pt; font-size: 8.2pt; }
+  .q b { display: block; font-size: 8.8pt; color: var(--c); margin-bottom: 1pt; }
+  .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5pt; margin-top: 5pt; }
+  .flow div { background: var(--bg); border-radius: 5pt; padding: 6pt 7pt; font-size: 7.9pt; position: relative; }
+  .flow b { display: block; color: var(--navy); font-size: 8.4pt; }
+  .road { display: grid; grid-template-columns: 1fr 14pt 1fr 14pt 1fr 14pt 1fr 14pt 1fr; align-items: stretch; margin-top: 6pt; }
+  .rp { border: 1.5pt solid var(--navy); border-radius: 6pt; padding: 6pt 7pt; }
+  .rp .n { font: 600 13pt var(--display); color: var(--navy); }
+  .rp b { display: block; font-size: 8.8pt; }
+  .rp span { display: block; font-size: 7.6pt; color: var(--muted); margin-top: 2pt; }
+  .rg { display: grid; place-items: center; }
+  .rg i { width: 8pt; height: 8pt; background: var(--amber); transform: rotate(45deg); border-radius: 1pt; display: block; }
+  .legend { font-size: 7.5pt; color: var(--muted); margin-top: 4pt; display: flex; gap: 6pt; align-items: center; }
+  .legend i { width: 6pt; height: 6pt; background: var(--amber); transform: rotate(45deg); display: inline-block; }
+  .sec { margin-top: 9pt; }
+
+  /* Phase blocks */
+  .phase { border: 1px solid var(--line); border-radius: 7pt; margin-bottom: 8pt; overflow: hidden; }
+  .ph { display: flex; gap: 9pt; align-items: center; padding: 5pt 10pt; background: var(--navy-soft); }
+  .num { width: 22pt; height: 22pt; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font: 600 11pt var(--display); flex: none; }
+  .ph h3 { margin: 0; font-size: 12pt; color: var(--navy); }
+  .ph p { margin: 0; font-size: 8.4pt; color: var(--muted); }
+  .pb { display: grid; grid-template-columns: 1.45fr 1fr; }
+  .pb > div { padding: 5pt 10pt; }
+  .pb > div + div { border-left: 1px solid var(--line); }
+  .lab { font-size: 7pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 3pt; }
+  .lab + ul { margin-bottom: 4pt; }
+  .chips { display: flex; flex-wrap: wrap; gap: 3pt; margin-bottom: 4pt; }
+  .chip { font-size: 7.1pt; font-weight: 600; padding: 1pt 6pt; border-radius: 99px; background: var(--navy-soft); color: var(--navy); }
+  .scope { background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 8pt; margin-bottom: 5pt; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; }
+  .pair .phase { margin-bottom: 0; display: flex; flex-direction: column; }
+  .pair .pb { grid-template-columns: 1fr; }
+  .pair .pb > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .pair .gate { margin-top: auto; }
+  .gate { border-top: 1px solid var(--line); background: #fcfaf5; padding: 5pt 10pt 5pt; }
+  .gq { font-size: 8.5pt; font-weight: 700; margin-bottom: 4pt; display: flex; gap: 6pt; align-items: baseline; }
+  .gq::before { content: ""; width: 6pt; height: 6pt; background: var(--amber); transform: rotate(45deg) translateY(-1pt); flex: none; }
+  .rows { display: grid; grid-template-columns: 52pt 1fr; gap: 1pt 8pt; font-size: 8.2pt; }
+  .rows dt { font-size: 7pt; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding-top: 1pt; }
+  .rows dd { margin: 0; }
+  .go { color: var(--green); } .adj { color: var(--amber); } .stop { color: var(--red); } .neu { color: var(--muted); }
+
+  /* Measurement */
+  .bar { display: flex; height: 22pt; border-radius: 4pt; overflow: hidden; gap: 1.5pt; margin: 6pt 0 5pt; }
+  .bar div { display: flex; align-items: center; padding: 0 6pt; color: #fff; font-weight: 700; font-size: 9pt; }
+  .b1 { background: var(--navy); flex: 76; } .b2 { background: var(--amber); flex: 13; justify-content: center; padding: 0 !important; } .b3 { background: var(--grey); flex: 115; color: var(--ink) !important; }
+  .key { display: flex; gap: 14pt; font-size: 8.4pt; }
+  .key span { display: flex; gap: 4pt; align-items: center; }
+  .key i { width: 7pt; height: 7pt; border-radius: 1.5pt; display: inline-block; }
+  .box { border: 1px solid var(--line); border-radius: 6pt; padding: 6pt 10pt; }
+  .ind { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5pt; margin-top: 4pt; }
+  .ind div { background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 8pt; line-height: 1.28; }
+  .ind b { display: block; color: var(--navy); font-size: 8.4pt; }
+  .quote { font: 600 8.8pt/1.38 var(--display); border-left: 3pt solid var(--navy); padding: 1pt 0 1pt 8pt; margin: 5pt 0 0; }
+  .quote span { display: block; font: 400 8pt var(--body); color: var(--muted); margin-top: 2pt; }
+  .layers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5pt; margin-top: 4pt; }
+  .layers div { border-top: 3pt solid var(--c); background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 7.9pt; line-height: 1.28; }
+  .layers b { display: block; color: var(--c); font-size: 8.4pt; }
+  .layers em { display: block; font-style: normal; color: var(--muted); margin-top: 3pt; }
+  .claims { display: grid; grid-template-columns: 1fr 1fr; gap: 2pt 14pt; list-style: none; padding: 0; font-size: 8.2pt; }
+  .claims li { padding-left: 12pt; position: relative; margin: 0; }
+  .claims li::before { content: "\2715"; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+  .claims li.ok::before { content: "\2713"; color: var(--green); }
+  .keys { display: grid; grid-template-columns: 1fr 14pt 1fr 14pt 1fr; align-items: center; gap: 4pt; margin-top: 4pt; }
+  .k { border: 1px solid var(--line); border-radius: 5pt; padding: 6pt 8pt; font-size: 8.2pt; height: 100%; }
+  .k b { display: block; font: 700 9.6pt var(--display); color: var(--navy); }
+  .k.r { background: var(--green-soft); border-color: transparent; } .k.r b { color: var(--green); }
+  .op { text-align: center; font: 600 14pt var(--display); color: var(--muted); }
+
+  /* Matrix */
+  table.mx { width: 100%; border-collapse: collapse; font-size: 7.7pt; line-height: 1.28; }
+  .mx th { text-align: left; font-size: 6.6pt; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: var(--navy); padding: 4pt 6pt; }
+  .mx td { padding: 2.2pt 6pt; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .mx tr:nth-child(even) td { background: #f8f9fb; }
+  .mx td:first-child { font-weight: 700; width: 21%; }
+  .two { display: grid; grid-template-columns: 1.1fr 1fr; gap: 8pt; margin-top: 7pt; }
+  .ab { display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin: 4pt 0; }
+  .ab div { background: var(--bg); border-radius: 4pt; padding: 5pt 7pt; font-size: 8pt; }
+  .ab b { display: block; color: var(--navy); }
+  .dsplit { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14pt; font-size: 8pt; }
+  .dsplit ul { padding-left: 12pt; }
+  .dsplit li { margin-bottom: 0.5pt; }
+  .deps { columns: 2; column-gap: 14pt; font-size: 8.8pt; padding-left: 12pt; }
+  .deps li { break-inside: avoid; }
+
+  .page.qr { padding: 0.45in 0.55in 0.5in; }
+  .qband { background: var(--navy); color: #fff; margin: -0.45in -0.55in 12pt; padding: 0.3in 0.55in 0.24in; display: flex; gap: 18pt; align-items: center; }
+  .qband img { height: 40pt; flex: none; }
+  .qband .eyebrow { color: #b9c6dd; margin-bottom: 2pt; }
+  .qband h1 { font-size: 16pt; color: #fff; line-height: 1.2; }
+  .qsec { margin-bottom: 10pt; }
+  .qh { font-weight: 700; font-size: 11pt; color: var(--navy); margin: 0 0 5pt; display: flex; align-items: center; gap: 7pt; }
+  .qh span { width: 16pt; height: 16pt; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-size: 9pt; flex: none; }
+  .qseq { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1.7fr; gap: 3pt; }
+  .qseq > div { background: var(--navy); color: #fff; border-radius: 5pt; padding: 6pt 7pt; font-size: 8.2pt; line-height: 1.3; }
+  .qseq b { display: block; font-size: 10pt; margin-bottom: 3pt; }
+  .qseq em { display: block; font-style: normal; font-weight: 700; font-size: 7pt; letter-spacing: .06em; text-transform: uppercase; color: #b9c6dd; margin-bottom: 2pt; }
+  .qseq .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6pt; }
+  .qseq .pair > span { display: block; border-left: 1px solid rgba(255,255,255,.3); padding-left: 5pt; }
+  .qseq .pair > span:first-child { border-left: 0; padding-left: 0; }
+  .qwarn { font-size: 8.4pt; margin: 5pt 0 5pt; padding: 4pt 8pt; background: var(--amber-soft); border-radius: 4pt; }
+  .qbr { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5pt; }
+  .qbr div { border: 1px solid var(--line); border-left-width: 4pt; border-radius: 0 4pt 4pt 0; padding: 4pt 7pt; font-size: 8.3pt; line-height: 1.3; }
+  .qbr div:nth-child(1) { border-left-color: var(--green); } .qbr div:nth-child(2) { border-left-color: var(--navy); } .qbr div:nth-child(3) { border-left-color: var(--amber); }
+  .qbr b { display: block; font-size: 9pt; }
+  table.qt { width: 100%; border-collapse: collapse; font-size: 8.4pt; line-height: 1.3; }
+  .qt th { text-align: left; font-size: 6.8pt; letter-spacing: .08em; text-transform: uppercase; background: var(--navy); color: #fff; padding: 4pt 6pt; }
+  .qt td { padding: 4.5pt 6pt; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .qt td:first-child { font-weight: 700; width: 22%; }
+  .qt td:nth-child(2) { width: 25%; color: var(--navy); }
+  .qt td:last-child { width: 14%; }
+  .qt tr:nth-child(even) td { background: #f8f9fb; }
+  .r { display: inline-block; font-size: 6.8pt; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 1.5pt 5pt; border-radius: 3pt; margin: 0 1pt 2pt 0; border: 1.2pt solid; }
+  .r.coach { color: var(--green); border-color: var(--green); background: var(--green-soft); }
+  .r.esc { color: #fff; background: var(--red); border-color: var(--red); }
+  .r.flag { color: var(--navy); border-color: var(--navy); border-style: dashed; background: #fff; }
+  .r.fu { color: var(--amber); border-color: var(--amber); background: var(--amber-soft); border-radius: 99px; }
+  .r.inv { color: var(--muted); border-color: var(--muted); background: #fff; border-style: dotted; }
+  .qkey { font-size: 7.6pt; color: var(--muted); margin: 5pt 0 0; line-height: 1.8; }
+  .qkey .r { margin-right: 2pt; }
+  .qact { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5pt; }
+  .qact div { background: var(--bg); border-radius: 4pt; padding: 5pt 7pt; font-size: 8.2pt; line-height: 1.3; }
+  .qact b { display: block; color: var(--navy); font-size: 9pt; margin-bottom: 1pt; }
+  .qreach { font-size: 8.4pt; font-weight: 600; margin: 5pt 0 0; }
+  .qfoot { position: absolute; left: 0.55in; right: 0.55in; bottom: 0.3in; border-top: 1px solid var(--line); padding-top: 4pt; font-size: 7pt; color: var(--muted); line-height: 1.35; }
+
+  .qsub { color: #d6dfec; font-size: 9pt; margin: 2pt 0 0; }
+  .seqbar { display: flex; align-items: center; gap: 5pt; margin: 0 0 8pt; font-size: 9pt; font-weight: 700; }
+  .seqbar span { background: var(--navy); color: #fff; border-radius: 99px; padding: 3pt 9pt; }
+  .seqbar i { color: var(--muted); font-style: normal; }
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; }
+  .st { border: 1px solid var(--line); border-radius: 7pt; padding: 7pt 10pt; font-size: 9pt; }
+  .st ul { padding-left: 13pt; margin: 0 0 4pt; }
+  .st li { margin-bottom: 2pt; }
+  .sth { font-size: 11pt; font-weight: 700; color: var(--navy); margin: 0 0 5pt; display: flex; align-items: center; gap: 5pt; }
+  .sth span { width: 17pt; height: 17pt; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-size: 9pt; }
+  .sth .amp { background: none; color: var(--navy); width: auto; }
+  .sth em { font-style: normal; font-weight: 400; color: var(--muted); font-size: 9pt; margin-left: 4pt; }
+  .nt { background: var(--amber-soft); border-left: 3pt solid var(--amber); border-radius: 0 4pt 4pt 0; padding: 3pt 7pt; margin: 4pt 0 3pt; font-size: 8.6pt; }
+  .mut { color: var(--muted); font-size: 8.4pt; margin: 0; }
+  .val { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 8pt; background: var(--navy-soft); color: var(--navy); padding: 0 3pt; border-radius: 2pt; white-space: nowrap; }
+  .br3 { display: grid; grid-template-columns: 1.45fr 1fr 1fr; gap: 6pt; }
+  .br { border: 2pt solid var(--c); border-radius: 7pt; overflow: hidden; font-size: 8.7pt; }
+  .br.el { --c: var(--green); --cs: var(--green-soft); }
+  .br.no { --c: var(--navy); --cs: var(--navy-soft); }
+  .br.un { --c: var(--amber); --cs: var(--amber-soft); }
+  .brh { background: var(--cs); color: var(--c); margin: 0 0 5pt; padding: 4pt 8pt; font-size: 8.4pt; }
+  .brh b { font-size: 10.5pt; margin-right: 4pt; }
+  .br ul { padding: 0 8pt 0 20pt; margin: 0 0 5pt; }
+  .br li { margin-bottom: 2.5pt; }
+  .lab2 { font-size: 7pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 8pt 3pt; }
+  .two2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4pt; margin: 0 8pt 5pt; }
+  .two2 div { border: 1px solid var(--line); border-radius: 4pt; padding: 4pt 6pt; font-size: 8.3pt; line-height: 1.3; }
+  .two2 b { display: block; font-size: 9pt; }
+  .opn { margin: 0 8pt 8pt; border: 1.5pt dashed var(--red); background: var(--red-soft); border-radius: 5pt; padding: 5pt 7pt; font-size: 8.3pt; line-height: 1.32; }
+  .opn b { color: var(--red); }
+  .ck { list-style: none; padding: 0 !important; columns: 2; column-gap: 16pt; }
+  .ck li { padding-left: 15pt; position: relative; break-inside: avoid; margin-bottom: 3pt; }
+  .ck li::before { content: ""; position: absolute; left: 0; top: 1.5pt; width: 8pt; height: 8pt; border: 1.2pt solid var(--navy); border-radius: 2pt; }
+</style>
+</head>
+<body>
+<div class="page qr">
+  <div class="qband">
+    <img src="assets/northstar-logo-white.png" alt="Northstar Home">
+    <div>
+      <p class="eyebrow">Guide job aid · Print companion</p>
+      <h1>WN7 Call Path</h1>
+      <p class="qsub">Brief whole-home Wi-Fi drops on a WN7 hub or WNM-7 bundle · BH-4419 is the authority</p>
+    </div>
+  </div>
+
+  <div class="seqbar"><span>1 Recognize</span><i>→</i><span>2 Verify</span><i>→</i><span>3 Decide</span><i>→</i><span>4 Complete</span><i>→</i><span>5 Explain &amp; Document</span></div>
+
+  <div class="g2 top2">
+    <div class="st">
+      <p class="sth"><span>1</span>Recognize</p>
+      <ul>
+        <li>Whole home drops for a short time, comes back on its own, keeps happening.</li>
+        <li>WN7 hub or WNM-7 bundle.</li>
+      </ul>
+      <p class="nt"><b>Listen for the impact first.</b> Acknowledge the disruption before moving to the serial.</p>
+      <p class="mut">The pattern means <b>check</b>, not <b>qualifies</b>. Other causes still exist.</p>
+    </div>
+    <div class="st">
+      <p class="sth"><span>2</span>Verify</p>
+      <ul>
+        <li>Ask for the hub serial, from the Northstar app or the hub.</li>
+        <li>Enter it in Orbit's <span class="val">WN7 eligibility</span> panel.</li>
+        <li>Read the result: <span class="val">Eligible</span> or <span class="val">Not eligible</span>. The model code alone doesn't decide it.</li>
+      </ul>
+      <p class="nt"><b>Running the check isn't reading it.</b> No serial, tool down, or unsure of the result? Use <b>No clear result</b>.</p>
+    </div>
+  </div>
+
+  <p class="sth" style="margin-top:8pt"><span>3</span>Decide <span class="amp">&amp;</span> <span>4</span>Complete <em>by what Orbit returned</em></p>
+  <div class="br3">
+    <div class="br el">
+      <p class="brh"><b>✓ Eligible</b> recovery path</p>
+      <ul>
+        <li>Follow the WN7 recovery path in BH-4419. Don't ask for restart steps to qualify.</li>
+      </ul>
+      <p class="lab2">Complete both</p>
+      <div class="two2">
+        <div><b>Replacement</b>Submit the hub order in Orbit; check for a confirmation number; use the shipping estimate shown on the order.</div>
+        <div><b>Plus</b>Attach as BH-4419 describes; check the credit shows <span class="val">Applied</span>. A goodwill benefit, not a fix.</div>
+      </div>
+      <div class="opn"><b>Either didn't go through? Not complete.</b> Keep the recovery case open, document what did and didn't go through, arrange follow-up through the unresolved recovery queue, and tell the customer what's open, with no unconfirmed timing. <b>You can end the call with owned follow-up; the open item stays open.</b></div>
+    </div>
+    <div class="br no">
+      <p class="brh"><b>– Not eligible</b> standard support</p>
+      <ul>
+        <li>Continue the right troubleshooting or escalation for the reported issue.</li>
+        <li>Don't promise a replacement or the Plus benefit. Product name and symptoms don't qualify anyone.</li>
+        <li>Finish the standard support steps.</li>
+      </ul>
+    </div>
+    <div class="br un">
+      <p class="brh"><b>? No clear result</b> don't guess</p>
+      <ul>
+        <li>Make no promise that depends on eligibility.</li>
+        <li>Recheck the serial and result against BH-4419.</li>
+        <li>Still unsure? Ask your Lead, or use the established fallback.</li>
+        <li>No serial or tool unavailable: open an eligibility review case as BH-4419 describes and give the follow-up expectation it specifies.</li>
+        <li>Can't open the panel or order: tell your Lead so it's escalated through existing channels.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="st" style="margin-top:8pt">
+    <p class="sth"><span>5</span>Explain &amp; Document: before you close</p>
+    <ul class="ck">
+      <li><b>What's done?</b> e.g., the replacement confirmation and the shipping estimate on the order</li>
+      <li><b>What's still open?</b> Name it plainly, including Plus status</li>
+      <li><b>What happens next?</b> Only what's confirmed</li>
+      <li><b>Who owns the follow-up?</b> Say it and note it</li>
+      <li><b>Could the next Guide pick it up from your notes alone?</b></li>
+      <li><b>Invite a repeat-back</b> of anything unclear</li>
+    </ul>
+  </div>
+
+  <div class="qfoot">Proposed learning resource, not a new procedure. BH-4419 and the Product Operations reference it links to are authoritative; if this page and Beacon differ, follow Beacon. Before release, Care Systems validates the Orbit workflow and General Care access. Account Systems and Product Ops are proposed Plus validation partners, with Specialist Care input; final policy authority is unconfirmed. Your Lead is your first live support; Specialist availability isn't guaranteed. Fictional work sample.</div>
+</div>
+
+</body>
+</html>
