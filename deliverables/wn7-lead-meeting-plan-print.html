@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WN7 Lead Alignment Meeting Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: Letter; margin: 0; }
+  :root {
+    --ink: #1d2433; --muted: #5a6376; --line: #d6dae3; --bg: #f3f5f9;
+    --navy: #1f3a68; --navy-soft: #e7edf6; --green: #2f7d4f; --green-soft: #e6f2ea;
+    --amber: #94660f; --amber-soft: #f8f0de; --red: #a03d3d; --red-soft: #f7e6e6; --grey: #b4bac7;
+    --display: "Inter", "Segoe UI", Arial, sans-serif; --body: "Inter", "Segoe UI", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; background: #888; }
+  body { color: var(--ink); font: 8.9pt/1.36 var(--body); }
+  .page { width: 8.5in; height: 11in; background: #fff; position: relative; overflow: hidden; margin: 0 auto 12px; padding: 0.5in 0.6in 0.62in; page-break-after: always; break-after: page; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  @media print { html, body { background: #fff; } .page { margin: 0; } }
+  h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.15; margin: 0; letter-spacing: -0.015em; }
+  h2 { font-size: 17pt; color: var(--navy); margin-bottom: 3pt; }
+  h3 { font-size: 11pt; margin-bottom: 4pt; }
+  p { margin: 0 0 6pt; }
+  ul { margin: 0; padding-left: 13pt; }
+  li { margin: 0 0 1.5pt; }
+  li::marker { color: var(--muted); }
+  .eyebrow { font-size: 7.5pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 3pt; }
+  .lede { font-size: 10pt; color: var(--muted); }
+  .muted { color: var(--muted); }
+  .sm { font-size: 7.9pt; }
+  .pfoot { position: absolute; left: 0.6in; right: 0.6in; bottom: 0.3in; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 5pt; }
+
+  /* Cover band */
+  .band { background: var(--navy); color: #fff; margin: -0.5in -0.6in 14pt; padding: 0.42in 0.6in 0.32in; }
+  .band img { height: 46pt; display: block; margin-bottom: 14pt; }
+  .band .eyebrow { color: #b9c6dd; }
+  .band h1 { font-size: 24pt; color: #fff; margin-bottom: 5pt; }
+  .band .lede { color: #d6dfec; max-width: 6in; }
+  .tags { display: flex; gap: 5pt; flex-wrap: wrap; margin-top: 9pt; }
+  .tag { font-size: 7pt; font-weight: 600; padding: 1.5pt 7pt; border-radius: 99px; border: 1px solid rgba(255,255,255,.45); }
+
+  .success { border-left: 4pt solid var(--navy); background: var(--bg); padding: 8pt 11pt; margin: 8pt 0 10pt; font: 600 10.6pt/1.42 var(--display); letter-spacing: -0.01em; }
+  .quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6pt; }
+  .q { border: 1px solid var(--line); border-top: 3pt solid var(--c); border-radius: 5pt; padding: 6pt 8pt; font-size: 8.2pt; }
+  .q b { display: block; font-size: 8.8pt; color: var(--c); margin-bottom: 1pt; }
+  .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5pt; margin-top: 5pt; }
+  .flow div { background: var(--bg); border-radius: 5pt; padding: 6pt 7pt; font-size: 7.9pt; position: relative; }
+  .flow b { display: block; color: var(--navy); font-size: 8.4pt; }
+  .road { display: grid; grid-template-columns: 1fr 14pt 1fr 14pt 1fr 14pt 1fr 14pt 1fr; align-items: stretch; margin-top: 6pt; }
+  .rp { border: 1.5pt solid var(--navy); border-radius: 6pt; padding: 6pt 7pt; }
+  .rp .n { font: 600 13pt var(--display); color: var(--navy); }
+  .rp b { display: block; font-size: 8.8pt; }
+  .rp span { display: block; font-size: 7.6pt; color: var(--muted); margin-top: 2pt; }
+  .rg { display: grid; place-items: center; }
+  .rg i { width: 8pt; height: 8pt; background: var(--amber); transform: rotate(45deg); border-radius: 1pt; display: block; }
+  .legend { font-size: 7.5pt; color: var(--muted); margin-top: 4pt; display: flex; gap: 6pt; align-items: center; }
+  .legend i { width: 6pt; height: 6pt; background: var(--amber); transform: rotate(45deg); display: inline-block; }
+  .sec { margin-top: 9pt; }
+
+  /* Phase blocks */
+  .phase { border: 1px solid var(--line); border-radius: 7pt; margin-bottom: 8pt; overflow: hidden; }
+  .ph { display: flex; gap: 9pt; align-items: center; padding: 5pt 10pt; background: var(--navy-soft); }
+  .num { width: 22pt; height: 22pt; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font: 600 11pt var(--display); flex: none; }
+  .ph h3 { margin: 0; font-size: 12pt; color: var(--navy); }
+  .ph p { margin: 0; font-size: 8.4pt; color: var(--muted); }
+  .pb { display: grid; grid-template-columns: 1.45fr 1fr; }
+  .pb > div { padding: 5pt 10pt; }
+  .pb > div + div { border-left: 1px solid var(--line); }
+  .lab { font-size: 7pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 3pt; }
+  .lab + ul { margin-bottom: 4pt; }
+  .chips { display: flex; flex-wrap: wrap; gap: 3pt; margin-bottom: 4pt; }
+  .chip { font-size: 7.1pt; font-weight: 600; padding: 1pt 6pt; border-radius: 99px; background: var(--navy-soft); color: var(--navy); }
+  .scope { background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 8pt; margin-bottom: 5pt; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; }
+  .pair .phase { margin-bottom: 0; display: flex; flex-direction: column; }
+  .pair .pb { grid-template-columns: 1fr; }
+  .pair .pb > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .pair .gate { margin-top: auto; }
+  .gate { border-top: 1px solid var(--line); background: #fcfaf5; padding: 5pt 10pt 5pt; }
+  .gq { font-size: 8.5pt; font-weight: 700; margin-bottom: 4pt; display: flex; gap: 6pt; align-items: baseline; }
+  .gq::before { content: ""; width: 6pt; height: 6pt; background: var(--amber); transform: rotate(45deg) translateY(-1pt); flex: none; }
+  .rows { display: grid; grid-template-columns: 52pt 1fr; gap: 1pt 8pt; font-size: 8.2pt; }
+  .rows dt { font-size: 7pt; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding-top: 1pt; }
+  .rows dd { margin: 0; }
+  .go { color: var(--green); } .adj { color: var(--amber); } .stop { color: var(--red); } .neu { color: var(--muted); }
+
+  /* Measurement */
+  .bar { display: flex; height: 22pt; border-radius: 4pt; overflow: hidden; gap: 1.5pt; margin: 6pt 0 5pt; }
+  .bar div { display: flex; align-items: center; padding: 0 6pt; color: #fff; font-weight: 700; font-size: 9pt; }
+  .b1 { background: var(--navy); flex: 76; } .b2 { background: var(--amber); flex: 13; justify-content: center; padding: 0 !important; } .b3 { background: var(--grey); flex: 115; color: var(--ink) !important; }
+  .key { display: flex; gap: 14pt; font-size: 8.4pt; }
+  .key span { display: flex; gap: 4pt; align-items: center; }
+  .key i { width: 7pt; height: 7pt; border-radius: 1.5pt; display: inline-block; }
+  .box { border: 1px solid var(--line); border-radius: 6pt; padding: 6pt 10pt; }
+  .ind { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5pt; margin-top: 4pt; }
+  .ind div { background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 8pt; line-height: 1.28; }
+  .ind b { display: block; color: var(--navy); font-size: 8.4pt; }
+  .quote { font: 600 8.8pt/1.38 var(--display); border-left: 3pt solid var(--navy); padding: 1pt 0 1pt 8pt; margin: 5pt 0 0; }
+  .quote span { display: block; font: 400 8pt var(--body); color: var(--muted); margin-top: 2pt; }
+  .layers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5pt; margin-top: 4pt; }
+  .layers div { border-top: 3pt solid var(--c); background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 7.9pt; line-height: 1.28; }
+  .layers b { display: block; color: var(--c); font-size: 8.4pt; }
+  .layers em { display: block; font-style: normal; color: var(--muted); margin-top: 3pt; }
+  .claims { display: grid; grid-template-columns: 1fr 1fr; gap: 2pt 14pt; list-style: none; padding: 0; font-size: 8.2pt; }
+  .claims li { padding-left: 12pt; position: relative; margin: 0; }
+  .claims li::before { content: "\2715"; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+  .claims li.ok::before { content: "\2713"; color: var(--green); }
+  .keys { display: grid; grid-template-columns: 1fr 14pt 1fr 14pt 1fr; align-items: center; gap: 4pt; margin-top: 4pt; }
+  .k { border: 1px solid var(--line); border-radius: 5pt; padding: 6pt 8pt; font-size: 8.2pt; height: 100%; }
+  .k b { display: block; font: 700 9.6pt var(--display); color: var(--navy); }
+  .k.r { background: var(--green-soft); border-color: transparent; } .k.r b { color: var(--green); }
+  .op { text-align: center; font: 600 14pt var(--display); color: var(--muted); }
+
+  /* Matrix */
+  table.mx { width: 100%; border-collapse: collapse; font-size: 7.7pt; line-height: 1.28; }
+  .mx th { text-align: left; font-size: 6.6pt; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: var(--navy); padding: 4pt 6pt; }
+  .mx td { padding: 2.2pt 6pt; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .mx tr:nth-child(even) td { background: #f8f9fb; }
+  .mx td:first-child { font-weight: 700; width: 21%; }
+  .two { display: grid; grid-template-columns: 1.1fr 1fr; gap: 8pt; margin-top: 7pt; }
+  .ab { display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin: 4pt 0; }
+  .ab div { background: var(--bg); border-radius: 4pt; padding: 5pt 7pt; font-size: 8pt; }
+  .ab b { display: block; color: var(--navy); }
+  .dsplit { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14pt; font-size: 8pt; }
+  .dsplit ul { padding-left: 12pt; }
+  .dsplit li { margin-bottom: 0.5pt; }
+  .deps { columns: 2; column-gap: 14pt; font-size: 8.8pt; padding-left: 12pt; }
+  .deps li { break-inside: avoid; }
+
+  ol { margin: 0; padding-left: 14pt; }
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; }
+  .g2.tight { gap: 6pt; margin-top: 6pt; }
+  .box ul, .box ol { font-size: 8.4pt; }
+  .out li { margin-bottom: 2pt; }
+  .check { list-style: none; padding-left: 0; }
+  .check li { padding-left: 12pt; position: relative; }
+  .check li::before { content: ""; position: absolute; left: 0; top: 3pt; width: 6pt; height: 6pt; border: 1.2pt solid var(--navy); border-radius: 1.5pt; }
+  .safe { background: var(--amber-soft); border-color: transparent; }
+  .safe h3 { color: var(--amber); }
+  .ros { display: flex; gap: 2pt; margin-top: 4pt; }
+  .ros div { background: var(--navy-soft); color: var(--navy); border-radius: 4pt; padding: 5pt 7pt; font-size: 8.2pt; font-weight: 600; }
+  .ros div.hl { background: var(--navy); color: #fff; }
+  .ros b { display: block; font-size: 10pt; }
+  .seg { border: 1px solid var(--line); border-radius: 7pt; padding: 7pt 10pt; margin-top: 9pt; }
+  .seg-h { display: flex; gap: 8pt; align-items: center; margin-bottom: 5pt; }
+  .seg-h h3 { margin: 0; font-size: 11pt; }
+  .t { background: var(--navy); color: #fff; font-weight: 700; font-size: 8pt; padding: 2pt 7pt; border-radius: 99px; }
+  .tagl { display: block; font-size: 6.8pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 2pt; }
+  .say { background: var(--bg); border-left: 3pt solid var(--muted); border-radius: 0 5pt 5pt 0; padding: 5pt 8pt; font-size: 8.4pt; margin-bottom: 5pt; }
+  .say .tagl { color: var(--muted); }
+  .ask { background: var(--navy-soft); border-left: 3pt solid var(--navy); border-radius: 0 5pt 5pt 0; padding: 5pt 8pt; font-size: 8.5pt; }
+  .ask .tagl { color: var(--navy); }
+  .ask ol li { margin-bottom: 2pt; }
+  .listen { background: var(--green-soft); border-left: 3pt solid var(--green); border-radius: 0 5pt 5pt 0; padding: 4pt 8pt; font-size: 8pt; line-height: 1.3; }
+  .listen .tagl { color: var(--green); }
+  .listen ul { padding-left: 11pt; }
+  .case { border: 1px solid var(--line); border-radius: 7pt; padding: 7pt 10pt; margin-bottom: 7pt; }
+  .case-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4pt 8pt; margin-bottom: 6pt; }
+  .case-h h3 { margin: 0; font-size: 12pt; color: var(--navy); }
+  .badge { background: var(--navy); color: #fff; font-size: 7.5pt; font-weight: 700; padding: 2pt 7pt; border-radius: 99px; }
+  .src { font-size: 7.8pt; color: var(--muted); margin-left: auto; }
+  .case-b { display: grid; grid-template-columns: 1.1fr 1fr; gap: 9pt; margin-bottom: 5pt; }
+  .case-b > div:first-child ul { font-size: 8.5pt; }
+  table.rec { width: 100%; border-collapse: collapse; font-size: 8.2pt; }
+  .rec td { padding: 2.5pt 5pt; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .rec td:first-child { color: var(--muted); font-weight: 600; width: 34%; }
+  .seq { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3pt; }
+  .seq div { background: var(--navy); color: #fff; border-radius: 5pt; padding: 6pt 7pt; font-size: 7.8pt; display: flex; flex-direction: column; }
+  .seq b { display: block; font-size: 9.2pt; margin-bottom: 1pt; }
+  .seq span { display: block; color: #d6dfec; margin-bottom: 4pt; }
+  .seq em { display: block; font-style: normal; margin-top: auto; padding-top: 3pt; border-top: 1px solid rgba(255,255,255,.3); font-weight: 600; font-size: 7.4pt; color: #fff; }
+  .branches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5pt; margin-bottom: 8pt; }
+  .branches div { border-left: 3pt solid var(--c); background: var(--bg); border-radius: 0 4pt 4pt 0; padding: 4pt 7pt; font-size: 8.2pt; }
+  .branches b { display: block; color: var(--c); font-size: 8.6pt; }
+  .resp td:first-child { width: 28%; }
+  .resp td:last-child { width: 17%; white-space: nowrap; }
+  .pill { display: inline-block; font-size: 6.8pt; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 1pt 5pt; border-radius: 99px; }
+  .pill.c { background: var(--green-soft); color: var(--green); }
+  .pill.e { background: var(--red-soft); color: var(--red); }
+  .pill.f { background: var(--navy-soft); color: var(--navy); }
+  .pill.u { background: var(--amber-soft); color: var(--amber); }
+  .acts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5pt; }
+  .acts div { background: var(--bg); border-radius: 4pt; padding: 5pt 7pt; font-size: 8.1pt; }
+  .acts b { display: block; color: var(--navy); font-size: 8.6pt; margin-bottom: 1pt; }
+</style>
+</head>
+<body>
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="band">
+    <img src="assets/northstar-logo-white.png" alt="Northstar Home">
+    <p class="eyebrow">Customer Care Learning · Lead Alignment · Facilitator guide</p>
+    <h1>WN7 Lead Alignment: 25-Minute Working Meeting</h1>
+    <p class="lede">A working discussion, not a lecture. Two cases, one documented and one composite, do the teaching; Leads leave aligned on what good execution looks like and how to coach or escalate when it breaks down.</p>
+    <div class="tags"><span class="tag">For Learning facilitators</span><span class="tag">Proposed meeting design · owner confirmations pending</span></div>
+  </div>
+
+  <div class="g2">
+    <div class="box">
+      <h3>Who and when</h3>
+      <ul>
+        <li><b>Participants:</b> the Leads whose Guides are entering the next rollout wave. Every Lead attends before their own Guides start; not all 18 need to attend before the pilot.</li>
+        <li><b>Roles:</b> Learning facilitates. Care leadership ensures participating Leads can attend. Specialist Care supports only with Mateo's approval for meeting support, so don't assume Specialists will be there.</li>
+        <li><b>Authority:</b> approved guidance in Beacon, including BH-4419, stays authoritative. The meeting aligns practice; it doesn't create policy.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Leads leave able to</h3>
+      <ol class="out">
+        <li>Recognize what correct WN7 recovery execution looks like on a call.</li>
+        <li>Tell a knowledge gap apart from an Orbit-reading, access, or process problem.</li>
+        <li>Decide what to coach and what to escalate.</li>
+        <li>Introduce and reinforce the intervention with their Guides.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h3>Run of show</h3>
+    <div class="ros">
+      <div style="flex:3"><b>0–3</b>Situation &amp; purpose</div>
+      <div style="flex:9" class="hl"><b>3–12</b>Two cases · A ≈ 4 min · B ≈ 5 min</div>
+      <div style="flex:10" class="hl"><b>12–22</b>Coaching alignment</div>
+      <div style="flex:3"><b>22–25</b>Next actions</div>
+    </div>
+    <p class="sm muted" style="margin:3pt 0 0">The middle 19 minutes run as one exercise: <i>What happened and why?</i> → <i>What should Guides do, and how should Leads respond?</i></p>
+  </div>
+
+  <div class="sec g2">
+    <div class="box">
+      <h3>Before the meeting</h3>
+      <ul class="check">
+        <li>Print or share the two case cards (page 2). The written cases are enough to run the discussion.</li>
+        <li>Have BH-4419 and the sequence slide on hand; bring the Guide Call Path if it's ready.</li>
+        <li>Confirm whether Specialist support is approved. If yes, form small groups with a Specialist in each; if not, run as one group.</li>
+        <li>Optional: a de-identified Case A recording, only if available and approved by Quality.</li>
+      </ul>
+    </div>
+    <div class="box safe">
+      <h3>Validation safeguards</h3>
+      <ul>
+        <li><b>Plus status:</b> say only that the credit had not been applied at the documented point. Don't call it pending, failed, rejected, or completed. Account Systems and Product Ops are the proposed partners for validating transaction status and approved wording, with Specialist Care's operational input.</li>
+        <li><b>Follow-up ownership:</b> no owner is named. Leads identify what needs an owner; final operational ownership is pending validation.</li>
+        <li><b>Orbit:</b> discuss only the documented eligibility-check facts. Don't describe screens, fields, or result locations. Care Systems confirms the live workflow before operational use.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pfoot"><span>Northstar Home · WN7 Lead Alignment · 25-Minute Working Meeting</span><span>1 / 3</span></div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <p class="eyebrow">0–12 min · Opening and case discussion</p>
+  <div class="seg" style="margin:0 0 9pt">
+    <div class="seg-h"><span class="t">0–3</span><h3>Situation and purpose</h3></div>
+    <div class="g2"><div class="say" style="margin:0"><span class="tagl">Facilitator</span>Open with the gap: of 159 eligible General Care calls with a verified serial, <b>70 (44%) still ended in generic troubleshooting</b>. The gap is acting on the result, not just finding the article. <span class="muted">(Orbit systematic sample, Sep 21–30; eligibility classified retrospectively.)</span></div>
+    <div class="ask"><span class="tagl">Ask Leads</span>“How do we help Guides make the right decision and complete the right recovery during a live call?”<br><span class="muted">Then go straight to Case A.</span></div></div>
+  </div>
+
+  <h2 style="font-size:14pt;margin-bottom:6pt">3–12 · What happened, and why? <span style="font-size:9pt;font-weight:400;color:var(--muted);letter-spacing:0">Let Leads talk first; hold the green notes until they have.</span></h2>
+
+  <div class="case">
+    <div class="case-h"><span class="badge">Case A · ≈ 4 min</span><h3>Strong recovery with a Plus complication</h3><span class="src">Documented call · Quality listening notes, Sep 24</span></div>
+    <div class="case-b">
+      <div>
+        <p class="lab">What happened (read aloud)</p>
+        <ul>
+          <li>The Guide verified an eligible serial and completed the replacement order.</li>
+          <li>She then noticed the Plus credit had not been applied at that point in the call.</li>
+          <li>She told the customer she would stay with the handoff, opened the approved follow-up, and explained the case stayed open until the credit was resolved. The caller said that was clear.</li>
+          <li>The call ran longer than Specialist examples because the credit system was delayed.</li>
+        </ul>
+      </div>
+      <div class="ask"><span class="tagl">Ask Leads</span>
+        <ol>
+          <li>The replacement went through. Why isn't the call finished?</li>
+          <li>What did she do about the unresolved part, and what did she <i>not</i> promise?</li>
+          <li>What needs documenting so the next contact can see it?</li>
+          <li>What needs an owner, and how would you confirm who that is?</li>
+          <li>What would ending the call sooner have cost?</li>
+        </ol>
+      </div>
+    </div>
+    <div class="listen"><span class="tagl">Listen for</span>Recovery is complete when both transactions are done, or follow-up is opened and explained, not when the replacement is submitted. No unconfirmed outcome or timing promised. Done and pending both recorded. A longer call can beat a callback: <i>“The customer called back about the free year, and the second Guide had to figure out what we had promised.”</i> <span class="muted">(Dev, Sep 18)</span></div>
+  </div>
+
+  <div class="case">
+    <div class="case-h"><span class="badge">Case B · ≈ 5 min</span><h3>Serial checked, but generic troubleshooting continued</h3><span class="src">Composite call record, not a single historical call</span></div>
+    <div class="case-b">
+      <div>
+        <p class="lab">Call record (built from the 70-of-159 pattern)</p>
+        <table class="rec">
+          <tr><td>Product</td><td>WN7 · intermittent whole-home disconnect</td></tr>
+          <tr><td>Serial verified</td><td><b>Yes</b> · Eligible for recovery: <b>Yes</b></td></tr>
+          <tr><td>Path</td><td>Generic troubleshooting · disposition “troubleshooting complete”</td></tr>
+          <tr><td>Replacement / Plus</td><td>Not arranged / not attached</td></tr>
+          <tr><td>Handle time</td><td>About 20 minutes</td></tr>
+        </table>
+        <p class="sm muted" style="margin:4pt 0 0">A recorded serial check doesn't show the Guide saw or understood the result. Keep that open.</p>
+      </div>
+      <div class="ask"><span class="tagl">Ask Leads</span>
+        <ol>
+          <li>What does this record tell you, and what doesn't it?</li>
+          <li>Why might the Guide have kept troubleshooting?</li>
+          <li><b>What would you ask or check first, before deciding how to coach?</b></li>
+          <li>How would your coaching change depending on what you find?</li>
+        </ol>
+      </div>
+    </div>
+    <div class="g2 tight">
+      <div class="listen"><span class="tagl">Possible causes (hold until Leads offer theirs)</span>
+        <ul>
+          <li>Didn't know the next step (Guide R., Sep 8)</li>
+          <li>Couldn't tell “which value on the screen counted as the result” (Sep 22)</li>
+          <li>Access or process: correct “Orbit permissions,” or didn't know the screen? (Sep 24)</li>
+          <li>Felt expected to troubleshoot: <i>“I get asked why I did not use the basic steps”</i> (Guide M., Sep 5)</li>
+          <li>Something else, e.g., the customer insisted</li>
+        </ul>
+      </div>
+      <div class="listen"><span class="tagl">What a Lead checks first</span>
+        <ul>
+          <li>The call, if recorded: did the Guide mention the result?</li>
+          <li><i>“Walk me through what you saw after you entered the serial.”</i></li>
+          <li><i>“What did you expect the next step to be?”</i></li>
+          <li><i>“Could you open the replacement order and credit action?”</i> If not, check access with Care Systems.</li>
+          <li><i>“What made you keep troubleshooting?”</i></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="pfoot"><span>Northstar Home · WN7 Lead Alignment · 25-Minute Working Meeting</span><span>2 / 3</span></div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+  <p class="eyebrow">12–22 min · Coaching alignment</p>
+  <h2>What should Guides do, and how should Leads respond?</h2>
+  <p class="lede" style="margin-bottom:7pt">Turn the cases into a shared standard. Walk the sequence left to right, then agree on responses.</p>
+
+  <div class="seq">
+    <div><b>Recognize</b><span>Pattern spotted; moves toward verification</span><em>Recognition</em></div>
+    <div><b>Verify</b><span>Eligibility checked; result read correctly</span><em>Verification</em></div>
+    <div><b>Decide</b><span>Path matches the verified result</span><em>Decision</em></div>
+    <div><b>Complete</b><span>Both transactions done, or follow-up documented</span><em>Recovery</em></div>
+    <div><b>Explain &amp; Document</b><span>Done, pending, next step; recorded for the next contact</span><em>Communication · Documentation</em></div>
+  </div>
+  <p class="sm muted" style="margin:3pt 0 7pt">Labels under each step are the six observable indicators Leads look for in reviewed calls (from the rollout plan).</p>
+
+  <div class="branches">
+    <div style="--c:var(--green)"><b>Eligible</b>Recovery path: both applicable transactions, or follow-up opened and explained.</div>
+    <div style="--c:var(--navy)"><b>Not eligible</b>Standard support; no replacement promised. A product name isn't a promise.</div>
+    <div style="--c:var(--amber)"><b>Unclear or can't read the result</b>Don't guess. Verify again or bring in the Lead.</div>
+  </div>
+
+  <table class="mx resp">
+    <thead><tr><th>If the breakdown is…</th><th>Lead response</th><th>Type</th></tr></thead>
+    <tbody>
+      <tr><td>Didn't know the next step</td><td>Walk through the Call Path; short practice on the decision</td><td><span class="pill c">Coach</span></td></tr>
+      <tr><td>Couldn't read the Orbit result</td><td>Point to the approved, validated guidance; flag gaps in the thread</td><td><span class="pill c">Coach</span> <span class="pill f">Flag</span></td></tr>
+      <tr><td>Access, permission, or process blocker</td><td>Don't coach it. Escalate through the Lead thread to Care Systems</td><td><span class="pill e">Escalate</span></td></tr>
+      <tr><td>Felt expected to keep troubleshooting</td><td>Clarify: once eligibility is verified, stop the restart loop. Flag to Quality so review expectations match</td><td><span class="pill c">Coach</span> <span class="pill f">Flag</span></td></tr>
+      <tr><td>Plus action unresolved at call end</td><td>Confirm follow-up was opened, explained, and documented, with no unconfirmed timing promised; confirm ownership through the approved route</td><td><span class="pill u">Follow-up</span></td></tr>
+      <tr><td>Other or unclear</td><td>Log it in the thread so Quality can look for patterns</td><td><span class="pill f">Flag</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="g2 sec">
+    <div class="ask"><span class="tagl">Ask Leads</span>
+      <ol>
+        <li>Which of these breakdowns do you expect most on your team?</li>
+        <li>What will you listen for first in your next call review?</li>
+        <li>What would you escalate rather than coach?</li>
+      </ol>
+    </div>
+    <div class="say"><span class="tagl">Facilitator</span>Share the recognition cue as an internal prompt for Guides, not customer wording: <i>“Whole home, brief drop, returns on its own, then model and serial,”</i> plus <i>listen for the impact first</i>. These are suggestions from Ben Cruz and Imani Ford (Sep 10), not approved procedure.</div>
+  </div>
+
+  <div class="seg" style="margin-top:9pt">
+    <div class="seg-h"><span class="t">22–25</span><h3>Next actions: what each Lead does after the meeting</h3></div>
+    <div class="acts">
+      <div><b>1 · Huddle</b>Introduce the sequence, slide, Call Path, and digital scenario in your existing team huddle.</div>
+      <div><b>2 · Support route</b>Confirm with Guides how to reach you live and the established fallback route.</div>
+      <div><b>3 · Reinforce</b>Use existing call reviews and coaching to look for the six indicators.</div>
+      <div><b>4 · Thread</b>Route recurring blockers and verified updates through the temporary Lead thread.</div>
+    </div>
+    <div class="say" style="margin-top:6pt"><span class="tagl">Close with</span>Huddle attendance and scenario completion show the intervention reached Guides. They don't show proficiency; call reviews do. Before ending, confirm each Lead knows who the thread Admin is.</div>
+  </div>
+
+  <div class="pfoot"><span>Northstar Home · WN7 Lead Alignment · Fictional work sample; Northstar Home and its data are synthetic.</span><span>3 / 3</span></div>
+</div>
+
+</body>
+</html>
