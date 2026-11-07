@@ -18,7 +18,7 @@ In a systematic Orbit sample of 204 eligible General Care calls from September 2
 
 A recorded check can't tell us what the Guide saw or understood, so this isn't a proven root cause. But awareness alone doesn't appear to explain the gap. The gap may involve recognizing the pattern, interpreting the Orbit result, and translating that result into the right recovery action. That matters for upset callers too: a customer asked to repeat restarts they've already tried has good reason to be frustrated.
 
-**Why I'm proposing more than a video**
+**Beyond training alone**
 
 While a short video could communicate the recovery process, I don't believe explanation alone will be enough to change what happens during live calls. In a September shift feedback session, one Guide described going on hold to ask a Lead because they couldn't recall whether the offer included a subscription or a discount. Priya characterized the broader challenge as "a search problem, an eligibility problem, a conversation problem, and a completion problem."
 
