@@ -10,7 +10,7 @@ Hi Dana,
 
 Thank you for sending Renee's Orbit exports and the background. I've reviewed your request for a short video to help Guides navigate difficult customer conversations, along with the data, internal discussions, and feedback from Guides and Leads. Before recommending a solution, I wanted to better understand the underlying performance challenges and what might be contributing to them.
 
-Overall, my needs assessment suggests that the challenge extends beyond helping Guides manage upset callers. The WN7 call data reveals a gap between identifying eligible customers and completing recovery, while feedback across Guides, Leads and leadership offers insight into the challenges contributing to that gap. Addressing that gap will likely require more than a single training intervention, which is why I'm recommending a phased approach that begins with aligning Leads, supported by targeted learning resources and operational coordination. Below is the evidence behind that, and a guide to the attached package.
+Overall, my needs assessment suggests that the challenge extends beyond helping Guides manage upset callers. The WN7 call data reveals a gap between identifying eligible customers and completing recovery, while feedback across Guides, Leads and leadership offers insight into the challenges contributing to that gap. Addressing that gap will likely require more than a single training intervention, which is why I'm recommending a phased approach that begins with aligning Leads, supported by targeted learning resources and operational coordination. Below is the evidence behind that, and a guide to the attached proposal package.
 
 **What the evidence shows**
 
