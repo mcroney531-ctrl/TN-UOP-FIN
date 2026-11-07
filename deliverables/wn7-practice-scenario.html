@@ -81,6 +81,7 @@
   label.lab { display: block; font-weight: 600; font-size: 14px; margin: 10px 0 4px; }
   textarea { width: 100%; font: inherit; border: 2px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--surface); color: var(--ink); resize: vertical; min-height: 96px; }
   textarea:focus-visible { border-color: var(--navy); }
+  textarea[aria-invalid="true"] { border-color: var(--amber); }
   .say { font-size: 14px; color: var(--amber); font-weight: 600; margin: 6px 0 0; }
   .say:empty { display: none; }
   details.model { margin-top: 12px; border: 2px solid var(--green); border-radius: 12px; overflow: hidden; }
@@ -139,7 +140,7 @@
     <p class="eyebrow">Before you start</p>
     <h2 id="h-intro">One call, three decisions</h2>
     <p>You'll handle a WN7 call. At each step, write a short answer in your own words, then compare it with a model response. There's no score. The point is to think the call through.</p>
-    <p class="fine">Keep the WN7 Call Path open if you like. The customer and the Orbit result are simulated.</p>
+    <p class="fine"><b>This is a fictionalized practice call.</b> It's informed by a documented ineligible WN7 call (Sep 24), but it isn't a reconstruction of that conversation. The customer, their symptoms and the Orbit result are made up for practice. Keep the WN7 Call Path open if you like.</p>
     <div class="row js-only"><button type="button" class="btn" data-go="m1">Start</button></div>
   </section>
 
@@ -153,7 +154,7 @@
         <div class="sim">Simulated result · practice only · not a real record</div>
         <p class="res">WN7 eligibility: <span>Not eligible</span></p>
       </div>
-      <p class="fine">Scenario reconstruction based on a documented ineligible WN7 call (Quality listening notes, Sep 24). Dialogue, the friend detail and the symptoms are fictional. The real Orbit screen may look different.</p>
+      <p class="fine">Fictionalized practice scenario, informed by (not a reconstruction of) a documented ineligible WN7 call in the Sep 24 Quality listening notes. The WN7 symptoms, the friend's replacement and the dialogue are invented for practice. The real Orbit screen may look different.</p>
     </div>
   </details>
 
@@ -343,9 +344,17 @@
       var ids = fields[n];
       var text = ids.map(function (i) { return document.getElementById(i).value.trim(); });
       var msg = document.getElementById('s' + n);
-      if (text.join('') === '') {
-        msg.textContent = 'Write your answer first, even a few words.';
-        document.getElementById(ids[0]).focus();
+      var labels = { t3a: 'what you\'d say to the customer', t3b: 'what you\'d note for the next Guide' };
+      ids.forEach(function (i) { document.getElementById(i).removeAttribute('aria-invalid'); });
+      var missing = ids.filter(function (i, k) { return text[k] === ''; });
+      if (missing.length) {
+        if (ids.length > 1) {
+          msg.textContent = 'Add a few words for ' + missing.map(function (i) { return labels[i]; }).join(' and ') + ' first.';
+        } else {
+          msg.textContent = 'Write your answer first, even a few words.';
+        }
+        missing.forEach(function (i) { document.getElementById(i).setAttribute('aria-invalid', 'true'); });
+        document.getElementById(missing[0]).focus();
         return;
       }
       msg.textContent = '';
