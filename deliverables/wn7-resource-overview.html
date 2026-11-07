@@ -205,10 +205,19 @@
     box-shadow: 0 24px 64px -20px rgba(20, 22, 26, .45);
   }
   .detail::backdrop { background: rgba(20, 22, 26, .55); }
-  .detail-inner { position: relative; padding: 44px 48px 48px; border-top: 6px solid var(--red); border-radius: 14px; }
-  .detail h3 { margin: 0 0 12px; font-size: clamp(24px, 3vw, 30px); line-height: 1.2; letter-spacing: -.01em; padding-right: 40px; }
+  .detail-inner { padding: 36px 48px 48px; }
+  /* Compact Northstar banner at the top of each overlay (inserted by script, reusing the masthead logo) */
+  .detail-banner {
+    display: flex; align-items: center; gap: 18px; padding: 18px 72px 18px 48px; color: #fff;
+    background:
+      radial-gradient(120% 140% at 100% 0%, rgba(74, 112, 176, .28) 0%, rgba(74, 112, 176, 0) 55%),
+      linear-gradient(115deg, #0a1529 0%, #12254a 45%, #1f3a68 100%);
+  }
+  .detail-banner img { width: 112px; height: auto; flex: none; }
+  .detail-banner span { padding-left: 18px; border-left: 1px solid rgba(255, 255, 255, .45); font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; opacity: .92; }
+  .detail h3 { margin: 0 0 12px; font-size: clamp(24px, 3vw, 30px); line-height: 1.2; letter-spacing: -.01em; }
   .detail-close {
-    position: absolute; top: 16px; right: 16px;
+    position: absolute; top: 18px; right: 18px; z-index: 1;
     display: grid; place-items: center; width: 40px; height: 40px;
     border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--ink);
     cursor: pointer;
@@ -220,7 +229,12 @@
   .points li::marker { color: var(--red); }
   .points code { font: 600 .9em ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--surface); padding: 1px 5px; border-radius: 4px; }
   body.modal-open { overflow: hidden; }
-  @media (max-width: 560px) { .detail-inner { padding: 36px 22px 30px; } }
+  @media (max-width: 560px) {
+    .detail-inner { padding: 28px 22px 30px; }
+    .detail-banner { padding: 16px 68px 16px 22px; gap: 14px; }
+    .detail-banner img { width: 92px; }
+    .detail-banner span { padding-left: 14px; font-size: 10.5px; letter-spacing: .14em; }
+  }
   @media (prefers-reduced-motion: no-preference) {
     .detail[open] { animation: rise .3s cubic-bezier(.2, .7, .2, 1) both; }
   }
@@ -396,7 +410,7 @@
     <p class="tag"><span class="num">01</span> Facilitator guide · 25 minutes</p>
     <h3 id="dlg-lead-meeting-h">Lead Alignment Meeting Plan</h3>
     <p class="synopsis">A 25-minute working meeting built on two cases, so Leads leave with one standard for what good looks like and how to coach or escalate.</p>
-    <p class="flow-label">Why it exists</p>
+    <p class="flow-label">Why</p>
     <p class="why">Guides go to their Leads mid-call, but Leads have no shared picture of a complete recovery, or of when a breakdown needs coaching versus escalation. Leads asked for "a clip and a cue" (Sep 16). Two cases do the teaching instead of a presentation.</p>
     <p class="flow-label">Key points</p>
     <ul class="points">
@@ -417,7 +431,7 @@
     <p class="tag"><span class="num">02</span> Ongoing reference · One page</p>
     <h3 id="dlg-lead-quick-reference-h">Lead Quick Reference</h3>
     <p class="synopsis">The page a Lead keeps beside them in call reviews: what good execution looks like, and whether to coach, escalate, or arrange follow-up.</p>
-    <p class="flow-label">Why it exists</p>
+    <p class="flow-label">Why</p>
     <p class="why">The meeting builds alignment, and without a takeaway it fades. Leads need to answer two questions quickly in a call review: was this done right, and what do I do about it? This page answers both in about ten seconds.</p>
     <p class="flow-label">Key points</p>
     <ul class="points">
@@ -439,7 +453,7 @@
     <p class="tag"><span class="num">03</span> Ongoing reference · One page</p>
     <h3 id="dlg-lead-coaching-cues-h">Lead Coaching Cues</h3>
     <p class="synopsis">A companion for the conversation itself: how to turn one observed moment on a call into a two-to-three-minute coaching conversation.</p>
-    <p class="flow-label">Why it exists</p>
+    <p class="flow-label">Why</p>
     <p class="why">Leads asked for cues, not WN7 training (Sep 22, Sep 24). Knowing what went wrong isn't the same as helping a Guide fix it, and not every miss is a training problem. This keeps the conversation short, specific, and focused on the real barrier.</p>
     <p class="flow-label">Key points</p>
     <ul class="points">
@@ -460,7 +474,7 @@
     <p class="tag"><span class="num">01</span> In-call job aid · Interactive and print</p>
     <h3 id="dlg-guide-call-path-h">Guide Call Path</h3>
     <p class="synopsis">What do I do next? The five steps, with a separate path for each Orbit result: Eligible, Not eligible, or No clear result.</p>
-    <p class="flow-label">Why it exists</p>
+    <p class="flow-label">Why</p>
     <p class="why">In the call sample, 70 of 159 eligible calls with a recorded serial check still ended in generic troubleshooting. That's an observed outcome, not proof of why. The Call Path targets the step after the check: acting on the result.</p>
     <p class="flow-label">Key points</p>
     <ul class="points">
@@ -481,7 +495,7 @@
     <p class="tag"><span class="num">02</span> Individual practice · 5–7 minutes</p>
     <h3 id="dlg-guide-practice-h">Make the Call: Digital Practice</h3>
     <p class="synopsis">A short practice call where the WN7 symptoms fit but Orbit says Not eligible. Guides write each decision, then compare it with a model response.</p>
-    <p class="flow-label">Why it exists</p>
+    <p class="flow-label">Why</p>
     <p class="why">Recognizing the pattern isn't the same as qualifying. In the Sep 24 listening notes, Priya called the ineligible case "the case we must keep in the practice set so people do not turn a product name into a promise." Writing the answer first makes Guides think the call through, rather than just recognize the right option.</p>
     <p class="flow-label">Key points</p>
     <ul class="points">
@@ -502,7 +516,7 @@
     <p class="tag"><span class="num">01</span> Supports the existing huddle · One slide</p>
     <h3 id="dlg-huddle-slide-h">Huddle Sequence Slide</h3>
     <p class="synopsis">One slide Leads use in their existing team huddle to introduce the WN7 sequence, open the conversation, and launch the individual practice.</p>
-    <p class="flow-label">Why it exists</p>
+    <p class="flow-label">Why</p>
     <p class="why">The huddle is where Leads and Guides first talk about the change. One visual of the sequence gives that conversation a shared anchor; the practice itself happens individually, in the digital scenario.</p>
     <p class="flow-label">What it shows</p>
     <ul class="points">
@@ -571,6 +585,17 @@
       }
       if (e.target.closest('[data-close]')) e.target.closest('dialog').close();
       else if (e.target.tagName === 'DIALOG') e.target.close(); // click on backdrop
+    });
+    // Add the compact Northstar banner to each overlay, reusing the masthead logo so it isn't embedded seven times.
+    var logo = document.querySelector('.mast-logo');
+    [].forEach.call(document.querySelectorAll('dialog.detail'), function (d) {
+      try {
+        var b = document.createElement('div');
+        b.className = 'detail-banner'; b.setAttribute('aria-hidden', 'true');
+        if (logo) { var img = document.createElement('img'); img.src = logo.src; img.alt = ''; b.appendChild(img); }
+        var t = document.createElement('span'); t.textContent = 'WN7 Support'; b.appendChild(t);
+        d.insertBefore(b, d.firstChild);
+      } catch (err) { /* overlay still works without the banner */ }
     });
     [].forEach.call(document.querySelectorAll('dialog.detail'), function (d) {
       d.addEventListener('close', function () {
