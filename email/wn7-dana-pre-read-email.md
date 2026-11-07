@@ -8,7 +8,9 @@
 
 Hi Dana,
 
-Thank you for sending Renee's Orbit exports and the background. You asked for a short video to help Guides handle upset callers without losing control of the conversation. When I worked through the material, much of the long-call pattern traced back to calls about the WN7 hub, where eligible customers often aren't reaching the recovery path. Before you open the attached materials, here's what I found and what I'd propose.
+Thank you for sending Renee's Orbit exports and the background. You asked for a short video to help Guides handle upset callers without losing control of the conversation. Before choosing a format, I wanted to understand the performance gap behind the long calls, so I reviewed the Orbit call data, the internal meeting notes and discussions, and feedback and call observations from Guides, Leads and Quality.
+
+Overall, my needs assessment suggests that the challenge extends beyond helping Guides manage upset callers. The WN7 data points to a broader gap between identifying customers who qualify for recovery and successfully completing that process. Addressing that gap will likely require more than a single training intervention, which is why I'm recommending a Lead-first approach supported by targeted learning resources and operational alignment. Below is the evidence behind that, and a guide to the attached package.
 
 **What the evidence shows**
 
@@ -39,7 +41,7 @@ The package is organized in three folders.
 
 *02 — Detailed Planning.* The full **WN7 Rollout & Reinforcement Plan** (PDF): the rationale, phases and gates, evaluation approach, and the dependencies to confirm before launch.
 
-*03 — Learning Resources.* The proposed materials. For Leads: the **Lead Meeting Plan**, **Lead Quick Reference** and **Coaching Cues**. For Guides: the **Guide Call Path** for live calls and **Make the Call**, an individual practice built around the harder Not eligible case. The **Huddle Sequence Slide** connects the two.
+*03 — Learning Resources.* The proposed materials. For Leads: the **Lead Meeting Plan**, **Lead Quick Reference** and **Coaching Cues**. For Guides: the **Guide Call Path** for live calls and **Make the Call**, an individual practice built around the harder Not eligible case. Leads use the **Huddle Sequence Slide** to introduce the shared sequence in their existing huddles.
 
 **Where to start**
 
