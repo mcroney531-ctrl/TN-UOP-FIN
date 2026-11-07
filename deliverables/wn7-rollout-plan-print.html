@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WN7 Rollout &amp; Reinforcement Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: Letter; margin: 0; }
+  :root {
+    --ink: #1d2433; --muted: #5a6376; --line: #d6dae3; --bg: #f3f5f9;
+    --navy: #1f3a68; --navy-soft: #e7edf6; --green: #2f7d4f; --green-soft: #e6f2ea;
+    --amber: #94660f; --amber-soft: #f8f0de; --red: #a03d3d; --red-soft: #f7e6e6; --grey: #b4bac7;
+    --display: "Fraunces", Georgia, serif; --body: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; background: #888; }
+  body { color: var(--ink); font: 9.6pt/1.32 var(--body); }
+  .page { width: 8.5in; height: 11in; background: #fff; position: relative; overflow: hidden; margin: 0 auto 12px; padding: 0.5in 0.6in 0.62in; page-break-after: always; break-after: page; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  @media print { html, body { background: #fff; } .page { margin: 0; } }
+  h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.15; margin: 0; }
+  h2 { font-size: 19pt; color: var(--navy); margin-bottom: 3pt; }
+  h3 { font-size: 12.5pt; margin-bottom: 4pt; }
+  p { margin: 0 0 6pt; }
+  ul { margin: 0; padding-left: 13pt; }
+  li { margin: 0 0 1.5pt; }
+  li::marker { color: var(--muted); }
+  .eyebrow { font-size: 7.5pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 3pt; }
+  .lede { font-size: 11pt; color: var(--muted); }
+  .muted { color: var(--muted); }
+  .sm { font-size: 8.5pt; }
+  .pfoot { position: absolute; left: 0.6in; right: 0.6in; bottom: 0.3in; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 5pt; }
+
+  /* Cover band */
+  .band { background: var(--navy); color: #fff; margin: -0.5in -0.6in 14pt; padding: 0.42in 0.6in 0.32in; }
+  .band img { height: 46pt; display: block; margin-bottom: 14pt; }
+  .band .eyebrow { color: #b9c6dd; }
+  .band h1 { font-size: 27pt; color: #fff; margin-bottom: 5pt; }
+  .band .lede { color: #d6dfec; max-width: 6in; }
+  .tags { display: flex; gap: 5pt; flex-wrap: wrap; margin-top: 9pt; }
+  .tag { font-size: 7.5pt; font-weight: 600; padding: 1.5pt 7pt; border-radius: 99px; border: 1px solid rgba(255,255,255,.45); }
+
+  .success { border-left: 4pt solid var(--navy); background: var(--bg); padding: 8pt 11pt; margin: 8pt 0 10pt; font: 600 11.5pt/1.4 var(--display); }
+  .quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6pt; }
+  .q { border: 1px solid var(--line); border-top: 3pt solid var(--c); border-radius: 5pt; padding: 6pt 8pt; font-size: 8.8pt; }
+  .q b { display: block; font-size: 9.5pt; color: var(--c); margin-bottom: 1pt; }
+  .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5pt; margin-top: 5pt; }
+  .flow div { background: var(--bg); border-radius: 5pt; padding: 6pt 7pt; font-size: 8.5pt; position: relative; }
+  .flow b { display: block; color: var(--navy); font-size: 9pt; }
+  .road { display: grid; grid-template-columns: 1fr 14pt 1fr 14pt 1fr 14pt 1fr 14pt 1fr; align-items: stretch; margin-top: 6pt; }
+  .rp { border: 1.5pt solid var(--navy); border-radius: 6pt; padding: 6pt 7pt; }
+  .rp .n { font: 600 13pt var(--display); color: var(--navy); }
+  .rp b { display: block; font-size: 9.5pt; }
+  .rp span { display: block; font-size: 8.2pt; color: var(--muted); margin-top: 2pt; }
+  .rg { display: grid; place-items: center; }
+  .rg i { width: 8pt; height: 8pt; background: var(--amber); transform: rotate(45deg); border-radius: 1pt; display: block; }
+  .legend { font-size: 8pt; color: var(--muted); margin-top: 4pt; display: flex; gap: 6pt; align-items: center; }
+  .legend i { width: 6pt; height: 6pt; background: var(--amber); transform: rotate(45deg); display: inline-block; }
+  .sec { margin-top: 9pt; }
+
+  /* Phase blocks */
+  .phase { border: 1px solid var(--line); border-radius: 7pt; margin-bottom: 8pt; overflow: hidden; }
+  .ph { display: flex; gap: 9pt; align-items: center; padding: 5pt 10pt; background: var(--navy-soft); }
+  .num { width: 22pt; height: 22pt; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font: 600 11pt var(--display); flex: none; }
+  .ph h3 { margin: 0; font-size: 13pt; color: var(--navy); }
+  .ph p { margin: 0; font-size: 9pt; color: var(--muted); }
+  .pb { display: grid; grid-template-columns: 1.45fr 1fr; }
+  .pb > div { padding: 5pt 10pt; }
+  .pb > div + div { border-left: 1px solid var(--line); }
+  .lab { font-size: 7pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 3pt; }
+  .lab + ul { margin-bottom: 4pt; }
+  .chips { display: flex; flex-wrap: wrap; gap: 3pt; margin-bottom: 4pt; }
+  .chip { font-size: 7.6pt; font-weight: 600; padding: 1pt 6pt; border-radius: 99px; background: var(--navy-soft); color: var(--navy); }
+  .scope { background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 8.6pt; margin-bottom: 5pt; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; }
+  .pair .phase { margin-bottom: 0; display: flex; flex-direction: column; }
+  .pair .pb { grid-template-columns: 1fr; }
+  .pair .pb > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .pair .gate { margin-top: auto; }
+  .gate { border-top: 1px solid var(--line); background: #fcfaf5; padding: 5pt 10pt 5pt; }
+  .gq { font-size: 9pt; font-weight: 700; margin-bottom: 4pt; display: flex; gap: 6pt; align-items: baseline; }
+  .gq::before { content: ""; width: 6pt; height: 6pt; background: var(--amber); transform: rotate(45deg) translateY(-1pt); flex: none; }
+  .rows { display: grid; grid-template-columns: 52pt 1fr; gap: 1pt 8pt; font-size: 8.8pt; }
+  .rows dt { font-size: 7.6pt; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding-top: 1pt; }
+  .rows dd { margin: 0; }
+  .go { color: var(--green); } .adj { color: var(--amber); } .stop { color: var(--red); } .neu { color: var(--muted); }
+
+  /* Measurement */
+  .bar { display: flex; height: 22pt; border-radius: 4pt; overflow: hidden; gap: 1.5pt; margin: 6pt 0 5pt; }
+  .bar div { display: flex; align-items: center; padding: 0 6pt; color: #fff; font-weight: 700; font-size: 9pt; }
+  .b1 { background: var(--navy); flex: 76; } .b2 { background: var(--amber); flex: 13; justify-content: center; padding: 0 !important; } .b3 { background: var(--grey); flex: 115; color: var(--ink) !important; }
+  .key { display: flex; gap: 14pt; font-size: 9pt; }
+  .key span { display: flex; gap: 4pt; align-items: center; }
+  .key i { width: 7pt; height: 7pt; border-radius: 1.5pt; display: inline-block; }
+  .box { border: 1px solid var(--line); border-radius: 6pt; padding: 6pt 10pt; }
+  .ind { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5pt; margin-top: 4pt; }
+  .ind div { background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 8.6pt; line-height: 1.28; }
+  .ind b { display: block; color: var(--navy); font-size: 9pt; }
+  .quote { font: 600 9.4pt/1.35 var(--display); border-left: 3pt solid var(--navy); padding: 1pt 0 1pt 8pt; margin: 5pt 0 0; }
+  .quote span { display: block; font: 400 8pt var(--body); color: var(--muted); margin-top: 2pt; }
+  .layers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5pt; margin-top: 4pt; }
+  .layers div { border-top: 3pt solid var(--c); background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 8.5pt; line-height: 1.28; }
+  .layers b { display: block; color: var(--c); font-size: 9pt; }
+  .layers em { display: block; font-style: normal; color: var(--muted); margin-top: 3pt; }
+  .claims { display: grid; grid-template-columns: 1fr 1fr; gap: 2pt 14pt; list-style: none; padding: 0; font-size: 8.8pt; }
+  .claims li { padding-left: 12pt; position: relative; margin: 0; }
+  .claims li::before { content: "\2715"; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+  .claims li.ok::before { content: "\2713"; color: var(--green); }
+  .keys { display: grid; grid-template-columns: 1fr 14pt 1fr 14pt 1fr; align-items: center; gap: 4pt; margin-top: 4pt; }
+  .k { border: 1px solid var(--line); border-radius: 5pt; padding: 6pt 8pt; font-size: 8.8pt; height: 100%; }
+  .k b { display: block; font: 600 10.5pt var(--display); color: var(--navy); }
+  .k.r { background: var(--green-soft); border-color: transparent; } .k.r b { color: var(--green); }
+  .op { text-align: center; font: 600 14pt var(--display); color: var(--muted); }
+
+  /* Matrix */
+  table.mx { width: 100%; border-collapse: collapse; font-size: 8.3pt; line-height: 1.28; }
+  .mx th { text-align: left; font-size: 7pt; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: var(--navy); padding: 4pt 6pt; }
+  .mx td { padding: 2.6pt 6pt; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .mx tr:nth-child(even) td { background: #f8f9fb; }
+  .mx td:first-child { font-weight: 700; width: 21%; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; margin-top: 7pt; }
+  .ab { display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin: 4pt 0; }
+  .ab div { background: var(--bg); border-radius: 4pt; padding: 5pt 7pt; font-size: 8.6pt; }
+  .ab b { display: block; color: var(--navy); }
+  .deps { columns: 2; column-gap: 14pt; font-size: 8.8pt; padding-left: 12pt; }
+  .deps li { break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="band">
+    <img src="assets/northstar-logo-white.png" alt="Northstar Home">
+    <p class="eyebrow">Customer Care Learning · Proposal</p>
+    <h1>WN7 Rollout &amp; Reinforcement Plan</h1>
+    <p class="lede">How the WN7 recovery intervention moves from readiness to sustained execution, who is accountable at each step, and what evidence decides whether it moves forward.</p>
+    <div class="tags"><span class="tag">Prepared for Dana Ortiz, Director of Customer Care</span><span class="tag">Draft for review</span><span class="tag">Proposed design · owner confirmations pending</span></div>
+  </div>
+
+  <p class="eyebrow">Executive overview</p>
+  <h2>Eligible customers aren't reliably reaching recovery</h2>
+  <p>The WN7 recovery path exists, but most eligible General Care calls still end in generic troubleshooting: <b>115 of 204</b> eligible calls (56%) in the September 21–30 Orbit call sample. This plan introduces a practical intervention, tests it with a small group, and expands only as evidence and capacity allow.</p>
+
+  <div class="success">Reviewed WN7 calls show more consistent recognition, eligibility verification, appropriate recovery decisions, and clearly documented follow-up than the pre-rollout baseline. Customer outcomes show promising improvement, while service capacity remains manageable.</div>
+
+  <div class="quad">
+    <div class="q" style="--c:var(--grey)"><b style="color:var(--muted)">Delivery</b>The intervention reaches Guides. Attendance and completion show reach, not proficiency.</div>
+    <div class="q" style="--c:var(--navy)"><b>Guide execution</b>Guides recognize, verify, choose the right path, and complete or document the recovery.</div>
+    <div class="q" style="--c:var(--green)"><b>Customer recovery</b>More eligible customers leave with a completed recovery or owned, explained follow-up.</div>
+    <div class="q" style="--c:var(--amber)"><b>Operational capacity</b>Queues, wait times, and Lead and Specialist load stay manageable.</div>
+  </div>
+
+  <div class="sec">
+    <h3>What's being rolled out</h3>
+    <p class="sm muted" style="margin:0">The Guide Call Path is the central resource; everything else introduces, practices, or reinforces it.</p>
+    <div class="flow">
+      <div><b>Lead working meeting</b>25-minute, case-based alignment on what good looks like and how to coach it</div>
+      <div><b>Team huddle + slide</b>Leads introduce the WN7 sequence and open dialogue with Guides</div>
+      <div><b>Digital practice scenario</b>Individual, in scheduled work time; write the decision, compare to a model answer</div>
+      <div><b>Call Path on live calls</b>In-call decision support, with Guide → Lead live support</div>
+      <div><b>Coaching + call review</b>Leads observe execution, diagnose gaps, coach or escalate</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h3>Five phases, each closed by a decision gate</h3>
+    <div class="road">
+      <div class="rp"><span class="n">1</span><b>Prepare</b><span>Readiness conditions confirmed by their owners</span></div><div class="rg"><i></i></div>
+      <div class="rp"><span class="n">2</span><b>Pilot</b><span>2–3 Lead teams; full intervention, live calls</span></div><div class="rg"><i></i></div>
+      <div class="rp"><span class="n">3</span><b>Observe &amp; Adjust</b><span>Quality-led evaluation against the baseline</span></div><div class="rg"><i></i></div>
+      <div class="rp"><span class="n">4</span><b>Expand</b><span>Successive Lead-team waves, dual approval</span></div><div class="rg"><i></i></div>
+      <div class="rp"><span class="n">5</span><b>Sustain</b><span>Existing coaching and maintained guidance</span></div>
+    </div>
+    <div class="legend"><i></i> Proceed · adjust · pause. Care leadership makes each call, informed by Quality, Workforce, Learning, and Specialist Care. No fixed dates or durations.</div>
+  </div>
+
+  <div class="pfoot"><span>Northstar Home · WN7 Rollout &amp; Reinforcement Plan · Draft for review</span><span>1 / 5</span></div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <p class="eyebrow">Rollout · Phases 1–2</p>
+  <h2>Prepare and Pilot</h2>
+  <p class="lede" style="margin-bottom:7pt">No Guide meets the intervention until required conditions are confirmed.</p>
+
+  <div class="phase">
+    <div class="ph"><div class="num">1</div><div><h3>Prepare</h3><p>Confirm everything Guides will depend on before any Guide meets the intervention.</p></div></div>
+    <div class="pb">
+      <div>
+        <p class="lab">Major actions</p>
+        <ul>
+          <li>Validate the Guide Call Path against BH-4419 and approved guidance.</li>
+          <li>Put approved Plus guidance, or an authoritative escalation route, in place, validated by Account Systems and Product Ops with Specialist Care.</li>
+          <li>Confirm the Orbit eligibility workflow and General Care access.</li>
+          <li>Validate the scenario; confirm Sana delivery, native or by approved link.</li>
+          <li>Run the Lead working meeting for the pilot teams' Leads.</li>
+          <li>Confirm the Guide → Lead support route and the established fallback.</li>
+          <li>Select pilot teams, schedule practice time, and designate a participating Lead as temporary thread Admin.</li>
+          <li>Quality sets the baseline comparison approach.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="lab">Accountable partners</p>
+        <div class="chips"><span class="chip">Learning</span><span class="chip">Learning Operations</span><span class="chip">Care Systems</span><span class="chip">Account Systems &amp; Product Ops</span><span class="chip">Specialist Care</span><span class="chip">Workforce</span><span class="chip">Care leadership</span><span class="chip">Quality</span></div>
+        <p class="lab">Evidence / outputs</p>
+        <ul>
+          <li>Each readiness condition confirmed by its owner, or flagged missing.</li>
+          <li>Comparison approach set; baseline findings on hand.</li>
+          <li>Pilot Leads aligned on the sequence and coaching cues.</li>
+        </ul>
+        <p class="sm muted" style="margin:0">The optional Orbit serial-tool video is not a launch prerequisite.</p>
+      </div>
+    </div>
+    <div class="gate">
+      <div class="gq">Are all required readiness conditions confirmed?</div>
+      <dl class="rows">
+        <dt class="go">Proceed</dt><dd>All five confirmed: (1) approved Call Path and Plus guidance or escalation route; (2) validated Orbit workflow and access; (3) scenario delivery; (4) Lead alignment and a working support/fallback route; (5) Workforce-approved pilot group and practice time.</dd>
+        <dt class="adj">Adjust</dt><dd>Only optional items are outstanding. Launch without them and mark them pending.</dd>
+        <dt class="stop">Pause</dt><dd>Any required condition is unconfirmed. Required items aren't worked around.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="ph"><div class="num">2</div><div><h3>Pilot</h3><p>Put the complete intervention in front of a representative group and confirm every part reaches Guides and works.</p></div></div>
+    <div class="pb">
+      <div>
+        <div class="scope"><b>Proposed scope:</b> 2–3 Lead teams with a representative mix of Guides, not volunteers or only high performers. Workforce confirms the Guide count, team selection, and scheduling.</div>
+        <p class="lab">Major actions</p>
+        <ul>
+          <li>Leads run the team huddle with the slide, introduce the Call Path, and launch the scenario.</li>
+          <li>Guides complete the scenario during scheduled work time.</li>
+          <li>Guides use the Call Path on live WN7 calls right away, with their Lead as first-line support.</li>
+          <li>Quality begins observing live WN7 calls as soon as they occur.</li>
+          <li>Leads raise blockers in the shared Lead thread; the Admin routes them to owners.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="lab">Accountable partners</p>
+        <div class="chips"><span class="chip">Team Leads</span><span class="chip">Workforce</span><span class="chip">Learning Operations</span><span class="chip">Quality</span><span class="chip">Care leadership</span></div>
+        <p class="lab">Evidence / outputs</p>
+        <ul>
+          <li>Huddle attendance and scenario completion: delivery measures, not proficiency.</li>
+          <li>Questions, blockers, and support requests logged.</li>
+          <li>Early call observations, held for interpretation in phase 3.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="gate">
+      <div class="gq">Is the intervention reaching Guides, and are its parts usable? (Execution is judged in phase 3.)</div>
+      <dl class="rows">
+        <dt class="go">Continue</dt><dd>Every component reaches Guides and works as designed. Observation continues.</dd>
+        <dt class="adj">Adjust</dt><dd>A component isn't landing, such as scenario access or Lead availability. Fix it before judging execution.</dd>
+        <dt class="stop">Pause</dt><dd>Queue or Specialist capacity becomes unmanageable, or Guides lack a working support route.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="pfoot"><span>Northstar Home · WN7 Rollout &amp; Reinforcement Plan · Draft for review</span><span>2 / 5</span></div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+  <p class="eyebrow">Rollout · Phases 3–5</p>
+  <h2>Observe &amp; Adjust, Expand, Sustain</h2>
+  <p class="lede" style="margin-bottom:7pt">Evaluate before expanding; expand wave by wave; sustain through existing coaching.</p>
+
+  <div class="phase">
+    <div class="ph"><div class="num">3</div><div><h3>Observe &amp; Adjust</h3><p>Determine whether Guide execution is improving, and why or why not.</p></div></div>
+    <div class="pb">
+      <div>
+        <p class="lab">Major actions</p>
+        <ul>
+          <li>Quality completes the baseline review before interpreting pilot results, then leads review of pilot calls against the six indicators (page 4).</li>
+          <li>Leads contribute coaching observations and diagnose before coaching: unclear next step, misread Orbit result, access or process blocker, or perceived pressure to keep troubleshooting.</li>
+          <li>Coach the behavior or escalate tool and access problems; refine the Call Path, scenario, or cues where evidence shows a gap.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="lab">Accountable partners</p>
+        <div class="chips"><span class="chip">Quality (lead)</span><span class="chip">Team Leads</span><span class="chip">Workforce</span><span class="chip">Learning</span><span class="chip">Care Systems</span></div>
+        <p class="lab">Evidence / outputs</p>
+        <ul>
+          <li>Indicator-based comparison with the baseline.</li>
+          <li>Breakdown causes and responses; refinement log.</li>
+          <li>Recovery and operational readout; partner recommendations.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="gate">
+      <div class="gq">With sufficient live-call exposure and comparable evidence, does execution support expansion?</div>
+      <dl class="rows">
+        <dt class="go">Proceed</dt><dd>Meaningful improvement in Guide execution, critical blockers resolved, capacity manageable, and customer recovery outcomes directionally promising.</dd>
+        <dt class="adj">Adjust</dt><dd>The usual response to limited or mixed improvement. Refine and observe again.</dd>
+        <dt class="stop">Pause</dt><dd>Serious operational strain, inaccurate or unusable guidance, or unresolved critical access or support problems.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="pair">
+  <div class="phase">
+    <div class="ph"><div class="num">4</div><div><h3>Expand</h3><p>Extend in successive Lead-team waves, only as evidence and capacity allow.</p></div></div>
+    <div class="pb">
+      <div>
+        <p class="lab">Major actions</p>
+        <ul>
+          <li>Expand by Lead-team wave, not as one organization-wide release.</li>
+          <li>Align each Lead before their Guides enter; not all 18 Leads need to attend before the pilot.</li>
+          <li>Repeat readiness checks per wave; carry refinements forward; keep observing with the same six indicators.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="lab">Accountable partners</p>
+        <div class="chips"><span class="chip">Care leadership</span><span class="chip">Workforce</span><span class="chip">Learning</span><span class="chip">Quality</span><span class="chip">Team Leads</span></div>
+        <p class="lab">Evidence / outputs</p>
+        <ul><li>Readiness, execution, and capacity readout for each wave.</li></ul>
+      </div>
+    </div>
+    <div class="gate">
+      <div class="gq">Every wave: does the evidence support it, and can operations absorb it?</div>
+      <dl class="rows">
+        <dt class="go">Proceed</dt><dd>Care leadership finds the evidence supports expansion <b>and</b> Workforce approves the wave.</dd>
+        <dt class="adj">Adjust</dt><dd>A new wave shows different breakdowns. Slow down and address them.</dd>
+        <dt class="stop">Pause</dt><dd>Queue or Specialist capacity is strained.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="ph"><div class="num">5</div><div><h3>Sustain</h3><p>Keep execution reliable through existing coaching and maintained guidance.</p></div></div>
+    <div class="pb">
+      <div>
+        <p class="lab">Major actions</p>
+        <ul>
+          <li>Leads reinforce the sequence through existing call reviews; Quality monitors recurring gaps.</li>
+          <li>When BH-4419, Orbit, or Plus handling change, the operational owner validates and Learning updates the resources.</li>
+          <li>Wind down temporary supports: the thread Admin role and Specialist thread participation.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="lab">Accountable partners</p>
+        <div class="chips"><span class="chip">Team Leads</span><span class="chip">Care leadership</span><span class="chip">Quality</span><span class="chip">Learning</span><span class="chip">Operational owners</span></div>
+        <p class="lab">Evidence / outputs</p>
+        <ul><li>Routine indicator-based observation; updates logged with owner and review date.</li></ul>
+      </div>
+    </div>
+    <div class="gate">
+      <div class="gq">Is execution holding through routine coaching?</div>
+      <dl class="rows">
+        <dt class="go">Maintain</dt><dd>Execution holds.</dd>
+        <dt class="adj">Revisit</dt><dd>Procedures change or recurring breakdowns reappear.</dd>
+        <dt class="neu">Retire</dt><dd>Temporary supports, once routine coaching and escalation are enough.</dd>
+      </dl>
+    </div>
+  </div>
+  </div>
+
+  <div class="pfoot"><span>Northstar Home · WN7 Rollout &amp; Reinforcement Plan · Draft for review</span><span>3 / 5</span></div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page">
+  <p class="eyebrow">Measurement &amp; accountability</p>
+  <h2>How we'll know it's working</h2>
+  <p class="lede" style="margin-bottom:6pt">Quality leads the evaluation, starting from evidence already in hand and comparing like with like.</p>
+
+  <div class="box">
+    <h3>Pre-rollout evidence base</h3>
+    <p class="sm muted" style="margin:0">204 eligible General Care calls, September 21–30. Source: systematic Orbit call sample; eligibility was classified retrospectively.</p>
+    <div class="bar" role="img" aria-label="76 complete, 13 incomplete, 115 generic troubleshooting"><div class="b1">76</div><div class="b2">13</div><div class="b3">115</div></div>
+    <div class="key">
+      <span><i style="background:var(--navy)"></i><b>76</b>&nbsp;complete recoveries (37%)</span>
+      <span><i style="background:var(--amber)"></i><b>13</b>&nbsp;incomplete recoveries (6%)</span>
+      <span><i style="background:var(--grey)"></i><b>115</b>&nbsp;generic troubleshooting (56%)</span>
+    </div>
+    <p class="sm muted" style="margin:5pt 0 0">Established pre-rollout findings, not scores against the six indicators. Quality sets the comparison approach before launch and, where underlying call evidence is available, reviews baseline calls against the indicators. That review isn't a launch prerequisite but must be complete before pilot results are interpreted.</p>
+  </div>
+
+  <div class="sec">
+    <h3>Six observable indicators of successful execution</h3>
+    <p class="sm muted" style="margin:0">What Leads and Quality look for in reviewed WN7 calls, applied where relevant.</p>
+    <div class="ind">
+      <div><b>Recognition</b>Recognizes the potential WN7 pattern and moves toward verification</div>
+      <div><b>Verification</b>Checks eligibility and correctly interprets the result</div>
+      <div><b>Decision</b>Selects the appropriate path based on verified eligibility</div>
+      <div><b>Recovery</b>Completes both applicable transactions, replacement and Plus, or establishes documented follow-up</div>
+      <div><b>Communication</b>Accurately explains what was completed, what's pending, and what happens next</div>
+      <div><b>Documentation</b>Records completed actions, outstanding work, and follow-up ownership</div>
+    </div>
+    <div class="quote">“Once the path is live, the important questions will be: did they recognize the pattern, check eligibility, complete both transactions, and explain what happens next?”<span>Malik, Quality reviewer, September 15 calibration comment</span></div>
+  </div>
+
+  <div class="sec">
+    <h3>Four kinds of evidence, read together</h3>
+    <div class="layers">
+      <div style="--c:var(--muted)"><b>Delivery</b>Huddle attendance; scenario access and completion.<em>Shows reach. Not proficiency.</em></div>
+      <div style="--c:var(--navy)"><b>Guide execution</b>The six indicators, from reviewed calls.<em>Shows what Guides did on the call.</em></div>
+      <div style="--c:var(--green)"><b>Customer recovery</b>Complete and incomplete recovery; repeat contacts, where measurable.<em>Shows documented recovery; repeat contacts help test whether it lasted.</em></div>
+      <div style="--c:var(--amber)"><b>Operational signals</b>Handle time; wait and abandonment; Lead and Specialist load.<em>Shows capacity, not whether a customer got the right resolution.</em></div>
+    </div>
+    <p class="sm muted" style="margin:4pt 0 0">Recovery and operational measures are proposed, pending Quality and Workforce confirmation.</p>
+  </div>
+
+  <div class="sec box">
+    <h3>What the evaluation will and won't claim</h3>
+    <ul class="claims">
+      <li class="ok">Same indicators, comparable call selection, applicable eligibility branches, and explicit treatment of missing evidence.</li>
+      <li class="ok">Observation starts with the first live calls; conclusions wait for sufficient exposure and comparable evidence.</li>
+      <li>Attendance or scenario completion as proof of proficiency.</li>
+      <li>A recorded Orbit check as proof the Guide understood the result.</li>
+      <li>Changes in operational metrics as proof the intervention caused them.</li>
+      <li>Numeric pass marks; progression rests on accountable judgment.</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <h3>Progression authority: two approvals before any wave proceeds</h3>
+    <div class="keys">
+      <div class="k"><b>Care leadership</b>Decides the evidence supports expansion, informed by Quality, Learning, and Specialist Care.</div>
+      <div class="op">+</div>
+      <div class="k"><b>Workforce</b>Approves the wave's composition, timing, scheduled practice coverage, and operational feasibility.</div>
+      <div class="op">=</div>
+      <div class="k r"><b>Next wave proceeds</b>Each Lead aligned before their Guides start; refinements carried forward.</div>
+    </div>
+  </div>
+
+  <div class="pfoot"><span>Northstar Home · WN7 Rollout &amp; Reinforcement Plan · Draft for review</span><span>4 / 5</span></div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page">
+  <p class="eyebrow">Ownership &amp; dependencies</p>
+  <h2>Who owns what</h2>
+  <p class="lede" style="margin-bottom:6pt">Proposed responsibilities, pending confirmation. Beacon remains authoritative for procedures.</p>
+
+  <table class="mx">
+    <thead><tr><th>Area</th><th>Owns</th><th>Contributes</th><th>Validates / approves</th></tr></thead>
+    <tbody>
+      <tr><td>Rollout progression</td><td>Care leadership (proceed, adjust, pause)</td><td>Quality, Workforce, Learning, Specialist Care</td><td>Care leadership; each wave also needs Workforce approval</td></tr>
+      <tr><td>Pilot and wave composition</td><td>Workforce: composition, timing, practice coverage</td><td>Coverage and capacity data</td><td>Workforce approves each wave's feasibility</td></tr>
+      <tr><td>Evaluation</td><td>Quality</td><td>Leads: coaching observations, diagnosis · Workforce: capacity data</td><td>Recommendation to Care leadership</td></tr>
+      <tr><td>Lead working meeting</td><td>Learning facilitates</td><td>Care leadership ensures participating Leads can attend</td><td>Specialist support only with Mateo's approval (A)</td></tr>
+      <tr><td>Guide resources: Call Path, scenario, huddle slide</td><td>Learning</td><td>Quality findings; practice and coaching feedback</td><td>Operational owners for procedures, Plus, and Orbit content</td></tr>
+      <tr><td>Lead resources: one-pager, Coaching Cues</td><td>Learning</td><td>Quality findings; Lead feedback</td><td>Quality and Specialist Care validate operational content</td></tr>
+      <tr><td>Scenario delivery (Sana)</td><td>Learning Operations</td><td>Learning: scenario content</td><td>Learning Operations confirms</td></tr>
+      <tr><td>Live Guide support</td><td>Care leadership: the arrangement</td><td>Leads: first-line support · established fallback route remains</td><td>Workforce validates coverage; Specialist Care confirms escalation, subject to capacity</td></tr>
+      <tr><td>Recovery procedures</td><td>Specialist Care / policy owners</td><td>Complex recovery issues from the field</td><td>Validated within their authority; published in Beacon</td></tr>
+      <tr><td>Plus procedures and transaction-status guidance</td><td>Account Systems and Product Ops validate</td><td>Specialist Care: operational expertise</td><td>Final policy authority to be confirmed</td></tr>
+      <tr><td>Orbit access and tool behavior</td><td>Care Systems</td><td>Access and tool blockers raised by Leads</td><td>Care Systems validates</td></tr>
+      <tr><td>Shared Lead thread (temporary)</td><td>A participating Lead as Admin</td><td>Lead questions and blockers</td><td>Care leadership designates the Admin</td></tr>
+      <tr><td>Reinforcement and monitoring</td><td>Team Leads, Care leadership</td><td>Quality monitors recurring gaps</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="two">
+    <div class="box">
+      <h3>Specialist capacity: two separate approvals</h3>
+      <p class="sm muted" style="margin:0">Mateo (Specialist Care) decides each on its own. Neither implies the other.</p>
+      <div class="ab">
+        <div><b>A · Lead working meeting</b>Specialists support the small-group case discussion.</div>
+        <div><b>B · Temporary thread support</b>Specialists clarify from approved guidance, sized to capacity.</div>
+      </div>
+      <p class="sm muted" style="margin:0">If capacity allows only one, the Lead meeting comes first.</p>
+    </div>
+    <div class="box">
+      <h3>Temporary shared Lead thread</h3>
+      <p class="sm" style="margin:0 0 3pt">The Admin coordinates questions, routes blockers to owners, tracks recurring patterns, and circulates verified answers.</p>
+      <p class="sm muted" style="margin:0">For Lead coordination only. It doesn't replace live Guide → Lead support or established escalation, and it isn't a permanent channel. It winds down in Sustain.</p>
+    </div>
+  </div>
+
+  <div class="sec box">
+    <h3>Confirmations needed before launch</h3>
+    <ul class="deps">
+      <li><b>Plus guidance or escalation route</b> · Account Systems and Product Ops, with Specialist Care</li>
+      <li><b>Orbit workflow and General Care access</b> · Care Systems</li>
+      <li><b>Scenario delivery via Sana or approved link</b> · Learning Operations</li>
+      <li><b>Pilot teams, practice time, support coverage</b> · Workforce</li>
+      <li><b>Live support arrangement; thread Admin</b> · Care leadership</li>
+      <li><b>Call Path and scenario content</b> · Learning, validated by operational owners</li>
+      <li><b>Specialist involvement, A and B</b> · Mateo, Specialist Care</li>
+      <li><b>Recovery and operational measures</b> · Quality and Workforce</li>
+    </ul>
+  </div>
+
+  <div class="pfoot"><span>Northstar Home · WN7 Rollout &amp; Reinforcement Plan · Draft for review · Fictional work sample; Northstar Home and its data are synthetic.</span><span>5 / 5</span></div>
+</div>
+
+</body>
+</html>
