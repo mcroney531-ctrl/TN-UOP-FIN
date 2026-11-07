@@ -19,11 +19,15 @@ const ok = (n, c) => console.log((c ? 'PASS ' : 'FAIL ') + n);
       ok(`${t}: no remote requests except fonts`, reqs.every(u => /fonts\.(googleapis|gstatic)/.test(u)));
       if (f.includes('behind')) {
         ok(`${t}: five decisions, each with decision/why/what changed`, await p.evaluate(() => { const d = [...document.querySelectorAll('.dec')]; return d.length === 5 && d.every(x => [...x.querySelectorAll('dt')].map(e => e.textContent).join('|') === 'Decision|Why|What changed'); }));
-        ok(`${t}: harness section with three oversight examples`, await p.evaluate(() => document.querySelectorAll('.harness .check').length === 3));
+        ok(`${t}: harness section with its four subsections`, await p.evaluate(() => [...document.querySelectorAll('.harness h3.sub')].map(h => h.textContent).join('|') === 'Building a persistent project memory|Building small tools to improve the work itself|Separating collaboration from implementation|Review, correction, and validation'));
+        ok(`${t}: verified opening signals present`, await p.evaluate(() => { const t = document.body.textContent; return t.includes('once we know whether there is a behavior we can change') && t.includes('dug into the data yet') && t.includes('We have not told Leads what to coach') && t.includes('what I click and what I say when the customer asks whether we are replacing it'); }));
+        ok(`${t}: removed lines are gone`, await p.evaluate(() => { const t = document.body.textContent; return !t.includes('None of this has happened yet') && !t.includes('everything in the case are fictional') && !t.includes('revisit the closing'); }));
         ok(`${t}: key sources in four groups`, await p.evaluate(() => document.querySelectorAll('.src').length === 4));
         ok(`${t}: agenda stated as 3 · 9 · 10 · 3`, await p.evaluate(() => document.body.textContent.includes('3 · 9 · 10 · 3')));
       } else {
-        ok(`${t}: every entry has status, raised/decided, four fields, source refs`, await p.evaluate(() => [...document.querySelectorAll('.entry')].every(e => e.querySelector('.st') && /Raised by:.*Decided by:/.test(e.querySelector('.who').textContent) && e.querySelectorAll('dt').length === 4 && e.querySelector('.ref'))));
+        ok(`${t}: every entry is Decision / Rationale / Result with hidden traceability`, await p.evaluate(() => [...document.querySelectorAll('.entry')].every(e => [...e.querySelectorAll('dt')].map(d => d.textContent).join('|') === 'Decision|Rationale|Result' && e.dataset.refs)));
+        ok(`${t}: no visible working-log refs, attribution lines or designer badges`, await p.evaluate(() => !/Working log|Raised by|Decided by|Designer decision/.test(document.body.innerText)));
+        ok(`${t}: entries numbered sequentially`, await p.evaluate(() => [...document.querySelectorAll('.entry .id')].every((s, i) => +s.textContent.slice(1) === i + 1)));
         ok(`${t}: no "3 · 19 · 3" agenda shorthand`, await p.evaluate(() => !document.body.textContent.includes('3 · 19 · 3')));
       }
       ok(`${t}: no individual named as thread Admin`, await p.evaluate(() => !/Priya[^.]*Admin/.test(document.body.textContent) || /thread Admin\. She|manager, not a Lead/.test(document.body.textContent)));

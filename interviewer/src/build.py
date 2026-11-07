@@ -37,7 +37,6 @@ open(os.path.join(out, 'wn7-behind-the-design.html'), 'w').write(
 
 # ---- Decision Log
 STATUS = {
-    'designer': ('Designer decision', 'st-d'),
     'proposed': ('Proposed · needs approval', 'st-p'),
     'required': ('Required by case materials', 'st-r'),
 }
@@ -58,11 +57,12 @@ log_css = '''
   .entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
   .entry { background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 18px 12px; }
   .entry-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; }
-  .entry h3 { margin: 0; font-size: 17px; line-height: 1.3; }
+  .entry h3 { margin: 0 0 10px; font-size: 17px; line-height: 1.3; }
+  .entry-top { margin-bottom: 0; }
   .entry h3 .id { color: var(--accent-2); font-size: 13px; font-weight: 700; margin-right: 8px; }
   .who { margin: 6px 0 10px; font-size: 13px; color: var(--ink-muted); }
   .who b { color: var(--ink-soft); font-weight: 600; }
-  .fields { margin: 0; display: grid; grid-template-columns: 150px 1fr; gap: 6px 16px; }
+  .fields { margin: 0; display: grid; grid-template-columns: 110px 1fr; gap: 6px 16px; }
   .fields dt { color: var(--accent-2); font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding-top: 3px; }
   .fields dd { margin: 0; color: var(--ink-soft); font-size: 15px; }
   .ref { display: block; margin-top: 8px; text-align: right; font-size: 12px; color: var(--ink-muted); }
@@ -76,7 +76,7 @@ log_css = '''
     .entries { gap: 8px; }
     .entry { padding: 9px 12px 7px; break-inside: avoid; }
     .entry h3 { font-size: 11pt; } .who { font-size: 8.4pt; margin: 3px 0 6px; }
-    .fields { grid-template-columns: 112px 1fr; gap: 3px 10px; } .fields dt { font-size: 7.4pt; } .fields dd { font-size: 9.6pt; }
+    .fields { grid-template-columns: 82px 1fr; gap: 3px 10px; } .entry h3 { margin-bottom: 6px; } .fields dt { font-size: 7.4pt; } .fields dd { font-size: 9.6pt; }
     .st { font-size: 7.2pt; } .ref { font-size: 7.6pt; margin-top: 4px; }
     .back { break-inside: avoid; }
   }
@@ -104,12 +104,11 @@ parts = ['''<div class="masthead">
   </div>
 </div>
 <main class="wrap">
-  <p class="lede">A curated record of the choices underneath the five defining decisions: what I chose, why, what I considered or changed, and how it shaped the proposal. It isn't a build history. Each entry traces to the full working log kept during the project (item numbers at the right of each entry).</p>
+  <p class="lede">A curated record of the design judgment underneath the five decisions in <i>Behind the Design</i>: what I chose, why, and how it shaped the proposal.</p>
   <div class="key" aria-label="How to read this log">
-    <div><span class="st st-d">Designer decision</span>my call as the designer</div>
     <div><span class="st st-p">Proposed · needs approval</span>depends on an organizational owner</div>
     <div><span class="st st-r">Required by case materials</span>a constraint from policy or the case record</div>
-    <p class="attr"><b>Raised by</b> names who originated the idea or flag: me, GPT (design reviewer in a separate chat), Claude (builder and source checker), or a case source. <b>Decided by</b> is who made the final call and how: adopted, modified, kept or rejected. Agents suggested; I decided.</p>
+    <p class="attr">Entries without a label are my design decisions.</p>
   </div>
   <ul class="toc" aria-label="Sections">''']
 for letter, name, entries in GROUPS:
@@ -119,15 +118,15 @@ for letter, name, entries in GROUPS:
     parts.append(f'<section class="grp" id="g{letter}" aria-labelledby="g{letter}-h"><h2 id="g{letter}-h"><span class="n">{letter}</span>{e(name)}</h2><ol class="entries">')
     for x in entries:
         n += 1
-        lab, cls = STATUS[x['status']]
-        parts.append(f'''<li class="entry"><div class="entry-top"><h3><span class="id">{letter}{n}</span>{e(x['title'])}</h3><span class="st {cls}">{lab}</span></div>
-<p class="who"><b>Raised by:</b> {e(x['raised'])} · <b>Decided by:</b> {e(x['decided'])}</p>
-<dl class="fields"><dt>Decision</dt><dd>{e(x['decision'])}</dd><dt>Rationale</dt><dd>{e(x['rationale'])}</dd><dt>Alternative / tradeoff</dt><dd>{e(x['alternative'])}</dd><dt>Consequence</dt><dd>{e(x['consequence'])}</dd></dl>
-<span class="ref">Working log: {e(x['refs'])}</span></li>''')
+        badge = ''
+        if x['status']:
+            lab, cls = STATUS[x['status']]
+            badge = f'<span class="st {cls}">{lab}</span>'
+        parts.append(f'''<li class="entry" data-refs="{html.escape(x['refs'])}"><div class="entry-top"><h3><span class="id">{letter}{n}</span>{e(x['title'])}</h3>{badge}</div>
+<dl class="fields"><dt>Decision</dt><dd>{e(x['decision'])}</dd><dt>Rationale</dt><dd>{e(x['rationale'])}</dd><dt>Result</dt><dd>{e(x['result'])}</dd></dl></li>''')
     parts.append('</ol></section>')
-parts.append('''<div class="back"><p>The five decisions with the most influence on the strategy, plus harness use and open uncertainties, are in <a href="wn7-behind-the-design.html"><b>Behind the Design: WN7 Recovery Strategy</b></a>.</p></div>
-</main>
-<footer class="foot"><div class="wrap">Interviewer material, separate from the materials for Dana. Item numbers refer to the project's working decision log, which isn't included in the package. Fictional work sample; Northstar Home, its people and its data are synthetic.</div></footer>''')
+parts.append('''</main>
+<footer class="foot"><div class="wrap">Interviewer material, separate from the materials for Dana. Companion to <a href="wn7-behind-the-design.html">Behind the Design</a>. Fictional work sample; Northstar Home, its people and its data are synthetic.</div></footer>''')
 open(os.path.join(out, 'wn7-design-decision-log.html'), 'w').write(
     page('Design Decision Log · WN7', 'Interviewer companion: curated design decisions, alternatives and tradeoffs behind the WN7 recovery proposal.', log_css, '\n'.join(parts)))
 print('entries:', n)
