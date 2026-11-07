@@ -10,8 +10,8 @@ const ok = (n, c) => console.log((c ? 'PASS ' : 'FAIL ') + n);
     const reqs = []; p.on('request', r => { if (!r.url().startsWith('file:') && !r.url().startsWith('data:')) reqs.push(r.url()); });
     await p.goto(url, { waitUntil: 'networkidle' });
     ok(`${n}: no horizontal scroll`, await p.evaluate((w) => document.documentElement.scrollWidth <= w, w));
-    ok(`${n}: four sections + alongside`, await p.evaluate(() => ['lead','guide','huddle','plans','alongside'].every(id => document.getElementById(id))));
-    ok(`${n}: old bottom sections removed`, await p.evaluate(() => !['fit','owners','rollout'].some(id => document.getElementById(id))));
+    ok(`${n}: three sections + alongside`, await p.evaluate(() => ['lead','guide','huddle','alongside'].every(id => document.getElementById(id))));
+    ok(`${n}: old bottom sections and Related Plans removed`, await p.evaluate(() => !['fit','owners','rollout','plans'].some(id => document.getElementById(id))));
     for (const id of ['dlg-lead-meeting','dlg-lead-quick-reference','dlg-lead-coaching-cues','dlg-guide-call-path','dlg-guide-practice','dlg-huddle-slide']) {
       await p.click(`[data-open="${id}"]`);
       const open = await p.evaluate((id) => document.getElementById(id).open, id);
