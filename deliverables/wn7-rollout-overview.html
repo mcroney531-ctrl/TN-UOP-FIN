@@ -176,6 +176,7 @@
   .dp:first-child { border-top: 0; }
   @media (min-width: 820px) { .dp { grid-template-columns: 190px 1fr; } }
   .dp-when { color: var(--red); font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding-top: 2px; }
+  .dp-sub { display: block; margin-top: 4px; color: var(--ink-muted); font-size: 12px; font-weight: 500; letter-spacing: 0; text-transform: none; line-height: 1.4; }
   .dp-items { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
   .dp-items li { display: grid; grid-template-columns: 98px 1fr; gap: 10px; align-items: baseline; color: var(--ink-soft); font-size: 14.5px; line-height: 1.5; }
   .dp-items b { color: var(--ink); }
@@ -251,7 +252,7 @@
           <div><p class="ph-label">What happens</p>
             <ul><li>Owners validate the Call Path, Plus guidance, Orbit workflow and access, and Sana delivery.</li><li>Pilot Leads attend the Lead working meeting.</li><li>Workforce selects pilot teams and schedules practice time.</li></ul></div>
           <div><p class="ph-label">Who coordinates</p><p class="ph-who">Each readiness owner · Quality sets the comparison approach</p></div>
-          <div class="gate"><p class="gq">Are all required readiness conditions confirmed?</p><p class="gp"><span class="oc oc-go">Proceed</span>when all five are confirmed. Optional items, like the Orbit video, can follow.</p></div>
+          <div class="gate"><p class="gq">Are all required readiness conditions confirmed?</p><p class="gp"><span class="oc oc-go">Proceed</span>when all five are confirmed (see Decision Points). Optional items, like the Orbit video, can follow.</p></div>
         </div>
       </li>
       <li class="phase" aria-labelledby="p2-h">
@@ -314,7 +315,7 @@
       <p class="bl-text"><b>Starting point:</b> 204 eligible General Care calls, Sep 21–30, from a systematic Orbit call sample, with eligibility classified retrospectively. These are pre-rollout findings, not scores against the six indicators. Quality sets the comparison method, and states its limits, before interpreting results.</p>
     </div>
 
-    <p class="wont"><b>A Guide following the Call Path doesn't mean the recovery is complete.</b> The replacement order and the Plus credit are separate transactions; anything not showing <code>Applied</code> is still open. A call can close with owned follow-up while the transaction stays outstanding. Likewise, a recorded serial check isn't proof the Guide read the result, and a change in handle time isn't proof the intervention caused it.</p>
+    <p class="wont"><b>A Guide following the Call Path doesn't mean the recovery is complete.</b> The replacement order and the Plus credit are separate transactions with different completion evidence: the order needs a confirmation number, and a Plus credit that doesn't show <code>Applied</code> is still open. A call can close with owned follow-up while the transaction stays outstanding. Likewise, a recorded serial check isn't proof the Guide read the result, and a change in handle time isn't proof the intervention caused it.</p>
   </section>
 
   <section class="section" aria-labelledby="dp-h">
@@ -322,12 +323,13 @@
     <p class="section-intro">Labels match the Ownership Map: <span class="st st-c">Confirmed</span> in the case record, <span class="st st-p">Proposed</span> by us, <span class="st st-o">To confirm</span> by the owner.</p>
 
     <ul class="dps">
-      <li class="dp"><span class="dp-when">Before the pilot</span>
+      <li class="dp"><span class="dp-when">Before the pilot<br><span class="dp-sub">The five required readiness conditions</span></span>
         <ul class="dp-items">
-          <li><span class="st st-o">To confirm</span><span><b>Account Systems and Product Ops</b> (proposed validators): Plus guidance or an escalation route.</span></li>
-          <li><span class="st st-o">To confirm</span><span><b>Care Systems</b>: the Orbit eligibility workflow and General Care access.</span></li>
-          <li><span class="st st-o">To confirm</span><span><b>Learning Operations</b>: scenario delivery in Sana, native or by approved link.</span></li>
-          <li><span class="st st-o">To confirm</span><span><b>Workforce</b>: pilot teams and practice time. <b>Care leadership</b>: the Lead support route and fallback.</span></li>
+          <li><span class="st st-o">To confirm</span><span><b>1.</b> An approved Call Path, and Plus guidance or an escalation route · <b>Learning</b>, validated by operational owners; <b>Account Systems and Product Ops</b> (proposed) for Plus.</span></li>
+          <li><span class="st st-o">To confirm</span><span><b>2.</b> A validated Orbit eligibility workflow and General Care access · <b>Care Systems</b>.</span></li>
+          <li><span class="st st-o">To confirm</span><span><b>3.</b> Scenario delivery in Sana, native or by approved link · <b>Learning Operations</b>.</span></li>
+          <li><span class="st st-o">To confirm</span><span><b>4.</b> Lead alignment and a working support and fallback route · <b>Care leadership</b>. A designated thread Admin is part of this condition only if the temporary Lead thread opens.</span></li>
+          <li><span class="st st-o">To confirm</span><span><b>5.</b> A Workforce-approved pilot group and practice time · <b>Workforce</b>.</span></li>
         </ul></li>
       <li class="dp"><span class="dp-when">During the pilot</span>
         <ul class="dp-items">
@@ -346,7 +348,6 @@
       <li class="dp"><span class="dp-when">Only if used</span>
         <ul class="dp-items">
           <li><span class="st st-o">To confirm</span><span><b>Mateo</b> (Specialist Care) gives two separate approvals: A, Specialists in the Lead meeting; B, Specialist support in the Lead thread. Neither implies the other.</span></li>
-          <li><span class="st st-p">Proposed</span><span><b>Care leadership</b> designates a participating Lead as thread Admin, if the temporary Lead thread opens.</span></li>
         </ul></li>
     </ul>
     <p class="xref">For the full owner list and the six open decisions, see the <a href="wn7-ownership-map.html">Ownership Map Overview</a>. The complete plan, with every gate's Proceed, Adjust and Pause conditions, is in the five-page <a href="wn7-rollout-plan.pdf">Rollout &amp; Reinforcement Plan</a>.</p>
