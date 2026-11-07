@@ -1,5 +1,7 @@
 # Interviewer materials — Checkpoint A (content and structure, for review)
 
+> **Update (item 139):** Section 06 replaced with the expanded harness draft from the latest GPT drafting session. The produced HTML/PDF drafts (item 138) still carry the earlier short harness section; they will be updated after the consolidated editorial notes. Sections 01–05, 07–08 and the Decision Log are unchanged here.
+
 Not for Dana. Two interviewer-only documents, to be packaged outside Dana's three folders. Nothing below is final design; visual production waits for approval.
 
 - **Part 1:** Interviewer Note draft, *Behind the Design: WN7 Recovery Strategy*
@@ -98,18 +100,57 @@ A small pilot can surface problems and give directional evidence. It can't, on i
 
 None of this has happened yet; it's what the proposal sets up.
 
-### 06 — How I worked with the coding-agent harness *(proposed addition — see Part 3, gap 1)*
+### 06 — How I worked with the coding-agent harness *(expanded working draft, approved for content; closing paragraph flagged for a voice pass)*
 
-I used Claude Code as the builder and source-checker, and GPT in a separate chat as a design reviewer. I made the decisions. Claude drafted, checked claims against the case packet and logged every decision with attribution ([You], [GPT], [Claude]) in a running decision log. Each deliverable went through build → review → targeted fixes → lock.
+I approached this project with AI as a collaborative development environment, not simply a way to generate finished materials. I wanted to retain ownership of the analysis and design decisions while using coding agents to make research, experimentation, implementation, and revision more efficient.
 
-Examples of checks and corrections:
+#### Building a persistent project memory
 
-- **Headcount.** My brief said about 600 Guides; Claude flagged that the packet says 900 in two places. I corrected it.
-- **Plus wording.** GPT suggested "Plus credit (if applicable)" for the huddle slide. Claude showed that Finance, PO-117 and the locked Call Path all require both parts for an eligible serial. We kept both required.
-- **Attribution.** A brief attributed "not just a training problem" to a Guide; the source showed it was Priya's summary. The email quotes each accurately.
-- **Thread Admin.** An early draft named Priya as the Lead thread Admin; she's a manager, not a Lead. It became "a participating Lead designated by Care leadership."
-- **Inference.** The first Call Path draft claimed PO-117 specified a follow-up expectation; it doesn't. The audit (`CALL_PATH_AUDIT.md`) lists that and three other gaps instead of resolving them silently.
-- **Test claims.** Browser checks are Claude's automated suites, reported as such. One reported pass count was corrected after a faulty test was found. No independent or screen-reader testing has been done.
+Before receiving the full assignment instructions, I had already established a GitHub repository around an idea: maintaining a living record of project decisions alongside development, rather than relying on conversational history.
+
+As the project expanded, that documentation became essential infrastructure. Claude Code increasingly maintained the records as part of its regular workflow, while I directed how the documentation system evolved.
+
+I introduced `RESOURCES.md` to track the growing collection of learning resources and their intended purposes. I also established `QUOTES.md` as a reusable reference for evidence I had flagged during my investigation. `DECISIONS.md` preserved choices, rationale, and changes in direction.
+
+The structure wasn't fixed from the beginning. An early `ARCHITECTURE.md` document was eventually retired because the design had developed through interconnected resource and meeting decisions. The challenge became assembling those decisions into a coherent strategy rather than maintaining a separate architecture document.
+
+This living documentation helped both Claude and me revisit earlier reasoning, check for inconsistencies, and maintain continuity across sessions.
+
+#### Building small tools to improve the work itself
+
+I also used coding agents to create lightweight, purpose-built interfaces for different stages of the project.
+
+The first was an inbox-style reader for exploring the original 75 source items. I wanted the experience to feel like working through actual organizational communications, not reading a flattened collection of documents. I could follow the chronology, star significant messages and threads, archive others, and annotate observations.
+
+Once I began developing the learning strategy, I had Claude consolidate my flagged evidence into `QUOTES.md`. I used that reference throughout design to check for blind spots and whether the concerns surfaced during the needs assessment were being addressed.
+
+A separate project organizer helped me track how the strategy and individual resources were developing. I could update it, export its state, and bring it into later sessions as a shared reference.
+
+For editorial review, I used another custom artifact that let me highlight passages, annotate specific concerns, and export a targeted revision list. This became particularly useful when refining the pre-read email and other documents through multiple review passes.
+
+These weren't large software projects. With coding-agent assistance, a useful tool could often be developed in one to three prompts. That made it practical to build small interfaces around the way I wanted to investigate, organize, and review information rather than adapt my process to a generic tool.
+
+#### Separating collaboration from implementation
+
+I used GPT and Claude Code in complementary roles.
+
+GPT was a strategic collaborator and independent source of critique. I used our discussions to analyze the evidence, challenge assumptions, compare alternatives, refine the learning strategy, and develop implementation briefs. GPT also helped create a coordinated set of image-generation prompts for the resource thumbnails.
+
+Claude Code worked directly with the repositories, developing the resources and custom tools, checking source materials, maintaining documentation, identifying inconsistencies, and implementing revisions.
+
+The responsibilities weren't rigid. Both models contributed suggestions and challenged decisions. I evaluated those contributions, determined what to adopt or change, and approved the direction of the work.
+
+#### Checking the work instead of assuming the output was correct
+
+The workflow followed a recurring pattern: develop, inspect, challenge, revise, and lock.
+
+Several corrections illustrate why that mattered. An early planning brief used approximately 600 Guides; Claude checked the source packet and identified the correct figure of approximately 900. During slide development, GPT suggested wording that made the Plus credit sound conditional. Claude flagged the conflict with Finance and Product Operations guidance, and the requirement for both replacement and credit was preserved.
+
+Other reviews caught unsupported policy assumptions and attribution errors. Rather than filling those gaps with plausible answers, I kept the uncertainty visible and identified where stakeholder confirmation was required.
+
+Automated checks helped identify implementation issues, but I treated reported test results as evidence of what had been checked—not proof of real-world usability or learning effectiveness. Independent user testing and screen-reader validation remain outstanding.
+
+The value of the harness wasn't that AI eliminated the need for judgment. It made it possible to investigate more thoroughly, experiment more quickly, maintain a traceable record of decisions, and apply more deliberate review throughout the design process. *(Closing paragraph kept as drafted; flagged for a possible voice refinement in the upcoming editorial pass.)*
 
 ### 07 — What remains uncertain *(proposed addition)*
 
