@@ -8,12 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
+  /* Fonts: Inter if it loads; otherwise system sans. Layout doesn't depend on Inter. */
   :root {
     --bg: #f3f5f9; --surface: #ffffff; --ink: #1d2433; --muted: #566074; --line: #d6dae3;
     --navy: #1f3a68; --navy-soft: #e7edf6; --on-navy: #ffffff;
     --green: #2a7347; --green-soft: #e6f2ea; --amber: #8a5d0c; --amber-soft: #f8f0de;
     --red: #9b3535; --red-soft: #f7e6e6; --focus: #f2b51d;
-    --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --font: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -38,7 +39,7 @@
 
   header.top { background: #1f3a68; color: #fff; }
   header.top .wrap { display: flex; align-items: center; gap: 14px; padding-top: 14px; padding-bottom: 14px; }
-  header.top img { height: 34px; flex: none; }
+  header.top img { height: 34px; width: auto; flex: none; }
   header.top h1 { font-size: 20px; margin: 0; line-height: 1.2; }
   header.top p { margin: 2px 0 0; font-size: 13px; color: #c9d4e8; }
 
@@ -62,43 +63,62 @@
   .tip { font-size: 14px; color: var(--muted); margin: 10px 0 0; }
   .dep { font-size: 13px; color: var(--muted); margin: 10px 0 0; padding-top: 8px; border-top: 1px dashed var(--line); }
 
-  /* Branch picker */
+  /* Result picker: only shown once the script has initialised, and only on narrow screens. */
+  .picker { display: none; }
+  .cp-ready .picker { display: block; }
   .pick-q { font-weight: 700; margin: 0 0 8px; }
   .pick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .pick button { font: inherit; text-align: left; cursor: pointer; border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 12px; padding: 10px 12px; min-height: 64px; }
   .pick button b { display: block; font-size: 16px; }
   .pick button small { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
   .pick button .ic { font-weight: 700; margin-right: 4px; }
-  .pick button[data-b="eligible"] .ic { color: var(--green); }
-  .pick button[data-b="not"] .ic { color: var(--navy); }
-  .pick button[data-b="unclear"] .ic { color: var(--amber); }
-  .pick button[aria-pressed="true"] { border-color: var(--c); background: var(--cs); box-shadow: inset 0 0 0 1px var(--c); }
   .pick button[data-b="eligible"] { --c: var(--green); --cs: var(--green-soft); }
   .pick button[data-b="not"] { --c: var(--navy); --cs: var(--navy-soft); }
   .pick button[data-b="unclear"] { --c: var(--amber); --cs: var(--amber-soft); }
+  .pick button .ic { color: var(--c); }
+  .pick button[aria-pressed="true"] { border-color: var(--c); background: var(--cs); box-shadow: inset 0 0 0 1px var(--c); }
   .pick button[aria-pressed="true"] b::after { content: " · selected"; font-weight: 600; font-size: 12px; color: var(--c); }
   @media (max-width: 560px) { .pick { grid-template-columns: 1fr; } .pick button { min-height: 0; } }
   .hint { font-size: 14px; color: var(--muted); margin: 10px 0 0; }
-  .js .hint.nojs { display: none; }
-  .hint.jsonly { display: none; }
-  .js .hint.jsonly { display: block; }
+  .msg { font-size: 14px; font-weight: 600; color: var(--amber); margin: 8px 0 0; min-height: 0; }
+  .msg:empty { display: none; }
 
-  .branch { border: 2px solid var(--c); border-radius: 12px; margin-top: 12px; overflow: hidden; }
+  .branches-intro { font-size: 14px; color: var(--muted); margin: 12px 0 0; scroll-margin-top: 80px; }
+  .branches { display: grid; gap: 12px; margin-top: 12px; }
+  .branch { border: 2px solid var(--c); border-radius: 12px; overflow: hidden; background: var(--surface); }
   .branch .bh { padding: 8px 14px; background: var(--cs); color: var(--c); display: flex; justify-content: space-between; align-items: center; gap: 8px; }
   .branch .bh h3 { margin: 0; font-size: 17px; }
   .branch .bb { padding: 12px 14px; }
-  .branch h4 { margin: 12px 0 6px; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+  .branch h4 { margin: 12px 0 6px; font-size: 15px; display: flex; align-items: center; gap: 8px; scroll-margin-top: 90px; }
   .branch h4:first-child { margin-top: 0; }
   .branch h4 .n { width: 22px; height: 22px; border-radius: 50%; background: var(--navy); color: var(--on-navy); display: grid; place-items: center; font-size: 12px; }
   #b-eligible { --c: var(--green); --cs: var(--green-soft); }
   #b-not { --c: var(--navy); --cs: var(--navy-soft); }
   #b-unclear { --c: var(--amber); --cs: var(--amber-soft); }
-  .reset { font: inherit; font-size: 13px; font-weight: 600; background: transparent; border: 1px solid currentColor; color: inherit; border-radius: 999px; padding: 2px 10px; cursor: pointer; }
-  .no-js-hide { display: none; }
-  .js .no-js-hide { display: inline-block; }
+  .reset { display: none; font: inherit; font-size: 13px; font-weight: 600; background: transparent; border: 1px solid currentColor; color: inherit; border-radius: 999px; padding: 2px 10px; cursor: pointer; }
+
+  /* Narrow screens with a working script: show only the chosen branch. */
+  @media (max-width: 1023px) {
+    .cp-ready .branch:not(.is-active) { display: none; }
+    .cp-ready .reset { display: inline-block; }
+    .cp-ready .branches-intro.static { display: none; }
+  }
+  .branches-intro.live { display: none; }
+  @media (max-width: 1023px) { .cp-ready .branches-intro.live { display: block; } }
+
+  /* Wide screens: all three branches side by side, no picker. Pure CSS, no script needed. */
+  @media (min-width: 1024px) {
+    .wrap, nav.steps ol { max-width: 1180px; }
+    .cp-ready .picker { display: none; }
+    .branches { grid-template-columns: repeat(3, 1fr); align-items: start; }
+    #recognize-verify { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    #recognize-verify section.step { margin-bottom: 0; }
+    #recognize-verify { margin-bottom: 14px; }
+  }
 
   .tx { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   @media (max-width: 560px) { .tx { grid-template-columns: 1fr; } }
+  @media (min-width: 1024px) { .tx { grid-template-columns: 1fr; } }
   .tx div { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
   .tx b { display: block; margin-bottom: 4px; }
   .tx ul { margin: 0; padding-left: 18px; font-size: 15px; }
@@ -110,21 +130,18 @@
   .checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
   .checklist li { padding-left: 28px; position: relative; }
   .checklist li::before { content: ""; position: absolute; left: 0; top: 3px; width: 16px; height: 16px; border: 2px solid var(--navy); border-radius: 4px; }
+  @media (min-width: 1024px) { .checklist { grid-template-columns: 1fr 1fr; column-gap: 24px; } }
   footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding: 14px 0 30px; }
   footer p { margin: 0 0 6px; }
-
-  @media (min-width: 900px) {
-    body { font-size: 16.5px; }
-  }
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <img src="assets/northstar-logo-white.png" alt="Northstar Home">
+    <img src="assets/northstar-logo-white.png" alt="Northstar Home" width="104" height="42">
     <div>
       <h1>WN7 Call Path</h1>
-      <p>For brief whole-home Wi-Fi drops on a WN7 hub or WNM-7 bundle · BH-4419 is the authority</p>
+      <p>For brief whole-home Wi-Fi drops on a WN7 hub or WNM-7 bundle · BH&#8209;4419 is the authority</p>
     </div>
   </div>
 </header>
@@ -134,13 +151,14 @@
     <li><a href="#recognize"><span>1</span>Recognize</a></li>
     <li><a href="#verify"><span>2</span>Verify</a></li>
     <li><a href="#decide"><span>3</span>Decide</a></li>
-    <li><a href="#decide"><span>4</span>Complete</a></li>
+    <li><a href="#complete" data-nav="complete"><span>4</span>Complete</a></li>
     <li><a href="#explain"><span>5</span>Explain</a></li>
   </ol>
 </nav>
 
 <main class="wrap">
 
+  <div id="recognize-verify">
   <section class="step" id="recognize" aria-labelledby="h-rec">
     <div class="sh"><div class="n">1</div><div><h2 id="h-rec">Recognize</h2><p>Could this be the WN7 issue?</p></div></div>
     <ul class="do">
@@ -160,79 +178,89 @@
       <li>Enter it in Orbit's <span class="val">WN7 eligibility</span> panel.</li>
       <li>Read the result: <span class="val">Eligible</span> or <span class="val">Not eligible</span>. The model code alone doesn't decide it.</li>
     </ul>
-    <p class="note"><b>Running the check isn't the same as reading it.</b> If you can't find the serial, the tool won't load, or you're not sure which value is the result, choose <b>No clear result</b> below.</p>
-    <p class="dep">Before release: Care Systems confirms the eligibility panel workflow and General Care access.</p>
+    <p class="note"><b>Running the check isn't the same as reading it.</b> If you can't find the serial, the tool won't load, or you're not sure which value is the result, use <b>No clear result</b>.</p>
+    <p class="dep">Before release: Care Systems confirms where the result appears in the panel and that General Care has access.</p>
   </section>
+  </div>
 
   <section class="step" id="decide" aria-labelledby="h-dec">
-    <div class="sh"><div class="n">3</div><div><h2 id="h-dec">Decide, then complete</h2><p>Your next steps depend on the result.</p></div></div>
-    <p class="pick-q" id="pick-label">What did Orbit return?</p>
-    <div class="pick" role="group" aria-labelledby="pick-label">
-      <button type="button" data-b="eligible" aria-controls="b-eligible" aria-pressed="false"><b><span class="ic" aria-hidden="true">✓</span>Eligible</b><small>Orbit shows <span class="val">Eligible</span></small></button>
-      <button type="button" data-b="not" aria-controls="b-not" aria-pressed="false"><b><span class="ic" aria-hidden="true">–</span>Not eligible</b><small>Orbit shows <span class="val">Not eligible</span></small></button>
-      <button type="button" data-b="unclear" aria-controls="b-unclear" aria-pressed="false"><b><span class="ic" aria-hidden="true">?</span>No clear result</b><small>No serial, tool down, or unsure</small></button>
-    </div>
-    <p class="hint nojs">All three paths are shown below.</p>
-    <p class="hint jsonly">Choose a result to see only that path.</p>
+    <div class="sh"><div class="n">3</div><div><h2 id="h-dec">Decide, then complete</h2><p>Your next steps depend on what Orbit returned.</p></div></div>
 
-    <div class="branch" id="b-eligible" aria-labelledby="bh-el">
-      <div class="bh"><h3 id="bh-el">Eligible: recovery path</h3><button type="button" class="reset no-js-hide" data-reset>Change result</button></div>
-      <div class="bb">
-        <h4><span class="n">3</span>Decide</h4>
-        <ul class="do">
-          <li>Follow the WN7 recovery path in BH-4419.</li>
-          <li>Don't ask the customer to repeat restart steps to qualify.</li>
-        </ul>
-        <h4><span class="n">4</span>Complete both actions</h4>
-        <div class="tx">
-          <div><b>Replacement</b><ul><li>Submit the hub replacement order in Orbit.</li><li>Check it has a confirmation number.</li><li>Use the shipping estimate shown on the order.</li></ul></div>
-          <div><b>Plus</b><ul><li>Attach the Plus benefit as BH-4419 describes.</li><li>Check the credit shows <span class="val">Applied</span>.</li><li>Plus is a goodwill benefit, not a fix for the hub.</li></ul></div>
-        </div>
-        <div class="open" role="note">
-          <b>If either one didn't go through, the recovery isn't complete.</b>
-          <ul>
-            <li>Keep the recovery case open.</li>
-            <li>Document what went through and what didn't.</li>
-            <li>Arrange follow-up through the unresolved recovery queue, as BH-4419 describes.</li>
-            <li>Tell the customer what's still open. Don't promise timing you can't confirm.</li>
+    <div class="picker">
+      <p class="pick-q" id="pick-label">What did Orbit return?</p>
+      <div class="pick" role="group" aria-labelledby="pick-label">
+        <button type="button" data-b="eligible" aria-controls="b-eligible" aria-pressed="false"><b><span class="ic" aria-hidden="true">✓</span>Eligible</b><small>Orbit shows <span class="val">Eligible</span></small></button>
+        <button type="button" data-b="not" aria-controls="b-not" aria-pressed="false"><b><span class="ic" aria-hidden="true">–</span>Not eligible</b><small>Orbit shows <span class="val">Not eligible</span></small></button>
+        <button type="button" data-b="unclear" aria-controls="b-unclear" aria-pressed="false"><b><span class="ic" aria-hidden="true">?</span>No clear result</b><small>No serial, tool down, or unsure</small></button>
+      </div>
+      <p class="msg" id="pick-msg" role="status" aria-live="polite"></p>
+    </div>
+
+    <p class="branches-intro static" id="complete">Each result has its own Decide and Complete steps. Find the column for the result Orbit returned.</p>
+    <p class="branches-intro live">Choose a result above to see its Decide and Complete steps.</p>
+
+    <div class="branches">
+      <div class="branch" id="b-eligible" role="region" aria-labelledby="bh-el">
+        <div class="bh"><h3 id="bh-el">✓ Eligible: recovery path</h3><button type="button" class="reset" data-reset>Change result</button></div>
+        <div class="bb">
+          <h4><span class="n">3</span>Decide</h4>
+          <ul class="do">
+            <li>Follow the WN7 recovery path in BH&#8209;4419.</li>
+            <li>Don't ask the customer to repeat restart steps to qualify.</li>
           </ul>
-          <p class="key">You can end the call with owned follow-up in place. The open item stays open.</p>
+          <h4 id="c-eligible"><span class="n">4</span>Complete both actions</h4>
+          <div class="tx">
+            <div><b>Replacement</b><ul><li>Submit the hub replacement order in Orbit.</li><li>Check it has a confirmation number.</li><li>Use the shipping estimate shown on the order.</li></ul></div>
+            <div><b>Plus</b><ul><li>Attach the Plus benefit as BH&#8209;4419 describes.</li><li>Check the credit shows <span class="val">Applied</span>.</li><li>Plus is a goodwill benefit, not a fix for the hub.</li></ul></div>
+          </div>
+          <div class="open" role="note">
+            <b>No confirmation number, or the credit doesn't show <span class="val">Applied</span>? The recovery isn't complete.</b>
+            <ul>
+              <li>Keep the recovery case open.</li>
+              <li>Document what went through and what didn't.</li>
+              <li>Arrange follow-up through the unresolved recovery queue, as BH&#8209;4419 describes.</li>
+              <li>Tell the customer what's still open. Don't promise timing you can't confirm.</li>
+            </ul>
+            <p class="key">You can end the call with owned follow-up in place. The open item stays open.</p>
+          </div>
+          <p class="dep">Before release: Account Systems and Product Ops confirm how to follow up a credit that hasn't failed but isn't <span class="val">Applied</span> yet.</p>
+          <p class="tip">Then go to <a href="#explain">Explain &amp; Document</a>.</p>
         </div>
-        <p class="tip">Then go to <a href="#explain">Explain &amp; Document</a>.</p>
       </div>
-    </div>
 
-    <div class="branch" id="b-not" aria-labelledby="bh-not">
-      <div class="bh"><h3 id="bh-not">Not eligible: standard support</h3><button type="button" class="reset no-js-hide" data-reset>Change result</button></div>
-      <div class="bb">
-        <h4><span class="n">3</span>Decide</h4>
-        <ul class="do">
-          <li>Continue the right troubleshooting or escalation for the issue they reported.</li>
-          <li>Don't promise a replacement or the Plus benefit. The product name and symptoms don't qualify them.</li>
-        </ul>
-        <h4><span class="n">4</span>Complete</h4>
-        <ul class="do">
-          <li>Finish the standard support steps for the issue.</li>
-        </ul>
-        <p class="tip">Then go to <a href="#explain">Explain &amp; Document</a>.</p>
+      <div class="branch" id="b-not" role="region" aria-labelledby="bh-not">
+        <div class="bh"><h3 id="bh-not">– Not eligible: standard support</h3><button type="button" class="reset" data-reset>Change result</button></div>
+        <div class="bb">
+          <h4><span class="n">3</span>Decide</h4>
+          <ul class="do">
+            <li>Continue the right troubleshooting or escalation for the issue they reported.</li>
+            <li>Don't promise a replacement or the Plus benefit. The product name and symptoms don't qualify them.</li>
+          </ul>
+          <h4 id="c-not"><span class="n">4</span>Complete</h4>
+          <ul class="do">
+            <li>Finish the standard support steps for the issue.</li>
+          </ul>
+          <p class="tip">Then go to <a href="#explain">Explain &amp; Document</a>.</p>
+        </div>
       </div>
-    </div>
 
-    <div class="branch" id="b-unclear" aria-labelledby="bh-un">
-      <div class="bh"><h3 id="bh-un">No clear result: don't guess</h3><button type="button" class="reset no-js-hide" data-reset>Change result</button></div>
-      <div class="bb">
-        <h4><span class="n">3</span>Decide</h4>
-        <ul class="do">
-          <li>Make no promise that depends on eligibility.</li>
-          <li>Recheck the serial and the result against BH-4419.</li>
-          <li>Still unsure which value is the result? Ask your Lead, or use the established fallback if they're unavailable.</li>
-        </ul>
-        <h4><span class="n">4</span>Complete</h4>
-        <ul class="do">
-          <li>Serial can't be found or the tool is unavailable: open an eligibility review case, as BH-4419 describes, and give the follow-up expectation it specifies.</li>
-          <li>You can't open the panel or the order: tell your Lead so it goes through the existing escalation channel.</li>
-        </ul>
-        <p class="tip">Then go to <a href="#explain">Explain &amp; Document</a>.</p>
+      <div class="branch" id="b-unclear" role="region" aria-labelledby="bh-un">
+        <div class="bh"><h3 id="bh-un">? No clear result: don't guess</h3><button type="button" class="reset" data-reset>Change result</button></div>
+        <div class="bb">
+          <h4><span class="n">3</span>Decide</h4>
+          <ul class="do">
+            <li>Make no promise that depends on eligibility.</li>
+            <li>Recheck the serial and the result against BH&#8209;4419.</li>
+            <li>Still unsure which value is the result? Ask your Lead, or use the established fallback if they're unavailable.</li>
+          </ul>
+          <h4 id="c-unclear"><span class="n">4</span>Complete</h4>
+          <ul class="do">
+            <li>Serial can't be found or the tool is unavailable: open an eligibility review case, as BH&#8209;4419 describes, and tell the customer what happens next.</li>
+            <li>You can't open the panel or the order: tell your Lead so it goes through the existing escalation channel.</li>
+          </ul>
+          <p class="dep">Before release: Product Ops confirms the follow-up expectation Guides give for an eligibility review case.</p>
+          <p class="tip">Then go to <a href="#explain">Explain &amp; Document</a>.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -246,36 +274,68 @@
       <li><b>Who owns the follow-up?</b> Say it, and note it.</li>
       <li><b>Could the next Guide pick this up from your notes alone?</b></li>
     </ul>
-    <p class="note"><b>Invite a repeat-back.</b> Ask the customer to say back any part that's unclear.</p>
+    <p class="note"><b>Check that the customer understands the next step.</b></p>
   </section>
 
   <footer>
-    <p><b>Proposed learning resource, not a new procedure.</b> Beacon article BH-4419, and the Product Operations reference it links to, are authoritative. If this page and Beacon differ, follow Beacon.</p>
+    <p><b>Proposed learning resource, not a new procedure.</b> Beacon article BH&#8209;4419, and the Product Operations reference it links to, are authoritative. If this page and Beacon differ, follow Beacon.</p>
     <p>Before release: Care Systems validates the Orbit workflow and General Care access. Account Systems and Product Ops are proposed validation partners for Plus handling, with Specialist Care's operational input; final policy authority is unconfirmed. Your Lead is your first live support; Specialist availability isn't guaranteed.</p>
-    <p>This page stores nothing. Fictional work sample; Northstar Home and its data are synthetic.</p>
+    <p>This page stores nothing and works offline. Fictional work sample; Northstar Home and its data are synthetic.</p>
   </footer>
 </main>
 
 <script>
 (function () {
-  document.documentElement.classList.add('js');
-  var buttons = Array.prototype.slice.call(document.querySelectorAll('.pick button'));
-  var panels = { eligible: document.getElementById('b-eligible'), not: document.getElementById('b-not'), unclear: document.getElementById('b-unclear') };
-  function show(key, focusPanel) {
-    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.b === key)); });
-    Object.keys(panels).forEach(function (k) { panels[k].hidden = key ? k !== key : true; });
-    if (key && focusPanel) {
-      var h = panels[key].querySelector('h3');
-      h.setAttribute('tabindex', '-1');
-      h.focus({ preventScroll: true });
-      panels[key].scrollIntoView({ behavior: 'auto', block: 'nearest' });
+  var root = document.documentElement;
+  try {
+    var WIDE = window.matchMedia('(min-width: 1024px)');
+    var buttons = Array.prototype.slice.call(document.querySelectorAll('.pick button'));
+    var panels = { eligible: document.getElementById('b-eligible'), not: document.getElementById('b-not'), unclear: document.getElementById('b-unclear') };
+    var completes = { eligible: 'c-eligible', not: 'c-not', unclear: 'c-unclear' };
+    var msg = document.getElementById('pick-msg');
+    var completeLink = document.querySelector('[data-nav="complete"]');
+    var selected = null;
+    if (buttons.length !== 3 || !panels.eligible || !panels.not || !panels.unclear || !msg || !completeLink) { throw new Error('Call Path markup incomplete'); }
+
+    function select(key, moveFocus) {
+      selected = key;
+      msg.textContent = '';
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-b') === key)); });
+      Object.keys(panels).forEach(function (k) { panels[k].classList.toggle('is-active', k === key); });
+      if (key && moveFocus) {
+        var h = panels[key].querySelector('h3');
+        h.setAttribute('tabindex', '-1');
+        h.focus({ preventScroll: true });
+        panels[key].scrollIntoView({ block: 'start' });
+      }
     }
+    buttons.forEach(function (b) { b.addEventListener('click', function () { select(b.getAttribute('data-b'), true); }); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-reset]'), function (r) {
+      r.addEventListener('click', function () { select(null); buttons[0].focus({ preventScroll: true }); document.getElementById('decide').scrollIntoView({ block: 'start' }); });
+    });
+
+    // Complete: wide screens use the plain anchor (all three columns are visible).
+    // Narrow screens go to the chosen branch's Complete step, or ask for a result first.
+    completeLink.addEventListener('click', function (e) {
+      if (WIDE.matches) { return; }
+      e.preventDefault();
+      if (selected) {
+        var t = document.getElementById(completes[selected]);
+        t.setAttribute('tabindex', '-1');
+        t.scrollIntoView({ block: 'start' });
+        t.focus({ preventScroll: true });
+      } else {
+        document.getElementById('decide').scrollIntoView({ block: 'start' });
+        msg.textContent = 'Choose the result Orbit returned to see its Complete steps.';
+        buttons[0].focus({ preventScroll: true });
+      }
+    });
+
+    select(null);
+    root.classList.add('cp-ready');   // Only now may CSS hide unselected branches.
+  } catch (err) {
+    root.classList.remove('cp-ready'); // Fall back to the static layout: every branch visible.
   }
-  buttons.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.b, true); }); });
-  Array.prototype.forEach.call(document.querySelectorAll('[data-reset]'), function (r) {
-    r.addEventListener('click', function () { show(null); buttons[0].focus(); document.getElementById('decide').scrollIntoView({ block: 'start' }); });
-  });
-  show(null);
 })();
 </script>
 </body>
