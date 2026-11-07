@@ -1,0 +1,56 @@
+
+  ol { margin: 0; padding-left: 14pt; }
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; }
+  .g2.tight { gap: 6pt; margin-top: 6pt; }
+  .box ul, .box ol { font-size: 8.4pt; }
+  .out li { margin-bottom: 2pt; }
+  .check { list-style: none; padding-left: 0; }
+  .check li { padding-left: 12pt; position: relative; }
+  .check li::before { content: ""; position: absolute; left: 0; top: 3pt; width: 6pt; height: 6pt; border: 1.2pt solid var(--navy); border-radius: 1.5pt; }
+  .safe { background: var(--amber-soft); border-color: transparent; }
+  .safe h3 { color: var(--amber); }
+  .ros { display: flex; gap: 2pt; margin-top: 4pt; }
+  .ros div { background: var(--navy-soft); color: var(--navy); border-radius: 4pt; padding: 5pt 7pt; font-size: 8.2pt; font-weight: 600; }
+  .ros div.hl { background: var(--navy); color: #fff; }
+  .ros b { display: block; font-size: 10pt; }
+  .seg { border: 1px solid var(--line); border-radius: 7pt; padding: 7pt 10pt; margin-top: 9pt; }
+  .seg-h { display: flex; gap: 8pt; align-items: center; margin-bottom: 5pt; }
+  .seg-h h3 { margin: 0; font-size: 11pt; }
+  .t { background: var(--navy); color: #fff; font-weight: 700; font-size: 8pt; padding: 2pt 7pt; border-radius: 99px; }
+  .tagl { display: block; font-size: 6.8pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 2pt; }
+  .say { background: var(--bg); border-left: 3pt solid var(--muted); border-radius: 0 5pt 5pt 0; padding: 5pt 8pt; font-size: 8.4pt; margin-bottom: 5pt; }
+  .say .tagl { color: var(--muted); }
+  .ask { background: var(--navy-soft); border-left: 3pt solid var(--navy); border-radius: 0 5pt 5pt 0; padding: 5pt 8pt; font-size: 8.5pt; }
+  .ask .tagl { color: var(--navy); }
+  .ask ol li { margin-bottom: 2pt; }
+  .listen { background: var(--green-soft); border-left: 3pt solid var(--green); border-radius: 0 5pt 5pt 0; padding: 5pt 8pt; font-size: 8.2pt; }
+  .listen .tagl { color: var(--green); }
+  .listen ul { padding-left: 11pt; }
+  .case { border: 1px solid var(--line); border-radius: 7pt; padding: 8pt 10pt; margin-bottom: 9pt; }
+  .case-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4pt 8pt; margin-bottom: 6pt; }
+  .case-h h3 { margin: 0; font-size: 12pt; color: var(--navy); }
+  .badge { background: var(--navy); color: #fff; font-size: 7.5pt; font-weight: 700; padding: 2pt 7pt; border-radius: 99px; }
+  .src { font-size: 7.8pt; color: var(--muted); margin-left: auto; }
+  .case-b { display: grid; grid-template-columns: 1.1fr 1fr; gap: 9pt; margin-bottom: 6pt; }
+  .case-b > div:first-child ul { font-size: 8.5pt; }
+  table.rec { width: 100%; border-collapse: collapse; font-size: 8.2pt; }
+  .rec td { padding: 2.5pt 5pt; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .rec td:first-child { color: var(--muted); font-weight: 600; width: 34%; }
+  .seq { display: grid; grid-template-columns: repeat(5, 1fr); gap: 3pt; }
+  .seq div { background: var(--navy); color: #fff; border-radius: 5pt; padding: 6pt 7pt; font-size: 7.8pt; position: relative; }
+  .seq b { display: block; font-size: 9.2pt; margin-bottom: 1pt; }
+  .seq span { display: block; color: #d6dfec; min-height: 20pt; }
+  .seq em { display: block; font-style: normal; margin-top: 4pt; padding-top: 3pt; border-top: 1px solid rgba(255,255,255,.3); font-weight: 600; font-size: 7.4pt; color: #fff; }
+  .branches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5pt; margin-bottom: 8pt; }
+  .branches div { border-left: 3pt solid var(--c); background: var(--bg); border-radius: 0 4pt 4pt 0; padding: 4pt 7pt; font-size: 8.2pt; }
+  .branches b { display: block; color: var(--c); font-size: 8.6pt; }
+  .resp td:first-child { width: 28%; }
+  .resp td:last-child { width: 17%; white-space: nowrap; }
+  .pill { display: inline-block; font-size: 6.8pt; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 1pt 5pt; border-radius: 99px; }
+  .pill.c { background: var(--green-soft); color: var(--green); }
+  .pill.e { background: var(--red-soft); color: var(--red); }
+  .pill.f { background: var(--navy-soft); color: var(--navy); }
+  .pill.u { background: var(--amber-soft); color: var(--amber); }
+  .acts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5pt; }
+  .acts div { background: var(--bg); border-radius: 4pt; padding: 5pt 7pt; font-size: 8.1pt; }
+  .acts b { display: block; color: var(--navy); font-size: 8.6pt; margin-bottom: 1pt; }

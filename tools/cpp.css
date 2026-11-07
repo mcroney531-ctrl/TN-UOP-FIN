@@ -1,0 +1,34 @@
+
+  .qsub { color: #d6dfec; font-size: 9pt; margin: 2pt 0 0; }
+  .seqbar { display: flex; align-items: center; gap: 5pt; margin: 0 0 8pt; font-size: 9pt; font-weight: 700; }
+  .seqbar span { background: var(--navy); color: #fff; border-radius: 99px; padding: 3pt 9pt; }
+  .seqbar i { color: var(--muted); font-style: normal; }
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; }
+  .st { border: 1px solid var(--line); border-radius: 7pt; padding: 7pt 10pt; font-size: 9pt; }
+  .st ul { padding-left: 13pt; margin: 0 0 4pt; }
+  .st li { margin-bottom: 2pt; }
+  .sth { font-size: 11pt; font-weight: 700; color: var(--navy); margin: 0 0 5pt; display: flex; align-items: center; gap: 5pt; }
+  .sth span { width: 17pt; height: 17pt; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-size: 9pt; }
+  .sth .amp { background: none; color: var(--navy); width: auto; }
+  .sth em { font-style: normal; font-weight: 400; color: var(--muted); font-size: 9pt; margin-left: 4pt; }
+  .nt { background: var(--amber-soft); border-left: 3pt solid var(--amber); border-radius: 0 4pt 4pt 0; padding: 3pt 7pt; margin: 4pt 0 3pt; font-size: 8.6pt; }
+  .mut { color: var(--muted); font-size: 8.4pt; margin: 0; }
+  .val { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 8pt; background: var(--navy-soft); color: var(--navy); padding: 0 3pt; border-radius: 2pt; white-space: nowrap; }
+  .br3 { display: grid; grid-template-columns: 1.45fr 1fr 1fr; gap: 6pt; }
+  .br { border: 2pt solid var(--c); border-radius: 7pt; overflow: hidden; font-size: 8.7pt; }
+  .br.el { --c: var(--green); --cs: var(--green-soft); }
+  .br.no { --c: var(--navy); --cs: var(--navy-soft); }
+  .br.un { --c: var(--amber); --cs: var(--amber-soft); }
+  .brh { background: var(--cs); color: var(--c); margin: 0 0 5pt; padding: 4pt 8pt; font-size: 8.4pt; }
+  .brh b { font-size: 10.5pt; margin-right: 4pt; }
+  .br ul { padding: 0 8pt 0 20pt; margin: 0 0 5pt; }
+  .br li { margin-bottom: 2.5pt; }
+  .lab2 { font-size: 7pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 8pt 3pt; }
+  .two2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4pt; margin: 0 8pt 5pt; }
+  .two2 div { border: 1px solid var(--line); border-radius: 4pt; padding: 4pt 6pt; font-size: 8.3pt; line-height: 1.3; }
+  .two2 b { display: block; font-size: 9pt; }
+  .opn { margin: 0 8pt 8pt; border: 1.5pt dashed var(--red); background: var(--red-soft); border-radius: 5pt; padding: 5pt 7pt; font-size: 8.3pt; line-height: 1.32; }
+  .opn b { color: var(--red); }
+  .ck { list-style: none; padding: 0 !important; columns: 2; column-gap: 16pt; }
+  .ck li { padding-left: 15pt; position: relative; break-inside: avoid; margin-bottom: 3pt; }
+  .ck li::before { content: ""; position: absolute; left: 0; top: 1.5pt; width: 8pt; height: 8pt; border: 1.2pt solid var(--navy); border-radius: 2pt; }
