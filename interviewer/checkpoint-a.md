@@ -182,4 +182,4 @@ Format per entry: **Decision · Rationale · Alternative or tradeoff · Design c
 7. **Open from D84:** you parked which resource to treat as the primary learner-facing sample in the interview (Call Path or slide). Worth deciding before production; the note currently foregrounds the Call Path and practice.
 8. **Packaging:** proposed folder `00 — For Interviewers (not part of Dana's package)` beside Dana's three folders, containing the note and log (HTML + PDF), with relative links between them. The Note could also link to `DECISIONS.md` as the full record (it's in a separate repo, so a copy would need to be included in the ZIP). Your call.
 
-*Length: the Note draft is about 1,900 words, roughly 3 printed pages at the planned type size. Sections 06–07 add about 400 words; without them it fits in about 2.5 pages.*
+*Length: the Note draft is about 1,700 words, roughly 3 printed pages at the planned type size. Sections 06–07 add about 400 words; without them it fits in about 2–2.5 pages.*
