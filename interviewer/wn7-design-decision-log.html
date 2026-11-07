@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Decision Log · WN7</title>
+<meta name="description" content="Interviewer companion: curated design decisions, alternatives and tradeoffs behind the WN7 recovery proposal.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfaf8; --paper: #ffffff; --surface: #f1f2f4; --line: #dcdfe4;
+    --ink: #1b1c1e; --ink-soft: #444850; --ink-muted: #6b6f76;
+    --navy: #1f3a68; --navy-deep: #0a1529; --cobalt: #2f63b8; --tint: #eef3f9;
+    --radius: 10px; --max: 920px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #10141b; --paper: #161b24; --surface: #1d2430; --line: #2b3240; --ink: #e8eaee; --ink-soft: #c3c8d0; --ink-muted: #9aa1ab; --navy: #9dbbec; --cobalt: #8fb0e6; --tint: #1c2533; }
+  }
+  :root[data-theme="dark"] { --bg: #10141b; --paper: #161b24; --surface: #1d2430; --line: #2b3240; --ink: #e8eaee; --ink-soft: #c3c8d0; --ink-muted: #9aa1ab; --navy: #9dbbec; --cobalt: #8fb0e6; --tint: #1c2533; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16.5px/1.62 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+  a { color: var(--navy); text-underline-offset: 2px; }
+  :focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 560px) { .wrap { padding: 0 16px; } body { font-size: 16px; } }
+
+  /* Masthead: same family as Dana's package, marked interviewer-only */
+  .masthead { color: #fff; padding: 30px 0 28px; background:
+      radial-gradient(120% 140% at 100% 0%, rgba(74,112,176,.28) 0%, rgba(74,112,176,0) 55%),
+      linear-gradient(115deg, #0a1529 0%, #12254a 45%, #1f3a68 100%); }
+  .masthead .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
+  .masthead p { margin: 0; }
+  .mast-for { font-size: 12px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; opacity: .85; }
+  .mast-name { margin-top: 6px !important; font-size: clamp(26px, 4vw, 38px); line-height: 1.12; font-weight: 700; letter-spacing: -.01em; }
+  .mast-role { margin-top: 6px !important; font-size: clamp(16px, 2vw, 19px); font-style: italic; opacity: .92; }
+  .mast-logo { width: clamp(120px, 16vw, 170px); height: auto; flex: none; display: block; }
+
+  main { padding: 8px 0 48px; }
+  .lede { margin: 28px 0 0; font-size: 18px; color: var(--ink-soft); max-width: 760px; }
+  h2.sec { display: flex; align-items: baseline; gap: 12px; margin: 44px 0 12px; font-size: 24px; line-height: 1.2; letter-spacing: -.01em; }
+  h2.sec .n { color: var(--cobalt); font-size: 14px; font-weight: 700; letter-spacing: .1em; }
+  p { margin: 0 0 12px; }
+  .soft { color: var(--ink-soft); }
+  .muted { color: var(--ink-muted); }
+  blockquote.pull { margin: 16px 0; padding: 14px 18px; border-left: 4px solid var(--navy); background: var(--paper); border-radius: 0 var(--radius) var(--radius) 0; }
+  blockquote.pull p { margin: 0; font-size: 17px; }
+  @media print { blockquote.pull { margin: 10px 0; padding: 8px 12px; } blockquote.pull p { font-size: 11pt; } ul.tight li { margin-bottom: 3px; } p { margin-bottom: 8px; } }
+  blockquote.pull cite { display: block; margin-top: 6px; font-style: normal; font-size: 13px; color: var(--ink-muted); }
+  ul.tight { margin: 0 0 12px; padding-left: 20px; }
+  ul.tight li { margin: 0 0 6px; }
+  @media print { ul.tight li { margin-bottom: 2px; } ul.tight { margin-bottom: 8px; } }
+  .stat { font-weight: 700; color: var(--ink); }
+  footer.foot { border-top: 1px solid var(--line); padding: 18px 0 40px; font-size: 13px; color: var(--ink-muted); }
+
+  @page { size: Letter; margin: 0.45in 0.6in 0.55in; }
+  @media print {
+    body { background: #fff; font-size: 9.9pt; line-height: 1.38; }
+    :root { --bg: #fff; --paper: #fff; }
+    .wrap { max-width: none; padding: 0; }
+    .masthead { padding: 16px 22px; border-radius: 8px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .masthead .wrap { padding: 0; }
+    .mast-name { font-size: 21pt; } .mast-role { font-size: 12pt; } .mast-logo { width: 120px; }
+    h2.sec { margin: 13px 0 5px; font-size: 14pt; break-after: avoid; }
+    .lede { font-size: 11pt; margin-top: 12px; }
+    a { color: var(--navy); }
+    footer.foot { display: none; }
+  }
+
+  .key { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 18px 0 0; padding: 14px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); font-size: 14px; color: var(--ink-soft); }
+  .key div { display: flex; align-items: baseline; gap: 8px; }
+  .key .attr { flex-basis: 100%; margin: 4px 0 0; }
+  .st { flex: none; display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; line-height: 1.7; white-space: nowrap; }
+  .st-d { background: var(--navy); color: #fff; border: 1.5px solid var(--navy); }
+  :root[data-theme="dark"] .st-d { color: #0a1529; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .st-d { color: #0a1529; } }
+  .st-p { background: var(--paper); color: var(--navy); border: 1.5px solid var(--navy); }
+  .st-r { background: transparent; color: var(--ink-soft); border: 1.5px dashed #8a8f97; }
+  .toc { margin: 14px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: 14px; }
+  .toc a { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--tint); text-decoration: none; color: var(--navy); font-weight: 600; }
+  .grp { margin-top: 36px; }
+  .grp h2 { display: flex; align-items: baseline; gap: 12px; margin: 0 0 12px; font-size: 21px; letter-spacing: -.01em; }
+  .grp h2 .n { color: var(--cobalt); font-size: 14px; font-weight: 700; letter-spacing: .1em; }
+  .entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .entry { background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--navy); border-radius: var(--radius); padding: 14px 18px 12px; }
+  .entry-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; }
+  .entry h3 { margin: 0; font-size: 17px; line-height: 1.3; }
+  .entry h3 .id { color: var(--cobalt); font-size: 13px; font-weight: 700; margin-right: 8px; }
+  .who { margin: 6px 0 10px; font-size: 13px; color: var(--ink-muted); }
+  .who b { color: var(--ink-soft); font-weight: 600; }
+  .fields { margin: 0; display: grid; grid-template-columns: 150px 1fr; gap: 6px 16px; }
+  .fields dt { color: var(--cobalt); font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding-top: 3px; }
+  .fields dd { margin: 0; color: var(--ink-soft); font-size: 15px; }
+  .ref { display: block; margin-top: 8px; text-align: right; font-size: 12px; color: var(--ink-muted); }
+  .back { margin: 26px 0 0; padding: 14px 18px; border: 1px dashed var(--cobalt); border-radius: var(--radius); background: var(--paper); }
+  .back p { margin: 0; }
+  @media (max-width: 600px) { .fields { grid-template-columns: 1fr; gap: 2px; } .fields dd { margin-bottom: 8px; } }
+  @media print {
+    .key { font-size: 9pt; padding: 8px 10px; }
+    .toc { display: none; }
+    .grp { margin-top: 18px; } .grp h2 { font-size: 13.5pt; margin-bottom: 8px; break-after: avoid; }
+    .entries { gap: 8px; }
+    .entry { padding: 9px 12px 7px; break-inside: avoid; }
+    .entry h3 { font-size: 11pt; } .who { font-size: 8.4pt; margin: 3px 0 6px; }
+    .fields { grid-template-columns: 112px 1fr; gap: 3px 10px; } .fields dt { font-size: 7.4pt; } .fields dd { font-size: 9.6pt; }
+    .st { font-size: 7.2pt; } .ref { font-size: 7.6pt; margin-top: 4px; }
+    .back { break-inside: avoid; }
+  }
+
+</style>
+</head>
+<body>
+<div class="masthead">
+  <div class="wrap">
+    <div>
+      <p class="mast-for">For interviewers · Not part of Dana's package</p>
+      <p class="mast-name">Design Decision Log</p>
+      <p class="mast-role">Companion to <i>Behind the Design: WN7 Recovery Strategy</i></p>
+    </div>
+    <img class="mast-logo" src="assets/northstar-logo-white.png" alt="Northstar Home">
+  </div>
+</div>
+<main class="wrap">
+  <p class="lede">A curated record of the choices underneath the five defining decisions: what I chose, why, what I considered or changed, and how it shaped the proposal. It isn't a build history. Each entry traces to the full working log kept during the project (item numbers at the right of each entry).</p>
+  <div class="key" aria-label="How to read this log">
+    <div><span class="st st-d">Designer decision</span>my call as the designer</div>
+    <div><span class="st st-p">Proposed · needs approval</span>depends on an organizational owner</div>
+    <div><span class="st st-r">Required by case materials</span>a constraint from policy or the case record</div>
+    <p class="attr"><b>Raised by</b> names who originated the idea or flag: me, GPT (design reviewer in a separate chat), Claude (builder and source checker), or a case source. <b>Decided by</b> is who made the final call and how: adopted, modified, kept or rejected. Agents suggested; I decided.</p>
+  </div>
+  <ul class="toc" aria-label="Sections">
+<li><a href="#gA">A · Needs assessment and problem framing</a></li>
+<li><a href="#gB">B · Lead alignment and coaching</a></li>
+<li><a href="#gC">C · Guide Call Path and recovery requirements</a></li>
+<li><a href="#gD">D · Practice and scenario design</a></li>
+<li><a href="#gE">E · Huddle design and delivery</a></li>
+<li><a href="#gF">F · Time, coverage and capacity</a></li>
+<li><a href="#gG">G · Rollout, ownership and evaluation</a></li>
+<li><a href="#gH">H · Packaging and communication</a></li>
+</ul>
+<section class="grp" id="gA" aria-labelledby="gA-h"><h2 id="gA-h"><span class="n">A</span>Needs assessment and problem framing</h2><ol class="entries">
+<li class="entry"><div class="entry-top"><h3><span class="id">A1</span>Separate the need from the requested solution</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Me (position); GPT (framing) · <b>Decided by:</b> Me</p>
+<dl class="fields"><dt>Decision</dt><dd>Treat Dana's video request as one possible solution and diagnose the performance problem first.</dd><dt>Rationale</dt><dd>Guides were asking for in-call help ("what I click and what I say"), several causes weren't about training, and completion wouldn't show whether calls changed. Dana also asked for "your best take on what Learning can put in supervisors' hands quickly."</dd><dt>Alternative / tradeoff</dt><dd>Build the five-minute video as requested. I didn't rule it out as a supporting resource.</dd><dt>Consequence</dt><dd>A needs assessment came before any format, and the video narrowed to an optional, conditional Orbit tool walkthrough.</dd></dl>
+<span class="ref">Working log: D35</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">A2</span>Analyze the workbooks before setting priorities</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Claude (flagged the gap); GPT (agreed) · <b>Decided by:</b> Me (approved)</p>
+<dl class="fields"><dt>Decision</dt><dd>Run a data pass on the two Orbit workbooks before locking design targets.</dd><dt>Rationale</dt><dd>The workbooks were the biggest unexamined source. They showed that 70 of 159 eligible calls with a recorded serial check still ended in generic troubleshooting.</dd><dt>Alternative / tradeoff</dt><dd>Design from the qualitative notes alone. GPT later corrected an over-reading: the 44% figure supports investigating the check-to-action gap; it doesn't mean 44% of Guides need a video.</dd><dt>Consequence</dt><dd>The 70-of-159 figure anchors the Lead meeting (Case B) and the email, always framed as a recorded check, not proof of understanding.</dd></dl>
+<span class="ref">Working log: D64, D72</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">A3</span>Fix design targets before choosing formats</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Me; GPT (review rounds) · <b>Decided by:</b> Me (locked)</p>
+<dl class="fields"><dt>Decision</dt><dd>Lock five design targets (end-to-end Guide performance, Lead calibration, in-call support, operational readiness, a small capacity-conscious pilot) before deciding any resource format.</dd><dt>Rationale</dt><dd>Picking formats first would have rebuilt the video request in other shapes. Each resource needed a defined job.</dd><dt>Alternative / tradeoff</dt><dd>GPT's proposed organizer structure was parked rather than adopted, and the working rule became no format until its job is established.</dd><dt>Consequence</dt><dd>Every later resource maps to one of the five targets.</dd></dl>
+<span class="ref">Working log: D65, D67, D68</span></li>
+</ol></section>
+<section class="grp" id="gB" aria-labelledby="gB-h"><h2 id="gB-h"><span class="n">B</span>Lead alignment and coaching</h2><ol class="entries">
+<li class="entry"><div class="entry-top"><h3><span class="id">B4</span>Lead-anchored, but not a gate on Guides</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Me; Claude (evidence); GPT (reframe) · <b>Decided by:</b> Me</p>
+<dl class="fields"><dt>Decision</dt><dd>Anchor the design in Leads while Guide support develops in parallel.</dd><dt>Rationale</dt><dd>Guides can't carry out a process their Leads haven't been aligned on, and Leads can't give consistent feedback without knowing what to look for. The release had already relied on Leads without equipping them.</dd><dt>Alternative / tradeoff</dt><dd>GPT's three-layer model (foundation, reinforcement, execution) was noted but not adopted. "First" was deliberately not treated as a gate.</dd><dt>Consequence</dt><dd>Lead alignment leads the rollout, and Guides apply approved guidance on live calls right away.</dd></dl>
+<span class="ref">Working log: D45</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">B5</span>Calibrate through cases, not a Lead knowledge test</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Me (the question); GPT (assessment idea); Claude (evidence review) · <b>Decided by:</b> Me (working answer)</p>
+<dl class="fields"><dt>Decision</dt><dd>Treat Lead readiness as a gap in what reached Leads, and calibrate through realistic cases rather than testing WN7 knowledge.</dd><dt>Rationale</dt><dd>The packet showed strong knowledge in some Leads and uncertainty in others, with no baseline. Leads asked for cues and clips, not WN7 training.</dd><dt>Alternative / tradeoff</dt><dd>A three-dimension Lead readiness model with a WN7 knowledge assessment (GPT), not adopted because it would solve an unestablished problem. The gap between what Leads asked for and what they may need stays an open uncertainty.</dd><dt>Consequence</dt><dd>The meeting opens with a 3-minute verified-current-state refresh, and understanding shows up in the case discussion.</dd></dl>
+<span class="ref">Working log: D66</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">B6</span>Meeting length: 25, then 20, then 25 minutes</h3><span class="st st-p">Proposed · needs approval</span></div>
+<p class="who"><b>Raised by:</b> GPT (25 minutes; agenda splits) · <b>Decided by:</b> Me (20, then back to 25; the final split)</p>
+<dl class="fields"><dt>Decision</dt><dd>A 25-minute working meeting, agenda 3 · 9 · 10 · 3, with the middle 19 minutes run as one exercise.</dd><dt>Rationale</dt><dd>Twenty minutes left too little room for the cases and alignment. The extra time goes to discussion, not presentation.</dd><dt>Alternative / tradeoff</dt><dd>Twenty minutes, which better fit the evidence on Lead time ("one Lead could spare ten minutes"; Priya's "smallest manager behavior"). The trade-off is Lead time against one session replacing fragmented coaching later.</dd><dt>Consequence</dt><dd>The locked Lead Meeting Plan. Scheduling is subject to Workforce and Care leadership.</dd></dl>
+<span class="ref">Working log: D69, D79</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">B7</span>Two cases, and no second Plus case</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Me (two cases); GPT (move the ineligible case); Claude (candidates, composite label) · <b>Decided by:</b> Me (locked)</p>
+<dl class="fields"><dt>Decision</dt><dd>Case A: a documented strong recovery where the Plus credit hadn't applied. Case B: a labeled composite in which the serial was checked but troubleshooting continued, ending with what the Lead would check first.</dd><dt>Rationale</dt><dd>One case shows the standard; the other practices diagnosing before coaching, which the 70-of-159 pattern called for.</dd><dt>Alternative / tradeoff</dt><dd>A second Plus case, rejected because Plus was already covered and it would have cost the diagnostic practice. The ineligible case moved to Guide practice.</dd><dt>Consequence</dt><dd>Case B is presented as a call record built from real data fields and labeled a composite, not as a real call.</dd></dl>
+<span class="ref">Working log: D73, D80</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">B8</span>Example bank becomes Coaching Cues</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Me (excerpts idea); GPT (bank structure); Claude (no transcripts exist) · <b>Decided by:</b> Me (cheat sheet, renamed Coaching Cues)</p>
+<dl class="fields"><dt>Decision</dt><dd>Put coaching examples on a one-page Coaching Cues sheet rather than a separate excerpt bank.</dd><dt>Rationale</dt><dd>Leads asked for "a clip and a cue." The packet has descriptions of calls, not transcripts.</dd><dt>Alternative / tradeoff</dt><dd>A 3–5 excerpt bank of real calls. Only verified recordings would be labeled real excerpts; otherwise lines are illustrative.</dd><dt>Consequence</dt><dd>Coaching Cues uses sample Lead lines written as illustrations, not scripts.</dd></dl>
+<span class="ref">Working log: D74, D76</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">B9</span>INVESTIGATE before coach or escalate</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Claude (in drafting) · <b>Decided by:</b> Me (kept)</p>
+<dl class="fields"><dt>Decision</dt><dd>Add INVESTIGATE as a Lead response type when a Guide keeps troubleshooting after eligibility was verified.</dd><dt>Rationale</dt><dd>Coaching before the cause is found is the mistake the Lead materials are meant to prevent.</dd><dt>Alternative / tradeoff</dt><dd>Only coach, escalate or flag.</dd><dt>Consequence</dt><dd>The Quick Reference response key, and the diagnose-first move in Coaching Cues.</dd></dl>
+<span class="ref">Working log: D105, D106</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">B10</span>Don't infer Orbit confusion from call timing</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Claude (original signal, in drafting) · <b>Decided by:</b> Me (corrected)</p>
+<dl class="fields"><dt>Decision</dt><dd>Replace the signal "a long pause, hold or transfer" with the Guide expressing uncertainty about which Orbit result counts.</dd><dt>Rationale</dt><dd>Call timing has many causes and shouldn't be read as Orbit confusion.</dd><dt>Alternative / tradeoff</dt><dd>Keep the inferred behavioral signal.</dd><dt>Consequence</dt><dd>Coaching Cues wording.</dd></dl>
+<span class="ref">Working log: D108</span></li>
+</ol></section>
+<section class="grp" id="gC" aria-labelledby="gC-h"><h2 id="gC-h"><span class="n">C</span>Guide Call Path and recovery requirements</h2><ol class="entries">
+<li class="entry"><div class="entry-top"><h3><span class="id">C11</span>One authority, one job per resource</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> GPT (design rules) · <b>Decided by:</b> Me (adopted)</p>
+<dl class="fields"><dt>Decision</dt><dd>Beacon owns procedures and policy; every other resource points there and has a single job.</dd><dt>Rationale</dt><dd>Uncoordinated chat notes, workarounds and drafts had already caused confusion (Sep 8). A second source of procedure would repeat that.</dd><dt>Alternative / tradeoff</dt><dd>A fuller Guide reference that restates BH-4419.</dd><dt>Consequence</dt><dd>The Call Path is deliberately short and non-procedural, and links to the Orbit panel directly rather than through Beacon.</dd></dl>
+<span class="ref">Working log: D76</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">C12</span>Three branches, including No clear result</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> GPT (pending/unclear state); Claude (show all branches) · <b>Decided by:</b> Me</p>
+<dl class="fields"><dt>Decision</dt><dd>Show Eligible, Not eligible and No clear result, not just the recovery path.</dd><dt>Rationale</dt><dd>A recovery-only path teaches "WN7 = replacement", and about half of WN7-product calls in the data weren't eligible. Missing serials or an unavailable tool need a route, not a forced choice.</dd><dt>Alternative / tradeoff</dt><dd>A single recovery path, with ineligible handling left to Beacon.</dd><dt>Consequence</dt><dd>Branching in the Call Path, the practice and the huddle slide.</dd></dl>
+<span class="ref">Working log: D76, D84</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">C13</span>Don't fill policy gaps</h3><span class="st st-r">Required by case materials</span></div>
+<p class="who"><b>Raised by:</b> Claude (source audit) · <b>Decided by:</b> Me</p>
+<dl class="fields"><dt>Decision</dt><dd>Treat anything not showing Applied as not complete; leave the eligibility-review follow-up expectation and the Lead-unavailable fallback to their owners.</dd><dt>Rationale</dt><dd>PO-117 covers a failed transaction, not a pending one, and doesn't define the follow-up expectation. A first draft wrongly implied it did.</dd><dt>Alternative / tradeoff</dt><dd>Write the missing guidance ourselves.</dd><dt>Consequence</dt><dd>Before-release dependencies are shown inline, and the Ownership Map lists their owners. Owner confirmation is pending.</dd></dl>
+<span class="ref">Working log: D110; CALL_PATH_AUDIT</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">C14</span>"Check that the customer understands"</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Me (wording); Claude (audit gap 3) · <b>Decided by:</b> Me</p>
+<dl class="fields"><dt>Decision</dt><dd>Use "Check that the customer understands the next step."</dd><dt>Rationale</dt><dd>More natural on a live call.</dd><dt>Alternative / tradeoff</dt><dd>PO-117's more specific "invite the customer to repeat back." The difference is recorded in the audit rather than hidden; the two don't contradict.</dd><dt>Consequence</dt><dd>Call Path wording, with a known, documented gap.</dd></dl>
+<span class="ref">Working log: D110, D111</span></li>
+</ol></section>
+<section class="grp" id="gD" aria-labelledby="gD-h"><h2 id="gD-h"><span class="n">D</span>Practice and scenario design</h2><ol class="entries">
+<li class="entry"><div class="entry-top"><h3><span class="id">D15</span>Individual practice replaces the micro-huddle</h3><span class="st st-p">Proposed · needs approval</span></div>
+<p class="who"><b>Raised by:</b> Me + GPT; Claude (critique) · <b>Decided by:</b> Me (scope correction)</p>
+<dl class="fields"><dt>Decision</dt><dd>Replace the proposed 3–5 minute Guide micro-huddle with an individual digital scenario, keeping the team huddle and slide.</dd><dt>Rationale</dt><dd>It frees practice from another live session, works in scheduled time and tests application.</dd><dt>Alternative / tradeoff</dt><dd>Claude first read the change as replacing the whole huddle and suggested dropping the slide; I kept both.</dd><dt>Consequence</dt><dd>Huddle and slide, then individual practice, then live Call Path use, then coaching. Sana delivery and practice time still need confirmation.</dd></dl>
+<span class="ref">Working log: D84, D87</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">D16</span>Not eligible as the primary scenario</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Claude (forces a decision); Rina, Sep 18 (evidence) · <b>Decided by:</b> Me</p>
+<dl class="fields"><dt>Decision</dt><dd>Build the practice around a WN7-pattern call whose serial returns Not eligible.</dd><dt>Rationale</dt><dd>Recognizing the pattern isn't eligibility; "the easy example always has a happy ending." It also needs no unapproved Plus wording.</dd><dt>Alternative / tradeoff</dt><dd>An eligible recovery, or a pending-Plus case, which is blocked on policy.</dd><dt>Consequence</dt><dd>Make the Call.</dd></dl>
+<span class="ref">Working log: D84, D111</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">D17</span>Fictionalize openly</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Claude (in drafting) · <b>Decided by:</b> Me (required explicit framing)</p>
+<dl class="fields"><dt>Decision</dt><dd>Add the WN7 symptoms to an ineligible case informed by a documented call, and say so.</dd><dt>Rationale</dt><dd>The documented call had a different symptom, and the sharper version better teaches "check, don't qualify."</dd><dt>Alternative / tradeoff</dt><dd>Present it as a reconstruction of the real call.</dd><dt>Consequence</dt><dd>The intro and call card state that it's fictionalized; the simulated Orbit result is labeled.</dd></dl>
+<span class="ref">Working log: D112, D113</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">D18</span>No scoring; completion isn't competence</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> GPT · <b>Decided by:</b> Me (adopted)</p>
+<dl class="fields"><dt>Decision</dt><dd>Free-text decisions compared with model responses, with no grade. Opened or finished may be tracked as an operational measure only.</dd><dt>Rationale</dt><dd>A score would imply proficiency the exercise can't establish.</dd><dt>Alternative / tradeoff</dt><dd>Scored quiz items.</dd><dt>Consequence</dt><dd>Delivery is reported as reach everywhere in the plan.</dd></dl>
+<span class="ref">Working log: D87</span></li>
+</ol></section>
+<section class="grp" id="gE" aria-labelledby="gE-h"><h2 id="gE-h"><span class="n">E</span>Huddle design and delivery</h2><ol class="entries">
+<li class="entry"><div class="entry-top"><h3><span class="id">E19</span>A lean, Lead-facilitated slide that keeps the Plus requirement</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> GPT (keep it lean; later, "if applicable"); Claude (source check) · <b>Decided by:</b> Me</p>
+<dl class="fields"><dt>Decision</dt><dd>One 16:9 slide Leads present: five steps, three branches, a recognition cue, and "For an eligible serial, both" at Complete.</dd><dt>Rationale</dt><dd>Finance, PO-117 and the locked Call Path all require both the replacement and the credit for an eligible serial.</dd><dt>Alternative / tradeoff</dt><dd>"Plus credit (if applicable)", rejected. A busier slide that becomes a second Call Path, avoided.</dd><dt>Consequence</dt><dd>The locked huddle slide (HTML + PDF).</dd></dl>
+<span class="ref">Working log: D84, D129, D130</span></li>
+</ol></section>
+<section class="grp" id="gF" aria-labelledby="gF-h"><h2 id="gF-h"><span class="n">F</span>Time, coverage and capacity</h2><ol class="entries">
+<li class="entry"><div class="entry-top"><h3><span class="id">F20</span>Route Specialist help through Leads</h3><span class="st st-p">Proposed · needs approval</span></div>
+<p class="who"><b>Raised by:</b> Me (intent: a live safety net); Claude (routing); GPT (refinements) · <b>Decided by:</b> Me (two approvals under Mateo)</p>
+<dl class="fields"><dt>Decision</dt><dd>During initial rollout only, rotating Specialists may clarify questions in the Lead thread, as capacity allows.</dd><dt>Rationale</dt><dd>Specialist Care is the tightest capacity in the case, and a Guide–Specialist side chat would repeat the Sep 8 information sprawl.</dd><dt>Alternative / tradeoff</dt><dd>Specialist shadowing, then a Guide-facing Specialist chat buddy: explored first, then replaced by routing through Leads.</dd><dt>Consequence</dt><dd>Mateo gives two separate approvals (A: the Lead meeting, B: the thread). If capacity allows only one, the Lead meeting comes first.</dd></dl>
+<span class="ref">Working log: D85, D94</span></li>
+</ol></section>
+<section class="grp" id="gG" aria-labelledby="gG-h"><h2 id="gG-h"><span class="n">G</span>Rollout, ownership and evaluation</h2><ol class="entries">
+<li class="entry"><div class="entry-top"><h3><span class="id">G21</span>Define success before the plan; no numeric targets</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Me; GPT (rename) · <b>Decided by:</b> Me</p>
+<dl class="fields"><dt>Decision</dt><dd>Write the success definition (Guide execution, customer recovery, operational capacity) before any rollout sequence, and test each phase against it.</dd><dt>Rationale</dt><dd>Each element should trace back to a success outcome. Numbers would be invented.</dd><dt>Alternative / tradeoff</dt><dd>An "Observable Execution Rubric", renamed to indicators because "rubric" implies scoring.</dd><dt>Consequence</dt><dd>Six observable indicators, and no thresholds anywhere in the proposal.</dd></dl>
+<span class="ref">Working log: D88, D89</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">G22</span>A baseline that can't deadlock the pilot</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> Me + GPT · <b>Decided by:</b> Me</p>
+<dl class="fields"><dt>Decision</dt><dd>Quality sets a defensible comparison method; where call evidence is missing, it states the baseline's limits instead of claiming indicator-level gains.</dd><dt>Rationale</dt><dd>Requiring a fully reconstructed baseline could block the pilot indefinitely.</dd><dt>Alternative / tradeoff</dt><dd>Making the full six-indicator baseline a launch prerequisite.</dd><dt>Consequence</dt><dd>Rollout plan pages 2–4.</dd></dl>
+<span class="ref">Working log: D93, D99</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">G23</span>Confirmed, proposed, to confirm, in three readiness tiers</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> GPT (brief and review); Claude (flags) · <b>Decided by:</b> Me</p>
+<dl class="fields"><dt>Decision</dt><dd>Label every ownership line by evidence status, and separate launch blockers from evaluation-stage and only-if-used items.</dd><dt>Rationale</dt><dd>The organization shouldn't look more settled than the evidence supports.</dd><dt>Alternative / tradeoff</dt><dd>A RACI matrix, avoided. A thread Admin as a hard launch condition was made conditional on the thread opening.</dd><dt>Consequence</dt><dd>The Ownership Map and the Rollout Plan Overview.</dd></dl>
+<span class="ref">Working log: D122–D124, D126</span></li>
+</ol></section>
+<section class="grp" id="gH" aria-labelledby="gH-h"><h2 id="gH-h"><span class="n">H</span>Packaging and communication</h2><ol class="entries">
+<li class="entry"><div class="entry-top"><h3><span class="id">H24</span>Three front-door overviews before the detail</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> GPT (structure) · <b>Decided by:</b> Me (agreed; removed Related Plans)</p>
+<dl class="fields"><dt>Decision</dt><dd>The ZIP has three folders: 01 Start Here (three overviews), 02 Detailed Planning, 03 Learning Resources.</dd><dt>Rationale</dt><dd>Dana should be able to orient herself in minutes before the five-page plan.</dd><dt>Alternative / tradeoff</dt><dd>Related Plans as a section inside the Resource Overview.</dd><dt>Consequence</dt><dd>The packaging contract and the email's navigation.</dd></dl>
+<span class="ref">Working log: D115–D117, D131</span></li>
+<li class="entry"><div class="entry-top"><h3><span class="id">H25</span>The email argues before it navigates</h3><span class="st st-d">Designer decision</span></div>
+<p class="who"><b>Raised by:</b> GPT (brief); Claude (attribution check) · <b>Decided by:</b> Me (final edits)</p>
+<dl class="fields"><dt>Decision</dt><dd>Open with my needs assessment and evidence, then the rationale, then the folders.</dd><dt>Rationale</dt><dd>The email needs to persuade Dana to open the materials, not list them.</dd><dt>Alternative / tradeoff</dt><dd>A deliverables handoff. An observation the brief attributed to a Guide was actually Priya's summary; the email quotes each person accurately and anonymizes the Guide's example.</dd><dt>Consequence</dt><dd>The locked pre-read email.</dd></dl>
+<span class="ref">Working log: D131–D136</span></li>
+</ol></section>
+<div class="back"><p>The five decisions with the most influence on the strategy, plus harness use and open uncertainties, are in <a href="wn7-behind-the-design.html"><b>Behind the Design: WN7 Recovery Strategy</b></a>.</p></div>
+</main>
+<footer class="foot"><div class="wrap">Interviewer material, separate from the materials for Dana. Item numbers refer to the project's working decision log, which isn't included in the package. Fictional work sample; Northstar Home, its people and its data are synthetic.</div></footer>
+</body>
+</html>

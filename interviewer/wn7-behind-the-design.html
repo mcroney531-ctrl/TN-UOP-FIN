@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Behind the Design · WN7</title>
+<meta name="description" content="Interviewer note: how the WN7 recovery strategy was designed, the five decisions that shaped it, harness use, and open uncertainties.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbfaf8; --paper: #ffffff; --surface: #f1f2f4; --line: #dcdfe4;
+    --ink: #1b1c1e; --ink-soft: #444850; --ink-muted: #6b6f76;
+    --navy: #1f3a68; --navy-deep: #0a1529; --cobalt: #2f63b8; --tint: #eef3f9;
+    --radius: 10px; --max: 920px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #10141b; --paper: #161b24; --surface: #1d2430; --line: #2b3240; --ink: #e8eaee; --ink-soft: #c3c8d0; --ink-muted: #9aa1ab; --navy: #9dbbec; --cobalt: #8fb0e6; --tint: #1c2533; }
+  }
+  :root[data-theme="dark"] { --bg: #10141b; --paper: #161b24; --surface: #1d2430; --line: #2b3240; --ink: #e8eaee; --ink-soft: #c3c8d0; --ink-muted: #9aa1ab; --navy: #9dbbec; --cobalt: #8fb0e6; --tint: #1c2533; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16.5px/1.62 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+  a { color: var(--navy); text-underline-offset: 2px; }
+  :focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 4px; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 560px) { .wrap { padding: 0 16px; } body { font-size: 16px; } }
+
+  /* Masthead: same family as Dana's package, marked interviewer-only */
+  .masthead { color: #fff; padding: 30px 0 28px; background:
+      radial-gradient(120% 140% at 100% 0%, rgba(74,112,176,.28) 0%, rgba(74,112,176,0) 55%),
+      linear-gradient(115deg, #0a1529 0%, #12254a 45%, #1f3a68 100%); }
+  .masthead .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px 32px; flex-wrap: wrap; }
+  .masthead p { margin: 0; }
+  .mast-for { font-size: 12px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; opacity: .85; }
+  .mast-name { margin-top: 6px !important; font-size: clamp(26px, 4vw, 38px); line-height: 1.12; font-weight: 700; letter-spacing: -.01em; }
+  .mast-role { margin-top: 6px !important; font-size: clamp(16px, 2vw, 19px); font-style: italic; opacity: .92; }
+  .mast-logo { width: clamp(120px, 16vw, 170px); height: auto; flex: none; display: block; }
+
+  main { padding: 8px 0 48px; }
+  .lede { margin: 28px 0 0; font-size: 18px; color: var(--ink-soft); max-width: 760px; }
+  h2.sec { display: flex; align-items: baseline; gap: 12px; margin: 44px 0 12px; font-size: 24px; line-height: 1.2; letter-spacing: -.01em; }
+  h2.sec .n { color: var(--cobalt); font-size: 14px; font-weight: 700; letter-spacing: .1em; }
+  p { margin: 0 0 12px; }
+  .soft { color: var(--ink-soft); }
+  .muted { color: var(--ink-muted); }
+  blockquote.pull { margin: 16px 0; padding: 14px 18px; border-left: 4px solid var(--navy); background: var(--paper); border-radius: 0 var(--radius) var(--radius) 0; }
+  blockquote.pull p { margin: 0; font-size: 17px; }
+  @media print { blockquote.pull { margin: 10px 0; padding: 8px 12px; } blockquote.pull p { font-size: 11pt; } ul.tight li { margin-bottom: 3px; } p { margin-bottom: 8px; } }
+  blockquote.pull cite { display: block; margin-top: 6px; font-style: normal; font-size: 13px; color: var(--ink-muted); }
+  ul.tight { margin: 0 0 12px; padding-left: 20px; }
+  ul.tight li { margin: 0 0 6px; }
+  @media print { ul.tight li { margin-bottom: 2px; } ul.tight { margin-bottom: 8px; } }
+  .stat { font-weight: 700; color: var(--ink); }
+  footer.foot { border-top: 1px solid var(--line); padding: 18px 0 40px; font-size: 13px; color: var(--ink-muted); }
+
+  @page { size: Letter; margin: 0.45in 0.6in 0.55in; }
+  @media print {
+    body { background: #fff; font-size: 9.9pt; line-height: 1.38; }
+    :root { --bg: #fff; --paper: #fff; }
+    .wrap { max-width: none; padding: 0; }
+    .masthead { padding: 16px 22px; border-radius: 8px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .masthead .wrap { padding: 0; }
+    .mast-name { font-size: 21pt; } .mast-role { font-size: 12pt; } .mast-logo { width: 120px; }
+    h2.sec { margin: 13px 0 5px; font-size: 14pt; break-after: avoid; }
+    .lede { font-size: 11pt; margin-top: 12px; }
+    a { color: var(--navy); }
+    footer.foot { display: none; }
+  }
+
+  .decisions { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 14px; counter-reset: d; }
+  .dec { position: relative; background: var(--paper); border: 1px solid var(--line); border-left: 5px solid var(--navy); border-radius: var(--radius); padding: 18px 20px 16px 76px; }
+  .dec::before { counter-increment: d; content: counter(d); position: absolute; left: 18px; top: 16px; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--navy); color: #fff; font-size: 20px; font-weight: 700; }
+  :root[data-theme="dark"] .dec::before { color: #0a1529; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .dec::before { color: #0a1529; } }
+  .dec h3 { margin: 4px 0 10px; font-size: 19px; line-height: 1.25; }
+  .dec dl { margin: 0; display: grid; grid-template-columns: 118px 1fr; gap: 6px 14px; }
+  .dec dt { color: var(--cobalt); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding-top: 3px; }
+  .dec dd { margin: 0; color: var(--ink-soft); }
+  .dec .evolve { margin: 10px 0 0; padding: 8px 12px; background: var(--tint); border-radius: 8px; font-size: 14.5px; color: var(--ink-soft); }
+  .dec .evolve b { color: var(--ink); }
+  @media (max-width: 600px) { .dec { padding: 64px 16px 14px; } .dec::before { left: 16px; top: 14px; } .dec dl { grid-template-columns: 1fr; gap: 2px; } .dec dd { margin-bottom: 8px; } }
+
+  .sources { display: grid; gap: 10px; margin: 14px 0 0; }
+  @media (min-width: 720px) { .sources { grid-template-columns: repeat(4, 1fr); } }
+  .src { background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--cobalt); border-radius: 8px; padding: 10px 12px; font-size: 13.5px; line-height: 1.45; color: var(--ink-soft); }
+  .src b { display: block; margin-bottom: 4px; color: var(--ink); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+
+  .bridge { margin: 18px 0 0; padding: 14px 18px; border: 1px dashed var(--cobalt); border-radius: var(--radius); background: var(--paper); }
+  .bridge p { margin: 0; }
+  .samples { margin: 12px 0 0; padding: 12px 16px; background: var(--tint); border-radius: var(--radius); font-size: 15px; }
+  .samples p { margin: 0; }
+
+  .harness { margin: 14px 0 0; padding: 20px 22px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line); border-top: 5px solid var(--cobalt); }
+  .roles { display: grid; gap: 10px; margin: 6px 0 14px; }
+  @media (min-width: 720px) { .roles { grid-template-columns: repeat(3, 1fr); } }
+  .role { padding: 10px 12px; border-radius: 8px; background: var(--tint); font-size: 14px; line-height: 1.45; color: var(--ink-soft); }
+  .role b { display: block; color: var(--ink); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 2px; }
+  .checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .check { display: grid; grid-template-columns: 150px 1fr; gap: 4px 16px; padding: 10px 0 0; border-top: 1px solid var(--line); }
+  .check .k { color: var(--cobalt); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding-top: 3px; }
+  .check p { margin: 0; color: var(--ink-soft); }
+  .check p b { color: var(--ink); }
+  @media (max-width: 600px) { .check { grid-template-columns: 1fr; } }
+
+  .three { display: grid; gap: 12px; margin: 10px 0 0; }
+  @media (min-width: 720px) { .three { grid-template-columns: repeat(3, 1fr); } }
+  .three div { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 15px; color: var(--ink-soft); }
+  .three b { display: block; color: var(--ink); margin-bottom: 4px; }
+
+  .closing { margin: 34px 0 0; padding: 22px 24px; border-radius: 12px; color: #fff;
+    background: radial-gradient(120% 140% at 100% 0%, rgba(74,112,176,.28) 0%, rgba(74,112,176,0) 55%), linear-gradient(115deg, #0a1529 0%, #12254a 45%, #1f3a68 100%); }
+  .closing h2 { margin: 0 0 8px; font-size: 18px; letter-spacing: .02em; }
+  .closing p { margin: 0; font-size: 17px; line-height: 1.6; opacity: .96; }
+
+  .pair { display: grid; gap: 0 28px; }
+  @media (min-width: 860px) { .pair { grid-template-columns: 1fr 1fr; } }
+  @media print {
+    .pair { grid-template-columns: 1fr 1fr; }
+    .dec { padding: 10px 14px 8px 58px; break-inside: auto; }
+    .dec dd { orphans: 3; widows: 3; } .dec h3 { break-after: avoid; }
+    .dec::before { width: 30px; height: 30px; font-size: 13pt; left: 14px; top: 10px; }
+    .dec h3 { font-size: 12.5pt; margin: 2px 0 6px; }
+    .dec dl { display: block; }
+    .dec dt { display: inline; font-size: 7.4pt; margin-right: 5px; }
+    .dec dd { display: inline; }
+    .dec dd::after { content: ""; display: block; margin-bottom: 3px; }
+    .dec .evolve { font-size: 9.6pt; padding: 6px 10px; margin-top: 6px; }
+    .decisions { gap: 9px; }
+    .sources { grid-template-columns: repeat(4, 1fr); } .src { font-size: 8.8pt; padding: 7px 9px; }
+    .harness { padding: 14px 16px; break-inside: auto; }
+    .roles { grid-template-columns: repeat(3, 1fr); } .role { font-size: 9.2pt; padding: 7px 9px; }
+    .check { grid-template-columns: 120px 1fr; break-inside: avoid; } .check .k { font-size: 7.5pt; }
+    .three { grid-template-columns: repeat(3, 1fr); } .three div { font-size: 9.2pt; padding: 6px 9px; line-height: 1.35; break-inside: avoid; }
+    .closing { break-inside: avoid; -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 9px 14px; margin-top: 10px; }
+    .closing h2 { font-size: 10.5pt; margin-bottom: 3px; } .closing p { font-size: 9.9pt; line-height: 1.4; }
+    .bridge, .samples, blockquote.pull { break-inside: avoid; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="wrap">
+    <div>
+      <p class="mast-for">For interviewers · Not part of Dana's package</p>
+      <p class="mast-name">Behind the Design: WN7 Recovery Strategy</p>
+      <p class="mast-role">An LxD decision-making and reflection note</p>
+    </div>
+    <img class="mast-logo" src="assets/northstar-logo-white.png" alt="Northstar Home">
+  </div>
+</div>
+
+<main class="wrap">
+  <p class="lede">This note explains how I approached the Northstar WN7 case: how I reframed the request, the five decisions that shaped the proposal, how I worked with my coding-agent harness, and what remains uncertain. Northstar Home and everything in the case are fictional.</p>
+
+  <section aria-labelledby="s1">
+    <h2 class="sec" id="s1"><span class="n">01</span>From request to performance problem</h2>
+    <p>Dana asked for a five-minute video to help Guides handle upset callers without losing control of the conversation, and she needed something practical for supervisors within days. I treated the video as a proposed solution rather than a diagnosis. Before choosing a format, I worked through the Orbit call sample and operations data, meeting notes and threads, Guide and Lead feedback, and the recovery guidance itself.</p>
+    <p>The data pointed somewhere specific. In a systematic sample of 204 eligible General Care calls from September 21–30, <span class="stat">115 (56%) went through generic troubleshooting</span> instead of recovery. Of the 159 with a serial check recorded, <span class="stat">70 still ended in generic troubleshooting</span>.</p>
+    <p>That established a performance gap between identifying an eligible customer and completing the recovery. It didn't establish the cause. A recorded check doesn't show what a Guide saw or understood, and the qualitative sources pointed several ways at once: unclear Plus answers, an Orbit result some Guides couldn't read, uneven access, inconsistent Lead messaging.</p>
+    <blockquote class="pull"><p>"I hear a search problem, an eligibility problem, a conversation problem, and a completion problem."</p><cite>Priya Bell, Manager of General Care · September 18 shift feedback</cite></blockquote>
+    <p>Keeping the gap and its possible causes separate shaped everything after it.</p>
+
+    <div class="sources" aria-label="Key sources">
+      <div class="src"><b>Quantitative</b>Orbit call sample, Sep 21–30 (204 eligible calls); Orbit operations data</div>
+      <div class="src"><b>Qualitative</b>Sep 18 shift feedback; Sep 22 Guide comments; Sep 24 listening notes; Lead requests in Quality's team notes</div>
+      <div class="src"><b>Policy authority</b>BH-4419 and the PO-117 care desk bulletin; Sep 10 Product and Care approval call</div>
+      <div class="src"><b>Operational constraints</b>Sep 19 workforce planning; Sep 21 care systems sync; Oct 1 CX check-in</div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s2">
+    <h2 class="sec" id="s2"><span class="n">02</span>Five decisions that shaped the strategy</h2>
+    <p class="soft">These weren't all obvious at the start. Some came early; others changed as the evidence and feedback came in.</p>
+    <ol class="decisions">
+      <li class="dec"><h3>Align Leads before expanding to Guides</h3>
+        <dl><dt>Decision</dt><dd>Make Lead alignment the foundation, with Guide support built on top of it.</dd>
+          <dt>Why</dt><dd>Guides go to their Leads mid-call, and the release had already relied on Leads to pass the change along without equipping them: two Leads said their Guides first heard about BH-4419 from a reviewer. If Leads give different answers, Guide training can't produce consistent calls.</dd>
+          <dt>What changed</dt><dd>The first resource became a 25-minute working meeting built on two cases, with two one-page references Leads keep. The rollout aligns each Lead before their own Guides start, and the Lead's role moved from "pass this on" to diagnosing and coaching against one standard.</dd></dl></li>
+      <li class="dec"><h3>Address performance, not just knowledge</h3>
+        <dl><dt>Decision</dt><dd>Treat the gap as a performance problem with learning and non-learning causes.</dd>
+          <dt>Why</dt><dd>A Lead put it plainly: "People can tell you all five CLEAR steps in a quiz. The issue is the pivot from listening to acting." Several barriers weren't about knowledge at all: no approved answer for a pending Plus credit, an Orbit result some Guides couldn't locate, possible permission gaps. A video can communicate the process; it can't fix those.</dd>
+          <dt>What changed</dt><dd>The package pairs learning with in-the-moment support (the Guide Call Path) and makes operational validation part of the plan, naming who must confirm Plus guidance, Orbit access and delivery before any Guide sees it. The video wasn't discarded: the plan keeps a narrower Orbit tool walkthrough only as an optional item, not a launch prerequisite, and only if an approved screen reference and General Care access are confirmed.</dd></dl></li>
+      <li class="dec"><h3>Differentiate support by audience</h3>
+        <dl><dt>Decision</dt><dd>Design around what each audience has to do, not one course for everyone.</dd>
+          <dt>Why</dt><dd>Leads need to recognize good execution, diagnose a breakdown before coaching it, and tell a performance gap from an operational blocker. Guides need the next step at the moment of decision and a chance to practice the hard call before it counts.</dd>
+          <dt>What changed</dt><dd>Leads get the meeting, a Quick Reference and Coaching Cues. Guides get the Call Path and a short individual practice, connected through the huddles Leads already run with one Lead-facilitated slide. The practice, <i>Make the Call</i>, centers on a <b>Not eligible</b> result: the symptoms fit the WN7 pattern but the serial doesn't qualify, so the Guide has to make and explain the decision without promising an unsupported recovery. A Guide asked for exactly that: "A practice case with an ineligible unit would help, because the easy example always has a happy ending."</dd></dl>
+        <p class="evolve"><b>How it evolved:</b> I first proposed a short Guide practice huddle. It became an individual digital scenario, which kept practice out of an extra live session while the team huddle and slide stayed as the place Leads introduce the change.</p></li>
+      <li class="dec"><h3>Minimize operational disruption</h3>
+        <dl><dt>Decision</dt><dd>Treat time off the phones as a design constraint, not an afterthought.</dd>
+          <dt>Why</dt><dd>There are roughly 900 hourly Guides on rotating schedules, Specialist Care can absorb only a limited number of WN7 transfers, and Workforce warned that a broad session would push abandonment higher.</dd>
+          <dt>What changed</dt><dd>Every component is small and fits existing routines: a 25-minute Lead meeting, reinforcement in existing huddles, a 5–7 minute individual practice in scheduled work time (subject to Workforce scheduling), and a one-page Call Path for live calls. The aim was less disruption without thinner support.</dd></dl>
+        <p class="evolve"><b>How it evolved:</b> GPT first proposed a 25-minute Lead meeting. I cut it to 20 because Leads have little spare time, then restored 25 to give the case discussion and alignment room, accepting the cost in Lead time on the grounds that one session replaces fragmented coaching later. The agenda settled at 3 · 9 · 10 · 3, with the middle 19 minutes run as one exercise.</p></li>
+      <li class="dec"><h3>Pilot, evaluate, then scale</h3>
+        <dl><dt>Decision</dt><dd>Start with two or three representative Lead teams, subject to Workforce approval, and expand by wave only on evidence.</dd>
+          <dt>Why</dt><dd>The intervention depends on operational conditions that aren't confirmed yet, and completion data alone wouldn't show whether calls changed. Marisol said she needed "a reason to believe it will work."</dd>
+          <dt>What changed</dt><dd>Five phases, each closed by a proceed, adjust or pause decision. Expansion needs Care leadership's judgment and Workforce's approval for each wave, and delivery is reported as reach, never as proficiency. Fewer avoidable escalations to Specialists is a hoped-for benefit, not a demonstrated outcome.</dd></dl></li>
+    </ol>
+
+    <div class="bridge"><p><b>Learner-facing samples to look at first:</b> the <b>Guide Call Path</b> (performance support at the point of need), then <b>Make the Call</b> (how that extends into practice). The Huddle Sequence Slide shows the Lead-to-Guide connection.</p><p style="margin-top:8px">These five decisions had the greatest influence on the overall strategy, but they represent only part of the design process. Additional decisions involving scenario selection, coaching structure, resource formats, operational constraints, and implementation details are documented in the accompanying <a href="wn7-design-decision-log.html"><b>Design Decision Log</b></a>.</p></div>
+  </section>
+
+  <section aria-labelledby="s3">
+    <h2 class="sec" id="s3"><span class="n">03</span>How I worked with the coding-agent harness</h2>
+    <div class="harness">
+      <p>I set the direction and made the design decisions. I used Claude Code to build and to check claims against the case packet, and GPT in a separate chat as a design reviewer. I set the source rules: use only the packet's facts, label assumptions, and never invent Orbit screens, Plus policy, scripts, dates, targets or staffing. Every decision went into a running log tagged with who suggested it and who decided, and each deliverable went through build, review, targeted fixes and lock.</p>
+      <div class="roles">
+        <div class="role"><b>Me</b>Framing, priorities, every design call, final wording, and accepting or rejecting suggestions</div>
+        <div class="role"><b>Claude Code</b>Builds, source checks, PDF and browser test scripts, and the decision log</div>
+        <div class="role"><b>GPT</b>Independent review of briefs and drafts in a separate chat</div>
+      </div>
+      <p class="soft">Three examples show the kinds of oversight this needed:</p>
+      <ul class="checks">
+        <li class="check"><span class="k">Factual verification</span><p>My own brief described about <b>600 Guides</b>. Claude flagged that the packet says <b>900</b> in two places, and I corrected it everywhere.</p></li>
+        <li class="check"><span class="k">Policy fidelity</span><p>GPT suggested "Plus credit <b>(if applicable)</b>" on the huddle slide. Claude showed that Finance, the PO-117 bulletin and my locked Call Path all require both the replacement and the Plus credit for an eligible serial. I kept both required and made the eligible-path scope explicit instead.</p></li>
+        <li class="check"><span class="k">Managing uncertainty</span><p>The packet doesn't say how to handle a <b>pending</b> Plus credit, what follow-up to promise when the eligibility tool is unavailable, or what to do when no Lead is free. An early draft implied the bulletin answered one of these. We corrected it, and the materials now name the owner who must confirm each one instead of filling the gap.</p></li>
+      </ul>
+      <p class="muted" style="margin-top:12px">Browser and layout checks were Claude's automated suites and are described that way; no independent or screen-reader testing has been done. The Decision Log records more of these corrections.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="s4">
+    <h2 class="sec" id="s4"><span class="n">04</span>Intentional tradeoffs</h2>
+    <ul class="tight">
+      <li><b>No simultaneous launch.</b> A full-population rollout would be faster to announce, but it would cost phone time and leave no way to learn what works first.</li>
+      <li><b>Lightweight resources over a course.</b> Each resource has one job and points to Beacon as the single authority, so nothing competes with it as a source of procedure.</li>
+      <li><b>Dependencies stay visible.</b> Where the case left something unresolved, the materials say who has to confirm it rather than resolving it for them.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="s5">
+    <h2 class="sec" id="s5"><span class="n">05</span>What I'd validate</h2>
+    <div class="three">
+      <div><b>Readiness</b>Are Plus guidance, Orbit workflow and access, the Lead support route and fallback, practice delivery, and pilot scheduling confirmed by their owners?</div>
+      <div><b>Performance</b>On reviewed calls, are Guides recognizing, verifying, deciding, completing, communicating and documenting as intended?</div>
+      <div><b>Operational impact</b>Are complete recoveries increasing without unacceptable effects on handle time, wait and abandonment, or Lead and Specialist load?</div>
+    </div>
+    <p style="margin-top:12px">A small pilot can surface problems and give directional evidence. It can't, on its own, prove the intervention caused an improvement, especially against a baseline whose eligibility was classified after the fact.</p>
+  </section>
+
+  <div class="pair">
+  <section aria-labelledby="s6">
+    <h2 class="sec" id="s6"><span class="n">06</span>What remains uncertain</h2>
+    <ul class="tight">
+      <li>The root cause of the gap, and how it splits across knowledge, tool access, policy clarity and workflow.</li>
+      <li>How well Leads themselves know the WN7 path. The packet has no baseline, and what Leads asked for (cues, clips) may not be all they need.</li>
+      <li>How to handle a pending Plus credit, the eligibility-review follow-up, and the fallback when a Lead is unavailable.</li>
+      <li>Whether Sana can host the free-text practice natively, or only link to it.</li>
+      <li>Whether the meeting, slide and practice change what happens on live calls. That's what the pilot is for.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="s7">
+    <h2 class="sec" id="s7"><span class="n">07</span>What I'd do next in a real engagement</h2>
+    <p class="muted">None of this has happened yet; it's what the proposal sets up.</p>
+    <ul class="tight">
+      <li>Confirm policy and operational ownership, starting with Plus handling and Orbit access.</li>
+      <li>Observe real Guide and Lead workflows rather than relying on meeting notes.</li>
+      <li>Validate the Call Path, the practice model answers and the Lead materials with Quality and Specialist Care.</li>
+      <li>Test usability with a few Guides and Leads, including screen-reader use.</li>
+      <li>Agree the evaluation baseline and its limits with Quality.</li>
+      <li>Pilot, gather evidence, and iterate before expanding.</li>
+    </ul>
+  </section>
+  </div>
+
+  <section class="closing" aria-labelledby="s8">
+    <h2 id="s8">Closing reflection</h2>
+    <p>The request was for a video. What the evidence described was a team being asked to carry out a new process under time pressure, with partial answers and uneven support. I tried to design for that reality: understand what each person has to do on the call or in the review, give them support at that point, and set up a way to see whether performance actually changes. Producing content was the smallest part of the job.</p>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap">Interviewer note, separate from the materials for Dana. Fictional work sample; Northstar Home, its people and its data are synthetic. Companion: <a href="wn7-design-decision-log.html">Design Decision Log</a>.</div></footer>
+
+</body>
+</html>
