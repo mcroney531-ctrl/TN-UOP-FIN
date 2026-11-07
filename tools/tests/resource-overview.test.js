@@ -1,5 +1,5 @@
 const { chromium } = require('playwright');
-const out = '/tmp/claude-0/-home-user/1e676488-d029-5546-acad-d6f90a5aa190/scratchpad/ro/';
+const out = (process.env.SHOTS || '/tmp/') ;
 const url = 'file:///home/user/TN-UOP-FIN/deliverables/wn7-resource-overview.html';
 const ok = (n, c) => console.log((c ? 'PASS ' : 'FAIL ') + n);
 (async () => {
@@ -27,6 +27,11 @@ const ok = (n, c) => console.log((c ? 'PASS ' : 'FAIL ') + n);
     } else {
       await p.screenshot({ path: out + 'm-full.png', fullPage: true });
     }
+    const hrefs = await p.evaluate(() => [...document.querySelectorAll('a.more')].map(a => a.getAttribute('href')));
+    const fs = require('fs'), path = require('path');
+    ok(`${n}: ${hrefs.length} resource links all resolve to files`, hrefs.length === 6 && hrefs.every(h => fs.existsSync(path.join('/home/user/TN-UOP-FIN/deliverables', h))));
+    ok(`${n}: links open in new tab with noopener`, await p.evaluate(() => [...document.querySelectorAll('a.more')].every(a => a.target === '_blank' && a.rel.includes('noopener'))));
+    ok(`${n}: proposal note present`, (await p.textContent('header')).includes('not a launch-ready kit'));
     ok(`${n}: no remote requests except fonts`, reqs.every(u => /fonts\.(googleapis|gstatic)/.test(u)));
     await ctx.close();
   }

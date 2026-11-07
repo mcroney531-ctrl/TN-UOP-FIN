@@ -236,6 +236,7 @@
   #fit .points, #rollout .points { max-width: 760px; }
   .why { margin: 0; color: var(--ink-soft); }
   code { font: 600 .9em ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--surface); padding: 1px 5px; border-radius: 4px; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 </style>
 <script>
   // Opt in to scroll reveals only when they can run; otherwise nothing is ever hidden.
@@ -267,7 +268,8 @@
 <header>
   <div class="wrap">
     <h1>What's Included</h1>
-    <p class="intro">We're proposing a small set of resources built around one decision sequence: Recognize, Verify, Decide, Complete, Explain &amp; Document. Leads align first, in a 25-minute working meeting, and leave with two one-page references for call reviews and coaching. Guides get a Call Path for live calls and a short individual practice call. The existing team huddle connects the two: Leads use one sequence slide to introduce the change and launch practice. Beacon (<code>BH-4419</code>) stays the one authority on procedures and policy, and every piece points there rather than repeating it.</p>
+    <p class="intro">We're proposing a small set of resources built around one decision sequence: Recognize, Verify, Decide, Complete, Explain &amp; Document. Leads align first, in a 25-minute working meeting, and leave with two one-page references for call reviews and coaching. Guides get a Call Path for live calls and a short individual practice call. The team huddle connects the two: Leads use one sequence slide to introduce the change and launch practice. Beacon (<code>BH-4419</code>) stays the one authority on procedures and policy, and every piece points there rather than repeating it.</p>
+    <p class="intro" style="font-size:15px;margin-top:12px"><b>A proposal for review, not a launch-ready kit.</b> Operational details are validated with their owners and delivery is approved before anything is used; the Rollout Overview shows how.</p>
   </div>
 </header>
 
@@ -285,6 +287,7 @@
           <p class="synopsis">A 25-minute working meeting built on two cases, so Leads leave with one standard for what good looks like and how to coach or escalate.</p>
           <div class="actions">
             <button type="button" class="cta" data-open="dlg-lead-meeting" aria-haspopup="dialog">See more<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <a class="more" href="wn7-lead-meeting-plan.pdf" target="_blank" rel="noopener">Open the plan<span class="visually-hidden"> Lead Alignment Meeting Plan, PDF (opens in a new tab)</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
       </li>
@@ -297,6 +300,7 @@
           <p class="synopsis">The page a Lead keeps beside them in call reviews: what good execution looks like, and whether to coach, escalate, or arrange follow-up.</p>
           <div class="actions">
             <button type="button" class="cta" data-open="dlg-lead-quick-reference" aria-haspopup="dialog">See more<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <a class="more" href="wn7-lead-quick-reference.pdf" target="_blank" rel="noopener">Open the page<span class="visually-hidden"> Lead Quick Reference, PDF (opens in a new tab)</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
       </li>
@@ -309,6 +313,7 @@
           <p class="synopsis">A companion for the conversation itself: how to turn one observed moment on a call into a two-to-three-minute coaching conversation.</p>
           <div class="actions">
             <button type="button" class="cta" data-open="dlg-lead-coaching-cues" aria-haspopup="dialog">See more<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <a class="more" href="wn7-coaching-cues.pdf" target="_blank" rel="noopener">Open the page<span class="visually-hidden"> Lead Coaching Cues, PDF (opens in a new tab)</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
       </li>
@@ -327,6 +332,8 @@
           <p class="synopsis">What do I do next? The five steps, with a separate path for each Orbit result: Eligible, Not eligible, or No clear result.</p>
           <div class="actions">
             <button type="button" class="cta" data-open="dlg-guide-call-path" aria-haspopup="dialog">See more<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <a class="more" href="wn7-guide-call-path.html" target="_blank" rel="noopener">Open the Call Path<span class="visually-hidden"> Guide Call Path, interactive (opens in a new tab)</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="more" href="wn7-guide-call-path.pdf" target="_blank" rel="noopener">Print version<span class="visually-hidden"> Guide Call Path, PDF (opens in a new tab)</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
       </li>
@@ -339,6 +346,7 @@
           <p class="synopsis">A short practice call where the WN7 symptoms fit but Orbit says Not eligible. Guides write each decision, then compare it with a model response.</p>
           <div class="actions">
             <button type="button" class="cta" data-open="dlg-guide-practice" aria-haspopup="dialog">See more<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <a class="more" href="wn7-practice-scenario.html" target="_blank" rel="noopener">Try the practice<span class="visually-hidden"> Make the Call practice scenario (opens in a new tab)</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3 4 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
       </li>
@@ -347,7 +355,7 @@
 
   <section class="section" id="huddle" aria-labelledby="huddle-h">
     <div class="section-head"><h2 id="huddle-h">03 · Team Huddle</h2><span class="section-count">1 resource</span></div>
-    <p class="section-intro">The existing team huddle stays. It's where Leads first talk with their Guides about the change and launch practice. One slide supports it; it isn't another practice assignment.</p>
+    <p class="section-intro">One slide for the team huddle Leads already run, where they introduce the WN7 sequence to their Guides and launch the individual practice.</p>
     <ol class="projects">
       <li class="project" id="huddle-slide">
         <div class="shot ph" aria-hidden="true"><span class="code">01</span><span class="ph-note">In development</span></div>
@@ -412,8 +420,7 @@
         <li>Case A, a documented recovery where the Plus credit hadn't been applied, asks what's done and what's still open. Case B, a composite where the serial check was recorded but troubleshooting continued, asks what a Lead would check before coaching.</li>
         <li>Aligns Leads on the five-step sequence and the six observable indicators, and on what to coach, escalate, or follow up.</li>
         <li>Leads leave with four actions: introduce the change in their huddle, confirm the live support route, reinforce through call reviews, and use the Lead thread for recurring blockers.</li>
-        <li>Learning facilitates. It runs for each rollout wave, so every Lead attends before their own Guides start.</li>
-        <li>Specialist support in the meeting only with Specialist Care's approval.</li>
+        <li>Proposed delivery: Learning facilitates, and each wave's Leads attend before their own Guides start. Timing, attendance, and any Specialist support are confirmed with Care leadership, Workforce, and Specialist Care.</li>
     </ul>
   </div>
 </dialog>
@@ -495,7 +502,7 @@
     <p class="flow-label">Key points</p>
     <ul class="points">
         <li>Three moments: recognize and verify, decide, then explain and document. Each has a "why this matters."</li>
-        <li>Model responses come from BH-4419, its linked Product Operations reference, and the documented Sep 24 call. The scenario itself is fictionalized and labeled that way.</li>
+        <li>The scenario is fictionalized and labeled that way. Its design draws on the documented Sep 24 ineligible call; its model responses are grounded in approved guidance (BH-4419 and its linked Product Operations reference) and are validated by Quality and Specialist Care before release.</li>
         <li>An optional variation covers what to do when Orbit won't load.</li>
         <li>No score, and nothing is saved or sent. Finishing shows participation, not proficiency; Leads look at execution through normal call reviews.</li>
         <li>Assigned during scheduled work time. Learning Operations confirms delivery through Sana or an approved link; Workforce approves the time.</li>
@@ -512,7 +519,7 @@
     <h3 id="dlg-huddle-slide-h">Huddle Sequence Slide</h3>
     <p class="synopsis">One slide Leads use in their existing team huddle to introduce the WN7 sequence, open the conversation, and launch the individual practice.</p>
     <p class="flow-label">Why it exists</p>
-    <p class="why">The huddle is where Leads and Guides first talk about the change. A single visual of the sequence gives that conversation a shared anchor without turning the huddle into another practice assignment. Practice happens individually, in the digital scenario.</p>
+    <p class="why">The huddle is where Leads and Guides first talk about the change. One visual of the sequence gives that conversation a shared anchor; the practice itself happens individually, in the digital scenario.</p>
     <p class="flow-label">What it shows</p>
     <ul class="points">
         <li>A recognition cue, as an internal prompt for Guides, not customer wording.</li>
