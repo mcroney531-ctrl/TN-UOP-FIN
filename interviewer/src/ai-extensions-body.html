@@ -1,0 +1,95 @@
+<div class="sheet">
+<header class="mast">
+  <div class="mast-text">
+    <p class="mast-for">Optional bonus · Not part of the WN7 rollout or Dana's package</p>
+    <p class="mast-name">Beyond the Rollout</p>
+    <p class="mast-role">Long-Term AI Extensions for WN7 performance support</p>
+  </div>
+  <img class="mast-logo" src="%%LOGO%%" alt="Northstar Home">
+</header>
+
+<p class="frame"><b>Two future concepts, not proposals.</b> Neither is part of the WN7 rollout, and the immediate recovery problem doesn't need AI to solve it. They'd only be worth exploring once the recovery path is stable, the approved guidance is settled, and the pilot has shown what Guides actually struggle with. The first helps Guides <b>practice before the call</b>; the second helps them <b>find approved guidance during it</b>.</p>
+
+<section class="concept" aria-labelledby="c1">
+  <div class="c-head">
+    <span class="c-mode">Concept 1 · Practice before the call</span>
+    <h1 id="c1">AI-Powered Scenario Simulator</h1>
+  </div>
+  <div class="quad">
+    <div><h2>The opportunity</h2><p><i>Make the Call</i> gives every Guide the same decision to practice. Real calls vary more: after a practice huddle, Imani noted that an eligible call, an ineligible one and a failed credit "sounded nothing alike after the first minute." A conversational simulator could eventually offer more varied customers for onboarding and refreshers.</p></div>
+    <div><h2>What it would look like</h2><p>A Guide talks with a simulated customer, chooses what to ask and say, and the customer responds the way that choice would lead. Feedback afterward maps the conversation to the six observable indicators and points back to approved guidance.</p></div>
+    <div><h2>What it would take</h2><p>Approved scenarios and model answers from Quality and Specialist Care; controlled model behavior so the customer stays in scope and never states policy; defined feedback criteria; testing for inaccurate or overconfident feedback; de-identified material only; and a limited pilot with Quality and Care stakeholders.</p></div>
+    <div><h2>How we'd know it works</h2><p>Review the quality of Guides' decisions and explanations in practice, then look for matching patterns on reviewed live calls using the same indicators. A practice result is a signal, not proof of workplace competence, and it wouldn't be used to grade Guides.</p></div>
+  </div>
+
+  <figure class="mock sim" aria-labelledby="m1cap">
+    <div class="mock-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="mock-title">Practice call · simulated customer</span><span class="mock-tag">Practice mode</span></div>
+    <div class="sim-grid">
+      <div class="chat">
+        <div class="msg cust"><span class="who">Customer (simulated)</span>Every evening the whole house loses Wi-Fi for a minute or two, then it comes back. A friend said Northstar replaced their hub. Can you send me one?</div>
+        <div class="msg guide"><span class="who">You</span>That sounds really disruptive. Let me check whether your hub is one of the ones included. Could you read me the serial from the Northstar app?</div>
+        <div class="sysres">Practice Orbit result: <b>Not eligible</b> <span>(simulated)</span></div>
+        <div class="msg guide"><span class="who">You</span>Thanks. Your hub isn't one of the affected units, so the replacement doesn't apply. Let's find out what's causing the drops.</div>
+        <div class="msg cust"><span class="who">Customer (simulated)</span>So I'm not getting a new one? Then what happens now?</div>
+        <div class="typing" aria-hidden="true">Your reply…</div>
+      </div>
+      <aside class="fb" aria-label="Practice feedback">
+        <p class="fb-h">Practice feedback</p>
+        <ul>
+          <li class="ok"><b>Recognition</b>Linked the pattern to WN7 without promising anything.</li>
+          <li class="ok"><b>Verification</b>Asked for the serial before deciding.</li>
+          <li class="ok"><b>Decision</b>Took the Not eligible path; no replacement or Plus promise.</li>
+          <li class="try"><b>Communication</b>The customer is unsure what's next. Say plainly what you'll do now, and why.</li>
+        </ul>
+        <p class="fb-src">Based on BH-4419 (approved guidance) · a practice signal, not a score</p>
+      </aside>
+    </div>
+    <figcaption id="m1cap"><b>Conceptual mockup.</b> Fictional conversation and feedback, not existing Northstar software. The customer reacts to the Guide's choices; feedback follows the six indicators.</figcaption>
+  </figure>
+</section>
+
+<section class="concept" aria-labelledby="c2">
+  <div class="c-head">
+    <span class="c-mode">Concept 2 · Find approved guidance during the call</span>
+    <h1 id="c2">RAG-Powered Beacon Knowledge Assistant</h1>
+  </div>
+  <div class="quad">
+    <div><h2>The opportunity</h2><p>The right article existed, but it was hard to reach mid-call. In Quality's Sep 22 search test, "Internet went out again" and "Video call froze" opened the older generic article first. Guides also had questions search couldn't settle: "I do not want to say it is active if the system is pending."</p></div>
+    <div><h2>What it would look like</h2><p>A Guide types a plain-language question and gets a short answer drawn only from approved Beacon content, with every statement cited and linked to its source. When approved guidance doesn't cover the question, it says so and points to the Lead or escalation route instead of guessing.</p></div>
+    <div><h2>What it would take</h2><p>Access limited to approved, current Beacon content; retrieval and citation design; freshness controls so superseded versions drop out; handling for conflicts and gaps; permissions that match who can see what; evaluation against a set of known questions with approved answers; and clear knowledge-governance ownership, with policy owners approving.</p></div>
+    <div><h2>How we'd know it works</h2><p>Check answer accuracy and source traceability against the known-question set; measure whether Guides find the right guidance more reliably than with search; and use unanswered questions as signals of content gaps. Any effect on call outcomes would need its own evaluation.</p></div>
+  </div>
+
+  <figure class="mock rag" aria-labelledby="m2cap">
+    <div class="mock-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="mock-title">Ask Beacon · approved knowledge</span><span class="mock-tag">Live-call reference</span></div>
+    <div class="rag-grid">
+      <div class="ask">
+        <div class="q"><span class="q-ico" aria-hidden="true">?</span>Order has a confirmation number but Plus says pending. Can I close this as complete?</div>
+        <div class="ans">
+          <p class="ans-h">Not as complete yet.</p>
+          <p>Verify that the Plus credit shows <code>Applied</code>. A completed replacement with a missing Plus credit is an incomplete recovery. <sup>1</sup></p>
+          <p>If a transaction fails, keep the recovery case open, document what succeeded and failed, and arrange follow-up. <sup>1</sup></p>
+          <p class="gap"><b>Not covered by approved guidance:</b> whether a <i>pending</i> credit is handled the same way. Don't promise timing; ask your Lead. Flagged to content owners.</p>
+        </div>
+      </div>
+      <aside class="srcs" aria-label="Cited sources">
+        <p class="srcs-h">Sources</p>
+        <div class="srcref"><span class="n">1</span><div><b>PO-117</b> Care desk bulletin, linked from BH-4419 (WN7 intermittent whole-home disconnect) · approved offer, steps 3–4, and contact handling notes<span class="open">Open in Beacon ↗</span></div></div>
+        <div class="limits"><b>Can't do:</b> check eligibility, apply credits, place orders, or approve exceptions. Use Orbit and your Lead.</div>
+      </aside>
+    </div>
+    <figcaption id="m2cap"><b>Conceptual mockup.</b> Fictional question and answer, not existing Northstar software. Every statement is cited; where guidance is silent, the assistant says so.</figcaption>
+  </figure>
+
+  <div class="bounds">
+    <p class="bounds-h">Boundaries for both concepts</p>
+    <ul>
+      <li>Approved Beacon content and human governance stay authoritative. Neither tool sets policy.</li>
+      <li>The assistant answers questions only. It never determines eligibility, authorizes exceptions, issues credits, places replacement orders or runs transactions. Cam's caution on Sep 19 applies: no automated offer "before Product, Care, and Legal sign off."</li>
+      <li>The simulator is a practice environment, not a validated assessment.</li>
+      <li>Both would need feasibility work, stakeholder discovery, validation and evaluation before any deployment. No budget, timeline, vendor or approval is implied.</li>
+    </ul>
+  </div>
+</section>
+<p class="foot">Optional bonus concept, separate from the WN7 proposal and from Dana's package. Fictional work sample; Northstar Home, its people, systems and data are synthetic.</p>
+</div>
