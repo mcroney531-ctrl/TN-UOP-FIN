@@ -47,28 +47,26 @@ log_css = '''
   .key div { display: flex; align-items: baseline; gap: 8px; }
   .key .attr { flex-basis: 100%; margin: 4px 0 0; }
   .st { flex: none; display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; line-height: 1.7; white-space: nowrap; }
-  .st-d { background: var(--navy); color: #fff; border: 1.5px solid var(--navy); }
-  :root[data-theme="dark"] .st-d { color: #0a1529; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .st-d { color: #0a1529; } }
-  .st-p { background: var(--paper); color: var(--navy); border: 1.5px solid var(--navy); }
+  .st-d { background: var(--accent); color: var(--on-accent); border: 1.5px solid var(--accent); }
+  .st-p { background: var(--paper); color: var(--accent); border: 1.5px solid var(--accent); }
   .st-r { background: transparent; color: var(--ink-soft); border: 1.5px dashed #8a8f97; }
   .toc { margin: 14px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: 14px; }
-  .toc a { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--tint); text-decoration: none; color: var(--navy); font-weight: 600; }
+  .toc a { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--tint); text-decoration: none; color: var(--accent); font-weight: 600; }
   .grp { margin-top: 36px; }
   .grp h2 { display: flex; align-items: baseline; gap: 12px; margin: 0 0 12px; font-size: 21px; letter-spacing: -.01em; }
-  .grp h2 .n { color: var(--cobalt); font-size: 14px; font-weight: 700; letter-spacing: .1em; }
+  .grp h2 .n { color: var(--accent-2); font-size: 14px; font-weight: 700; letter-spacing: .1em; }
   .entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-  .entry { background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--navy); border-radius: var(--radius); padding: 14px 18px 12px; }
+  .entry { background: var(--paper); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 18px 12px; }
   .entry-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; }
   .entry h3 { margin: 0; font-size: 17px; line-height: 1.3; }
-  .entry h3 .id { color: var(--cobalt); font-size: 13px; font-weight: 700; margin-right: 8px; }
+  .entry h3 .id { color: var(--accent-2); font-size: 13px; font-weight: 700; margin-right: 8px; }
   .who { margin: 6px 0 10px; font-size: 13px; color: var(--ink-muted); }
   .who b { color: var(--ink-soft); font-weight: 600; }
   .fields { margin: 0; display: grid; grid-template-columns: 150px 1fr; gap: 6px 16px; }
-  .fields dt { color: var(--cobalt); font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding-top: 3px; }
+  .fields dt { color: var(--accent-2); font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding-top: 3px; }
   .fields dd { margin: 0; color: var(--ink-soft); font-size: 15px; }
   .ref { display: block; margin-top: 8px; text-align: right; font-size: 12px; color: var(--ink-muted); }
-  .back { margin: 26px 0 0; padding: 14px 18px; border: 1px dashed var(--cobalt); border-radius: var(--radius); background: var(--paper); }
+  .back { margin: 26px 0 0; padding: 14px 18px; border: 1px dashed var(--accent-2); border-radius: var(--radius); background: var(--paper); }
   .back p { margin: 0; }
   @media (max-width: 600px) { .fields { grid-template-columns: 1fr; gap: 2px; } .fields dd { margin-bottom: 8px; } }
   @media print {
@@ -85,13 +83,24 @@ log_css = '''
 '''
 n = 0
 parts = ['''<div class="masthead">
+    <svg class="mast-hex" viewBox="0 0 640 240" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="hexfade" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".45" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="1"/></linearGradient>
+        <mask id="hexmask"><rect width="640" height="240" fill="url(#hexfade)"/></mask>
+      </defs>
+      <g mask="url(#hexmask)" fill="none" stroke="#fff" stroke-width="1.5">
+        <polygon points="430.0,-64.0 511.4,-17.0 511.4,77.0 430.0,124.0 348.6,77.0 348.6,-17.0" stroke-opacity="0.16" fill="#fff" fill-opacity="0"/>
+        <polygon points="603.2,-64.0 684.6,-17.0 684.6,77.0 603.2,124.0 521.8,77.0 521.8,-17.0" stroke-opacity="0.11" fill="#fff" fill-opacity="0"/>
+        <polygon points="516.6,86.0 598.0,133.0 598.0,227.0 516.6,274.0 435.2,227.0 435.2,133.0" stroke-opacity="0.13" fill="#fff" fill-opacity="0.035"/>
+        <polygon points="343.4,86.0 424.8,133.0 424.8,227.0 343.4,274.0 262.0,227.0 262.0,133.0" stroke-opacity="0.08" fill="#fff" fill-opacity="0"/>
+      </g>
+    </svg>
   <div class="wrap">
     <div>
       <p class="mast-for">For interviewers · Not part of Dana's package</p>
       <p class="mast-name">Design Decision Log</p>
       <p class="mast-role">Companion to <i>Behind the Design: WN7 Recovery Strategy</i></p>
     </div>
-    <img class="mast-logo" src="assets/northstar-logo-white.png" alt="Northstar Home">
   </div>
 </div>
 <main class="wrap">

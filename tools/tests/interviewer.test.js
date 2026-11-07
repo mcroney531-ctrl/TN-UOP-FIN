@@ -12,7 +12,7 @@ const ok = (n, c) => console.log((c ? 'PASS ' : 'FAIL ') + n);
       await p.goto('file://' + path.join(dir, f), { waitUntil: 'networkidle' });
       const t = `${n} ${f.replace('.html', '')}`;
       ok(`${t}: no horizontal scroll`, await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-      ok(`${t}: logo loads`, await p.evaluate(() => { const i = document.querySelector('.mast-logo'); return i && i.complete && i.naturalWidth > 0; }));
+      ok(`${t}: red banner with hex pattern`, await p.evaluate(() => !!document.querySelector('.masthead .mast-hex') && getComputedStyle(document.querySelector('.masthead')).backgroundImage.includes('184, 32, 43')));
       const links = await p.evaluate(() => [...document.querySelectorAll('a[href]')].map(a => a.getAttribute('href')).filter(h => !h.startsWith('#')));
       ok(`${t}: relative links resolve (${[...new Set(links)].join(', ')})`, links.length > 0 && links.every(l => !/^[a-z]+:/i.test(l) && fs.existsSync(path.join(dir, l))));
       ok(`${t}: marked interviewer-only`, await p.evaluate(() => /Not part of Dana's package/.test(document.querySelector('.mast-for').textContent)));
