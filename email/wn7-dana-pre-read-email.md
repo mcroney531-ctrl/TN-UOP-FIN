@@ -22,7 +22,7 @@ A recorded check can't tell us what the Guide saw or understood, so this isn't a
 
 While a short video could communicate the recovery process, I don't believe explanation alone will be enough to change what happens during live calls. In a September shift feedback session, one Guide described going on hold to ask a Lead because they couldn't recall whether the offer included a subscription or a discount. Priya characterized the broader challenge as "a search problem, an eligibility problem, a conversation problem, and a completion problem."
 
-Only part of that is a training problem. Guides also need consistent recovery guidance, alignment on Plus handling, a working Orbit workflow and access, a reliable route to their Lead when they're stuck, and reinforcement based on what happens on real calls. That's why the package is a small set of connected supports rather than one course. It also aligns with Marisol's October 1 guidance: additional learning time is worth considering if it improves Guide performance without compromising service levels, provided there's evidence to support the approach.
+Only part of that is a training problem. Guides also need consistent recovery guidance, alignment on Plus handling, a working Orbit workflow and access, a reliable route to their Lead when they're stuck, and reinforcement based on what happens on real calls. That's why the package is **a small set of connected supports rather than one course**. It also aligns with Marisol's October 1 guidance: additional learning time is worth considering if it improves Guide performance without compromising service levels, provided there's evidence to support the approach.
 
 **Building alignment through Leads**
 
