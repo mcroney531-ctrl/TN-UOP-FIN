@@ -87,6 +87,8 @@
     transition: box-shadow .2s ease;
   }
   .shot img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .shot-dev { position: relative; }
+  .shot-badge { position: absolute; left: 14px; bottom: 12px; padding: 3px 10px; border-radius: 999px; background: rgba(255,255,255,.94); color: var(--red); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
   .shot:hover { box-shadow: 0 1px 2px rgba(20, 22, 26, .06), 0 16px 40px -14px rgba(20, 22, 26, .3); }
 
   .tag {
@@ -270,7 +272,7 @@
 <!--
   To edit: each resource is one <li class="project"> inside its section.
   Sections: A Leads, B Guides, C Huddle Support (letter shown in the small label next to each heading). The ownership and rollout overviews are separate files in the package. Order on the page = order in the list.
-  Swap .shot.ph placeholders for <a class="shot"><img></a> once visuals exist.
+  Card visuals are decorative (alt=""): the card title carries the meaning. Images live in assets/ro-*.jpg.
 -->
 
 <div class="masthead">
@@ -299,7 +301,7 @@
     <p class="section-intro">Guides go to their Leads for answers mid-call, so the rollout starts with Leads. The working meeting builds one shared standard; the two one-page references keep it in use during call reviews and coaching.</p>
     <ol class="projects">
       <li class="project" id="lead-meeting">
-        <div class="shot ph" aria-hidden="true"><span class="code">01</span><span class="ph-note">Visual TBD</span></div>
+        <div class="shot"><img src="assets/ro-lead-meeting.jpg" alt="" width="1280" height="800" loading="lazy" decoding="async"></div>
         <div>
           <p class="tag"><span class="num">01</span> Facilitator guide · 25 minutes</p>
           <h3>Lead Alignment Meeting Plan</h3>
@@ -312,7 +314,7 @@
       </li>
 
       <li class="project" id="lead-quick-reference">
-        <div class="shot ph" aria-hidden="true"><span class="code">02</span><span class="ph-note">Visual TBD</span></div>
+        <div class="shot"><img src="assets/ro-lead-quick-reference.jpg" alt="" width="1280" height="800" loading="lazy" decoding="async"></div>
         <div>
           <p class="tag"><span class="num">02</span> Ongoing reference · One page</p>
           <h3>Lead Quick Reference</h3>
@@ -325,7 +327,7 @@
       </li>
 
       <li class="project" id="lead-coaching-cues">
-        <div class="shot ph" aria-hidden="true"><span class="code">03</span><span class="ph-note">Visual TBD</span></div>
+        <div class="shot"><img src="assets/ro-lead-coaching-cues.jpg" alt="" width="1280" height="800" loading="lazy" decoding="async"></div>
         <div>
           <p class="tag"><span class="num">03</span> Ongoing reference · One page</p>
           <h3>Lead Coaching Cues</h3>
@@ -344,7 +346,7 @@
     <p class="section-intro">On a live call, Guides need the next step, not another course. The Call Path supports the call; the practice scenario lets Guides make the decision once before it counts. Both point to Beacon rather than restating it.</p>
     <ol class="projects">
       <li class="project" id="guide-call-path">
-        <div class="shot ph" aria-hidden="true"><span class="code">01</span><span class="ph-note">Visual TBD</span></div>
+        <div class="shot"><img src="assets/ro-guide-call-path.jpg" alt="" width="1280" height="800" loading="lazy" decoding="async"></div>
         <div>
           <p class="tag"><span class="num">01</span> In-call job aid · Interactive and print</p>
           <h3>Guide Call Path</h3>
@@ -358,7 +360,7 @@
       </li>
 
       <li class="project" id="guide-practice">
-        <div class="shot ph" aria-hidden="true"><span class="code">02</span><span class="ph-note">Visual TBD</span></div>
+        <div class="shot"><img src="assets/ro-guide-practice.jpg" alt="" width="1280" height="800" loading="lazy" decoding="async"></div>
         <div>
           <p class="tag"><span class="num">02</span> Individual practice · 5–7 minutes</p>
           <h3>Make the Call: Digital Practice</h3>
@@ -377,7 +379,7 @@
     <p class="section-intro">One slide for the team huddle Leads already run, where they introduce the WN7 sequence to their Guides and launch the individual practice.</p>
     <ol class="projects">
       <li class="project" id="huddle-slide">
-        <div class="shot ph" aria-hidden="true"><span class="code">01</span><span class="ph-note">In development</span></div>
+        <div class="shot shot-dev"><img src="assets/ro-huddle-slide.jpg" alt="" width="1280" height="800" loading="lazy" decoding="async"><span class="shot-badge">In development</span></div>
         <div>
           <p class="tag"><span class="num">01</span> Supports the existing huddle · One slide</p>
           <h3>Huddle Sequence Slide</h3>
