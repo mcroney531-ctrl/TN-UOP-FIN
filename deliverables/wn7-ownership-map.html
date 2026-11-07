@@ -118,8 +118,14 @@
   .register tbody th { width: 26%; color: var(--ink); font-weight: 600; }
   .register td { color: var(--ink-soft); }
   .register td:first-of-type { width: 30%; }
-  .later { margin: 18px 0 0; color: var(--ink-soft); font-size: 15px; max-width: 860px; }
+  .later-grid { display: grid; gap: 16px; margin: 20px 0 0; }
+  @media (min-width: 760px) { .later-grid { grid-template-columns: 1fr 1fr; } }
+  .later { background: #fff; border: 1px dashed #8a8f97; border-radius: var(--radius); padding: 16px 20px; color: var(--ink-soft); font-size: 15px; line-height: 1.5; }
+  .later h3 { margin: 0 0 8px; color: var(--ink); font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .later ul { margin: 0; padding-left: 18px; }
+  .later li { margin: 0 0 4px; }
   .later b { color: var(--ink); }
+  .rows code { font: 600 .9em ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--surface); padding: 1px 5px; border-radius: 4px; }
   .pointer { margin: 28px 0 0; padding: 16px 20px; border-left: 4px solid var(--red); background: #fff; border-radius: 0 var(--radius) var(--radius) 0; color: var(--ink-soft); font-size: 15px; max-width: 860px; }
   .pointer b { color: var(--ink); }
 
@@ -177,12 +183,12 @@
           <dt>Leads</dt>
           <dd><span class="st st-p">Proposed</span><span><b>Care leadership</b> decides proceed, adjust or pause, and whether the evidence supports each expansion.</span></dd>
           <dd><span class="st st-p">Proposed</span><span><b>Workforce</b> approves each wave's size, timing, practice coverage and feasibility. Expansion needs both approvals.</span></dd>
-          <dd><span class="st st-p">Proposed</span><span><b>Learning</b> builds and maintains the Lead and Guide resources and facilitates the Lead working meeting.</span></dd>
+          <dd><span class="st st-p">Proposed</span><span><b>Learning</b> builds and maintains the Lead and Guide resources and facilitates the Lead working meeting; Care leadership ensures participating Leads can attend.</span></dd>
           <dt>Supports</dt>
           <dd><span class="st st-c">Confirmed</span><span><b>Workforce</b> models coverage for staggered learning groups. <span class="src">Sep 19 planning; Sep 24 open-items board</span></span></dd>
           <dd><span class="st st-p">Proposed</span><span><b>Quality, Learning and Specialist Care</b> inform Care leadership's progression decisions.</span></dd>
           <dt>Confirmation needed</dt>
-          <dd><span class="st st-o">To confirm</span><span>Pilot teams and protected practice time · <b>Workforce</b></span></dd>
+          <dd><span class="st st-o">To confirm</span><span>Pilot teams and protected practice time · <b>Workforce</b> · before the pilot</span></dd>
         </dl>
       </li>
 
@@ -196,9 +202,9 @@
           <dd><span class="st st-c">Confirmed</span><span><b>Guides</b> handle WN7 calls using BH-4419, which General Care can see in Beacon. <span class="src">Sep 21 release note</span></span></dd>
           <dt>Supports</dt>
           <dd><span class="st st-c">Confirmed</span><span><b>Specialist Care</b> takes a limited number of transferred WN7 calls; it can't absorb the whole stream. <span class="src">Sep 10 approval call; Sep 19 planning</span></span></dd>
-          <dd><span class="st st-p">Proposed</span><span><b>A participating Lead</b>, designated by Care leadership, runs the temporary shared Lead thread as Admin.</span></dd>
+          <dd><span class="st st-p">Proposed</span><span>If the temporary shared Lead thread is used, <b>a participating Lead</b> designated by Care leadership runs it as Admin.</span></dd>
           <dt>Confirmation needed</dt>
-          <dd><span class="st st-o">To confirm</span><span>Mateo's two separate approvals: A, Specialists in the Lead meeting; B, Specialist support in the thread · <b>Specialist Care</b></span></dd>
+          <dd><span class="st st-o">To confirm</span><span>Mateo's two separate approvals, each needed only if that support is used: A, Specialists in the Lead meeting; B, Specialist support in the Lead thread · <b>Specialist Care</b></span></dd>
         </dl>
       </li>
 
@@ -210,9 +216,9 @@
           <dt>Leads</dt>
           <dd><span class="st st-c">Confirmed</span><span><b>Product Operations</b> publishes the eligibility and recovery instructions (PO-117) behind BH-4419. <span class="src">Sep 10 approval call</span></span></dd>
           <dd><span class="st st-c">Confirmed</span><span><b>Care Systems</b> supports Orbit and, with Product Ops, owns the decision on an Orbit screen reference for the eligibility result. <span class="src">Sep 9 readiness huddle; Sep 24 open-items board</span></span></dd>
-          <dd><span class="st st-c">Confirmed</span><span><b>Account Systems</b>: the Plus credit is a separate transaction tied to the case, with its own status messages. <span class="src">Account systems note</span></span></dd>
+          <dd><span class="st st-p">Proposed</span><span><b>Account Systems and Product Ops</b> validate Plus credit handling and transaction-status guidance, including what a Guide does when the credit doesn't yet show <code>Applied</code>. <span class="src">Context: the credit is a separate transaction tied to the case, with its own status messages (account systems note).</span></span></dd>
           <dt>Supports</dt>
-          <dd><span class="st st-p">Proposed</span><span><b>Account Systems and Product Ops</b> validate Plus and transaction-status guidance, with Specialist Care input.</span></dd>
+          <dd><span class="st st-p">Proposed</span><span><b>Specialist Care</b> provides operational expertise on Plus and complex recovery cases.</span></dd>
           <dt>Confirmation needed</dt>
           <dd><span class="st st-o">To confirm</span><span>Final policy authority for Plus credit handling · <b>not yet identified</b></span></dd>
         </dl>
@@ -230,7 +236,7 @@
           <dt>Supports</dt>
           <dd><span class="st st-p">Proposed</span><span><b>Team Leads</b> contribute coaching observations; <b>Workforce</b> provides capacity data.</span></dd>
           <dt>Confirmation needed</dt>
-          <dd><span class="st st-o">To confirm</span><span>Recovery and operational measures · <b>Quality and Workforce</b></span></dd>
+          <dd><span class="st st-o">To confirm</span><span>Recovery and operational measures · <b>Quality and Workforce</b> · before pilot results are evaluated, not before launch</span></dd>
         </dl>
       </li>
     </ul>
@@ -238,7 +244,7 @@
 
   <section class="section band" aria-labelledby="open-h">
     <div class="section-head"><h2 id="open-h">Open Decisions Before Rollout</h2><span class="section-count">6 decisions – Owner confirmation required</span></div>
-    <p class="section-intro">Each one blocks the pilot until its owner confirms it.</p>
+    <p class="section-intro">The minimum needed to start a controlled pilot. Each one blocks launch until its owner confirms it.</p>
 
     <table class="register">
       <thead><tr><th scope="col">Decision</th><th scope="col">Who confirms</th><th scope="col">Why it's open</th></tr></thead>
@@ -252,7 +258,23 @@
       </tbody>
     </table>
 
-    <p class="later"><b>Not launch blockers:</b> Mateo's Specialist approvals A and B · naming the thread Admin (Care leadership) · Quality's baseline comparison method and its limits · recovery and operational measures (Quality and Workforce).</p>
+    <div class="later-grid">
+      <div class="later">
+        <h3>Before pilot results are evaluated</h3>
+        <ul>
+          <li>Recovery and operational measures · <b>Quality and Workforce</b></li>
+          <li>Baseline comparison method and its limits · <b>Quality</b></li>
+        </ul>
+      </div>
+      <div class="later">
+        <h3>Only if that activity is used</h3>
+        <ul>
+          <li>Specialist approval A, Specialists in the Lead meeting · <b>Mateo</b></li>
+          <li>Specialist approval B, Specialist support in the Lead thread · <b>Mateo</b></li>
+          <li>Thread Admin, if the temporary Lead thread opens · <b>Care leadership</b></li>
+        </ul>
+      </div>
+    </div>
 
     <p class="pointer"><b>When each party acts</b> is in the separate Rollout Overview. This page only names who is accountable.</p>
   </section>
