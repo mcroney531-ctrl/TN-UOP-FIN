@@ -8,7 +8,7 @@
 
 Hi Dana,
 
-Thank you for sending Renee's Orbit exports and the background. You asked for a short video to help Guides handle upset callers without losing control of the conversation. Before choosing a format, I wanted to understand the performance gap behind the long calls, so I reviewed the Orbit call data, the internal meeting notes and discussions, and feedback and call observations from Guides, Leads and Quality.
+I've reviewed your request for a short video to help Guides navigate difficult customer conversations, along with the supporting Orbit data, internal discussions, and feedback from Guides and Leads. Before recommending a solution, I wanted to better understand the underlying performance challenges and what might be contributing to them.
 
 Overall, my needs assessment suggests that the challenge extends beyond helping Guides manage upset callers. The WN7 data points to a broader gap between identifying customers who qualify for recovery and successfully completing that process. Addressing that gap will likely require more than a single training intervention, which is why I'm recommending a Lead-first approach supported by targeted learning resources and operational alignment. Below is the evidence behind that, and a guide to the attached package.
 
