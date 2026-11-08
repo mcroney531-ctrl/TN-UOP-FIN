@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WN7 Huddle Sequence Slide · Northstar Home</title>
+<meta name="description" content="One slide for the existing team huddle: the five-step WN7 call sequence, the three Orbit result paths, and where Guides go next.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* One 16:9 slide. On screens wider than 760px it scales as a whole (sizes in cqw: 1cqw = 1% of slide width,
+     so 1920px design units ÷ 19.2). Below 760px it reflows into a readable vertical layout. */
+  :root {
+    --navy: #1f3a68; --navy-deep: #0a1529; --navy-mid: #12254a; --cobalt: #2f63b8;
+    --ink: #1b1c1e; --ink-soft: #3f434a; --muted: #5f646c; --line: #d7dde6; --tint: #eef3f9; --bg: #fbfaf8; --page: #e9edf2;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--page); color: var(--ink); font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+  .stage { min-height: 100vh; display: grid; place-items: center; padding: 16px; }
+  .slide {
+    container-type: inline-size;
+    width: min(100%, calc((100vh - 32px) * 16 / 9)); aspect-ratio: 16 / 9;
+    background: var(--bg); box-shadow: 0 20px 60px -24px rgba(10, 21, 41, .45); border-radius: 10px; overflow: hidden;
+    display: grid; grid-template-rows: auto 1fr auto auto;
+  }
+
+  /* Banner */
+  .banner {
+    display: flex; align-items: center; justify-content: space-between; gap: 2cqw;
+    padding: 1.25cqw 3.4cqw 1.15cqw; color: #fff;
+    background:
+      radial-gradient(120% 140% at 100% 0%, rgba(74, 112, 176, .28) 0%, rgba(74, 112, 176, 0) 55%),
+      linear-gradient(115deg, var(--navy-deep) 0%, var(--navy-mid) 45%, var(--navy) 100%);
+  }
+  .eyebrow { margin: 0; font-size: 1.05cqw; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; opacity: .85; }
+  .banner h1 { margin: .2cqw 0 0; font-size: 2.9cqw; line-height: 1.08; font-weight: 700; letter-spacing: -.01em; }
+  .banner .sub { margin: .3cqw 0 0; font-size: 1.35cqw; opacity: .9; }
+  .logo { width: 11cqw; height: auto; flex: none; }
+
+  /* Sequence */
+  .body { padding: 1.3cqw 3.4cqw 0; display: grid; grid-template-rows: auto auto; align-content: start; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.6cqw; }
+  .step { position: relative; background: #fff; border: .1cqw solid var(--line); border-top: .45cqw solid var(--navy); border-radius: .7cqw; padding: 1cqw 1.25cqw 1.05cqw; }
+  .step:not(:last-child)::after {
+    content: ""; position: absolute; top: 2.05cqw; right: -1.35cqw; width: 1.1cqw; height: 1.1cqw;
+    border-top: .3cqw solid var(--cobalt); border-right: .3cqw solid var(--cobalt); transform: rotate(45deg);
+  }
+  .num { display: inline-grid; place-items: center; width: 2.3cqw; height: 2.3cqw; border-radius: 50%; background: var(--navy); color: #fff; font-size: 1.2cqw; font-weight: 700; }
+  .step h2 { margin: .45cqw 0 .3cqw; font-size: 1.95cqw; line-height: 1.1; letter-spacing: -.01em; color: var(--navy); }
+  .step p { margin: 0; font-size: 1.22cqw; line-height: 1.38; color: var(--ink-soft); }
+  .step p + p { margin-top: .35cqw; }
+  .step b { color: var(--ink); font-weight: 600; }
+  .step .cue { display: inline; color: var(--muted); font-size: 1.05cqw; }
+  .step code { font: 600 1.08cqw ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--tint); color: var(--navy); padding: .05cqw .35cqw; border-radius: .25cqw; }
+  .step.decide { border-top-color: var(--cobalt); }
+
+  /* Branches from Decide (column 3), spanning columns 2–4 */
+  .branches { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 1.6cqw; margin-top: 1.9cqw; }
+  .branches::before { /* stem from Decide */ content: ""; position: absolute; left: 50%; top: -1.9cqw; height: .95cqw; width: .25cqw; background: var(--cobalt); transform: translateX(-50%); }
+  .branches::after { /* crossbar */ content: ""; position: absolute; top: -.95cqw; left: calc((100% - 6.4cqw) * .3 + 1.6cqw); right: calc((100% - 6.4cqw) * .3 + 1.6cqw); height: .25cqw; background: var(--cobalt); }
+  .branch-label { grid-column: 1; align-self: center; margin: 0; padding-right: 1cqw; font-size: 1.15cqw; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); line-height: 1.35; text-align: right; }
+  .branch { position: relative; border-radius: .7cqw; padding: .8cqw 1.15cqw .85cqw; background: #fff; border: .12cqw solid var(--line); }
+  .branch::before { content: ""; position: absolute; left: 50%; top: -.95cqw; height: .95cqw; width: .25cqw; background: var(--cobalt); transform: translateX(-50%); }
+  .branch h3 { margin: 0 0 .3cqw; display: flex; align-items: center; gap: .6cqw; font-size: 1.5cqw; line-height: 1.15; color: var(--ink); }
+  .mark { flex: none; display: inline-grid; place-items: center; width: 1.9cqw; height: 1.9cqw; border-radius: 50%; font-size: 1.15cqw; font-weight: 700; }
+  .b-yes { border-color: var(--navy); background: var(--tint); } .b-yes .mark { background: var(--navy); color: #fff; }
+  .b-no .mark { background: #fff; color: var(--navy); border: .15cqw solid var(--navy); }
+  .b-unsure { border-style: dashed; border-color: #8a8f97; } .b-unsure .mark { background: #fff; color: var(--ink-soft); border: .15cqw dashed #8a8f97; }
+  .branch p { margin: 0; font-size: 1.15cqw; line-height: 1.38; color: var(--ink-soft); }
+  .branch p b { color: var(--ink); }
+
+  /* Next steps */
+  .next { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6cqw; margin: 1.35cqw 3.4cqw 1.1cqw; }
+  .next div { display: flex; align-items: center; gap: 1cqw; padding: 1cqw 1.3cqw; border-radius: .7cqw; background: var(--navy); color: #fff; }
+  .next .k { flex: none; font-size: 1cqw; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; opacity: .78; writing-mode: horizontal-tb; }
+  .next p { margin: 0; font-size: 1.32cqw; line-height: 1.3; font-weight: 500; }
+  .next p b { font-weight: 700; }
+  .foot { display: flex; justify-content: space-between; gap: 2cqw; padding: .6cqw 3.4cqw .7cqw; border-top: .1cqw solid var(--line); font-size: .92cqw; color: var(--muted); }
+
+  /* Phone: reflow, readable sizes */
+  @media (max-width: 760px) {
+    .stage { padding: 0; display: block; }
+    .slide { width: 100%; aspect-ratio: auto; border-radius: 0; box-shadow: none; display: block; container-type: normal; }
+    .banner { padding: 22px 16px 20px; gap: 14px; }
+    .eyebrow { font-size: 11px; letter-spacing: .18em; }
+    .banner h1 { font-size: 24px; margin-top: 6px; }
+    .banner .sub { font-size: 15px; margin-top: 6px; }
+    .logo { width: 96px; }
+    .body { padding: 18px 16px 0; }
+    .steps { grid-template-columns: 1fr; gap: 22px; }
+    .step { border-top-width: 4px; border-radius: 10px; padding: 14px 16px; border-width: 1px; border-top-width: 4px; }
+    .step:not(:last-child)::after { top: auto; bottom: -17px; right: auto; left: 26px; width: 12px; height: 12px; border-top-width: 0; border-left: 3px solid var(--cobalt); border-right-width: 0; border-bottom: 3px solid var(--cobalt); border-top: 0; transform: rotate(-45deg); }
+    .num { width: 30px; height: 30px; font-size: 15px; }
+    .step h2 { font-size: 22px; margin: 8px 0 4px; }
+    .step p, .branch p { font-size: 16px; }
+    .step .cue { font-size: 14px; }
+    .step code { font-size: 14px; padding: 1px 5px; }
+    .step.decide { margin-bottom: 0; }
+    .branches { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 14px 0 0 18px; padding-left: 16px; border-left: 3px solid var(--cobalt); }
+    .branches::before, .branches::after, .branch::before { display: none; }
+    .branch-label { text-align: left; font-size: 12px; padding: 0; }
+    .branch { padding: 12px 14px; border-radius: 10px; border-width: 1.5px; }
+    .branch h3 { font-size: 18px; gap: 8px; margin-bottom: 4px; }
+    .mark { width: 24px; height: 24px; font-size: 14px; border-width: 1.5px !important; }
+    .next { grid-template-columns: 1fr; gap: 10px; margin: 22px 16px 16px; }
+    .next div { padding: 12px 14px; border-radius: 10px; gap: 12px; }
+    .next .k { font-size: 11px; min-width: 64px; }
+    .next p { font-size: 16px; }
+    .foot { flex-direction: column; gap: 4px; padding: 12px 16px 20px; font-size: 12px; }
+    /* On phones the three paths sit directly under Decide */
+    .body { display: flex; flex-direction: column; gap: 22px; }
+    .steps { display: contents; }
+    .step:nth-child(1) { order: 1; } .step:nth-child(2) { order: 2; } .step:nth-child(3) { order: 3; }
+    .branches { order: 4; margin-top: -8px !important; }
+    .step:nth-child(4) { order: 5; } .step:nth-child(5) { order: 6; }
+    .step:nth-child(3)::after { display: none; }
+  }
+
+  /* PDF: one 13.333 × 7.5 in page (standard widescreen) */
+  @page { size: 13.333in 7.5in; margin: 0; }
+  @media print {
+    body { background: #fff; }
+    .stage { padding: 0; min-height: 0; display: block; }
+    .slide { width: 13.333in; height: 7.5in; aspect-ratio: auto; border-radius: 0; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <main class="slide" aria-labelledby="slide-title">
+    <header class="banner">
+      <div>
+        <p class="eyebrow">Northstar: WN7 Support · Team huddle</p>
+        <h1 id="slide-title">One sequence for every WN7 call</h1>
+        <p class="sub">Brief whole-home Wi-Fi drops on a WN7 hub or WNM-7 bundle. BH&#8209;4419 is the authority.</p>
+      </div>
+      <img class="logo" src="assets/northstar-logo-white.png" alt="Northstar Home">
+    </header>
+
+    <div class="body">
+      <ol class="steps" aria-label="The five-step call sequence">
+        <li class="step"><span class="num" aria-hidden="true">1</span><h2>Recognize</h2>
+          <p>Whole home, brief drop, comes back on its own.</p>
+          <p><b>Listen for the impact first.</b> <span class="cue">The pattern means check, not qualifies.</span></p></li>
+        <li class="step"><span class="num" aria-hidden="true">2</span><h2>Verify</h2>
+          <p>Hub serial into Orbit's <b>WN7 eligibility</b> panel.</p>
+          <p><b>Read the result.</b> <span class="cue">Running the check isn't reading it.</span></p></li>
+        <li class="step decide"><span class="num" aria-hidden="true">3</span><h2>Decide</h2>
+          <p>Choose the path by <b>what Orbit returned</b>, not by the product name or symptoms.</p></li>
+        <li class="step"><span class="num" aria-hidden="true">4</span><h2>Complete</h2>
+          <p><b>For an eligible serial, both:</b><br>Replacement: <b>confirmation number</b><br>Plus credit: shows <code>Applied</code></p>
+          <p><span class="cue">Either still open? <b>Recovery isn't complete.</b> <b>Keep the case open.</b></span></p></li>
+        <li class="step"><span class="num" aria-hidden="true">5</span><h2>Explain &amp; Document</h2>
+          <p>What's done, what's still open, what happens next, and who owns it.</p></li>
+      </ol>
+
+      <div class="branches" role="group" aria-label="Step 3, Decide: three paths by what Orbit returned">
+        <p class="branch-label">Decide by<br>the Orbit result</p>
+        <div class="branch b-yes"><h3><span class="mark" aria-hidden="true">✓</span>Eligible</h3><p>Follow the <b>recovery path</b> in BH&#8209;4419. Complete both parts.</p></div>
+        <div class="branch b-no"><h3><span class="mark" aria-hidden="true">–</span>Not eligible</h3><p><b>Standard support</b> for the issue. No replacement or Plus promise.</p></div>
+        <div class="branch b-unsure"><h3><span class="mark" aria-hidden="true">?</span>No clear result</h3><p><b>Don't guess.</b> Recheck, then ask your Lead. No serial or tool down: eligibility review case.</p></div>
+      </div>
+    </div>
+
+    <div class="next" aria-label="What to do next">
+      <div><span class="k">On calls</span><p>Use the <b>Guide Call Path</b> on every WN7 call.</p></div>
+      <div><span class="k">Stuck</span><p>Your <b>Lead</b> first, then the <b>established fallback</b>.</p></div>
+      <div><span class="k">Next</span><p>Complete your individual practice: <b>Make the Call</b>.</p></div>
+    </div>
+    <footer class="foot"><span>Proposed learning resource, not a new procedure. If this slide and Beacon differ, follow Beacon.</span><span>Fictional work sample</span></footer>
+  </main>
+</div>
+</body>
+</html>

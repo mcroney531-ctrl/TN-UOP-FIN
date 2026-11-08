@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WN7 Coaching Cues</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: Letter; margin: 0; }
+  :root {
+    --ink: #1d2433; --muted: #5a6376; --line: #d6dae3; --bg: #f3f5f9;
+    --navy: #1f3a68; --navy-soft: #e7edf6; --green: #2f7d4f; --green-soft: #e6f2ea;
+    --amber: #94660f; --amber-soft: #f8f0de; --red: #a03d3d; --red-soft: #f7e6e6; --grey: #b4bac7;
+    --display: "Inter", "Segoe UI", Arial, sans-serif; --body: "Inter", "Segoe UI", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; background: #888; }
+  body { color: var(--ink); font: 8.9pt/1.36 var(--body); }
+  .page { width: 8.5in; height: 11in; background: #fff; position: relative; overflow: hidden; margin: 0 auto 12px; padding: 0.5in 0.6in 0.62in; page-break-after: always; break-after: page; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  @media print { html, body { background: #fff; } .page { margin: 0; } }
+  h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.15; margin: 0; letter-spacing: -0.015em; }
+  h2 { font-size: 17pt; color: var(--navy); margin-bottom: 3pt; }
+  h3 { font-size: 11pt; margin-bottom: 4pt; }
+  p { margin: 0 0 6pt; }
+  ul { margin: 0; padding-left: 13pt; }
+  li { margin: 0 0 1.5pt; }
+  li::marker { color: var(--muted); }
+  .eyebrow { font-size: 7.5pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 3pt; }
+  .lede { font-size: 10pt; color: var(--muted); }
+  .muted { color: var(--muted); }
+  .sm { font-size: 7.9pt; }
+  .pfoot { position: absolute; left: 0.6in; right: 0.6in; bottom: 0.3in; display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--muted); border-top: 1px solid var(--line); padding-top: 5pt; }
+
+  /* Cover band */
+  .band { background: var(--navy); color: #fff; margin: -0.5in -0.6in 14pt; padding: 0.42in 0.6in 0.32in; }
+  .band img { height: 46pt; display: block; margin-bottom: 14pt; }
+  .band .eyebrow { color: #b9c6dd; }
+  .band h1 { font-size: 24pt; color: #fff; margin-bottom: 5pt; }
+  .band .lede { color: #d6dfec; max-width: 6in; }
+  .tags { display: flex; gap: 5pt; flex-wrap: wrap; margin-top: 9pt; }
+  .tag { font-size: 7pt; font-weight: 600; padding: 1.5pt 7pt; border-radius: 99px; border: 1px solid rgba(255,255,255,.45); }
+
+  .success { border-left: 4pt solid var(--navy); background: var(--bg); padding: 8pt 11pt; margin: 8pt 0 10pt; font: 600 10.6pt/1.42 var(--display); letter-spacing: -0.01em; }
+  .quad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6pt; }
+  .q { border: 1px solid var(--line); border-top: 3pt solid var(--c); border-radius: 5pt; padding: 6pt 8pt; font-size: 8.2pt; }
+  .q b { display: block; font-size: 8.8pt; color: var(--c); margin-bottom: 1pt; }
+  .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5pt; margin-top: 5pt; }
+  .flow div { background: var(--bg); border-radius: 5pt; padding: 6pt 7pt; font-size: 7.9pt; position: relative; }
+  .flow b { display: block; color: var(--navy); font-size: 8.4pt; }
+  .road { display: grid; grid-template-columns: 1fr 14pt 1fr 14pt 1fr 14pt 1fr 14pt 1fr; align-items: stretch; margin-top: 6pt; }
+  .rp { border: 1.5pt solid var(--navy); border-radius: 6pt; padding: 6pt 7pt; }
+  .rp .n { font: 600 13pt var(--display); color: var(--navy); }
+  .rp b { display: block; font-size: 8.8pt; }
+  .rp span { display: block; font-size: 7.6pt; color: var(--muted); margin-top: 2pt; }
+  .rg { display: grid; place-items: center; }
+  .rg i { width: 8pt; height: 8pt; background: var(--amber); transform: rotate(45deg); border-radius: 1pt; display: block; }
+  .legend { font-size: 7.5pt; color: var(--muted); margin-top: 4pt; display: flex; gap: 6pt; align-items: center; }
+  .legend i { width: 6pt; height: 6pt; background: var(--amber); transform: rotate(45deg); display: inline-block; }
+  .sec { margin-top: 9pt; }
+
+  /* Phase blocks */
+  .phase { border: 1px solid var(--line); border-radius: 7pt; margin-bottom: 8pt; overflow: hidden; }
+  .ph { display: flex; gap: 9pt; align-items: center; padding: 5pt 10pt; background: var(--navy-soft); }
+  .num { width: 22pt; height: 22pt; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font: 600 11pt var(--display); flex: none; }
+  .ph h3 { margin: 0; font-size: 12pt; color: var(--navy); }
+  .ph p { margin: 0; font-size: 8.4pt; color: var(--muted); }
+  .pb { display: grid; grid-template-columns: 1.45fr 1fr; }
+  .pb > div { padding: 5pt 10pt; }
+  .pb > div + div { border-left: 1px solid var(--line); }
+  .lab { font-size: 7pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 3pt; }
+  .lab + ul { margin-bottom: 4pt; }
+  .chips { display: flex; flex-wrap: wrap; gap: 3pt; margin-bottom: 4pt; }
+  .chip { font-size: 7.1pt; font-weight: 600; padding: 1pt 6pt; border-radius: 99px; background: var(--navy-soft); color: var(--navy); }
+  .scope { background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 8pt; margin-bottom: 5pt; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; }
+  .pair .phase { margin-bottom: 0; display: flex; flex-direction: column; }
+  .pair .pb { grid-template-columns: 1fr; }
+  .pair .pb > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .pair .gate { margin-top: auto; }
+  .gate { border-top: 1px solid var(--line); background: #fcfaf5; padding: 5pt 10pt 5pt; }
+  .gq { font-size: 8.5pt; font-weight: 700; margin-bottom: 4pt; display: flex; gap: 6pt; align-items: baseline; }
+  .gq::before { content: ""; width: 6pt; height: 6pt; background: var(--amber); transform: rotate(45deg) translateY(-1pt); flex: none; }
+  .rows { display: grid; grid-template-columns: 52pt 1fr; gap: 1pt 8pt; font-size: 8.2pt; }
+  .rows dt { font-size: 7pt; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding-top: 1pt; }
+  .rows dd { margin: 0; }
+  .go { color: var(--green); } .adj { color: var(--amber); } .stop { color: var(--red); } .neu { color: var(--muted); }
+
+  /* Measurement */
+  .bar { display: flex; height: 22pt; border-radius: 4pt; overflow: hidden; gap: 1.5pt; margin: 6pt 0 5pt; }
+  .bar div { display: flex; align-items: center; padding: 0 6pt; color: #fff; font-weight: 700; font-size: 9pt; }
+  .b1 { background: var(--navy); flex: 76; } .b2 { background: var(--amber); flex: 13; justify-content: center; padding: 0 !important; } .b3 { background: var(--grey); flex: 115; color: var(--ink) !important; }
+  .key { display: flex; gap: 14pt; font-size: 8.4pt; }
+  .key span { display: flex; gap: 4pt; align-items: center; }
+  .key i { width: 7pt; height: 7pt; border-radius: 1.5pt; display: inline-block; }
+  .box { border: 1px solid var(--line); border-radius: 6pt; padding: 6pt 10pt; }
+  .ind { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5pt; margin-top: 4pt; }
+  .ind div { background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 8pt; line-height: 1.28; }
+  .ind b { display: block; color: var(--navy); font-size: 8.4pt; }
+  .quote { font: 600 8.8pt/1.38 var(--display); border-left: 3pt solid var(--navy); padding: 1pt 0 1pt 8pt; margin: 5pt 0 0; }
+  .quote span { display: block; font: 400 8pt var(--body); color: var(--muted); margin-top: 2pt; }
+  .layers { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5pt; margin-top: 4pt; }
+  .layers div { border-top: 3pt solid var(--c); background: var(--bg); border-radius: 4pt; padding: 4pt 7pt; font-size: 7.9pt; line-height: 1.28; }
+  .layers b { display: block; color: var(--c); font-size: 8.4pt; }
+  .layers em { display: block; font-style: normal; color: var(--muted); margin-top: 3pt; }
+  .claims { display: grid; grid-template-columns: 1fr 1fr; gap: 2pt 14pt; list-style: none; padding: 0; font-size: 8.2pt; }
+  .claims li { padding-left: 12pt; position: relative; margin: 0; }
+  .claims li::before { content: "\2715"; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+  .claims li.ok::before { content: "\2713"; color: var(--green); }
+  .keys { display: grid; grid-template-columns: 1fr 14pt 1fr 14pt 1fr; align-items: center; gap: 4pt; margin-top: 4pt; }
+  .k { border: 1px solid var(--line); border-radius: 5pt; padding: 6pt 8pt; font-size: 8.2pt; height: 100%; }
+  .k b { display: block; font: 700 9.6pt var(--display); color: var(--navy); }
+  .k.r { background: var(--green-soft); border-color: transparent; } .k.r b { color: var(--green); }
+  .op { text-align: center; font: 600 14pt var(--display); color: var(--muted); }
+
+  /* Matrix */
+  table.mx { width: 100%; border-collapse: collapse; font-size: 7.7pt; line-height: 1.28; }
+  .mx th { text-align: left; font-size: 6.6pt; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: var(--navy); padding: 4pt 6pt; }
+  .mx td { padding: 2.2pt 6pt; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .mx tr:nth-child(even) td { background: #f8f9fb; }
+  .mx td:first-child { font-weight: 700; width: 21%; }
+  .two { display: grid; grid-template-columns: 1.1fr 1fr; gap: 8pt; margin-top: 7pt; }
+  .ab { display: grid; grid-template-columns: 1fr 1fr; gap: 5pt; margin: 4pt 0; }
+  .ab div { background: var(--bg); border-radius: 4pt; padding: 5pt 7pt; font-size: 8pt; }
+  .ab b { display: block; color: var(--navy); }
+  .dsplit { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14pt; font-size: 8pt; }
+  .dsplit ul { padding-left: 12pt; }
+  .dsplit li { margin-bottom: 0.5pt; }
+  .deps { columns: 2; column-gap: 14pt; font-size: 8.8pt; padding-left: 12pt; }
+  .deps li { break-inside: avoid; }
+
+  .page.qr { padding: 0.45in 0.55in 0.5in; }
+  .qband { background: var(--navy); color: #fff; margin: -0.45in -0.55in 12pt; padding: 0.3in 0.55in 0.24in; display: flex; gap: 18pt; align-items: center; }
+  .qband img { height: 40pt; flex: none; }
+  .qband .eyebrow { color: #b9c6dd; margin-bottom: 2pt; }
+  .qband h1 { font-size: 16pt; color: #fff; line-height: 1.2; }
+  .qsec { margin-bottom: 10pt; }
+  .qh { font-weight: 700; font-size: 11pt; color: var(--navy); margin: 0 0 5pt; display: flex; align-items: center; gap: 7pt; }
+  .qh span { width: 16pt; height: 16pt; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-size: 9pt; flex: none; }
+  .qseq { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1.7fr; gap: 3pt; }
+  .qseq > div { background: var(--navy); color: #fff; border-radius: 5pt; padding: 6pt 7pt; font-size: 8.2pt; line-height: 1.3; }
+  .qseq b { display: block; font-size: 10pt; margin-bottom: 3pt; }
+  .qseq em { display: block; font-style: normal; font-weight: 700; font-size: 7pt; letter-spacing: .06em; text-transform: uppercase; color: #b9c6dd; margin-bottom: 2pt; }
+  .qseq .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6pt; }
+  .qseq .pair > span { display: block; border-left: 1px solid rgba(255,255,255,.3); padding-left: 5pt; }
+  .qseq .pair > span:first-child { border-left: 0; padding-left: 0; }
+  .qwarn { font-size: 8.4pt; margin: 5pt 0 5pt; padding: 4pt 8pt; background: var(--amber-soft); border-radius: 4pt; }
+  .qbr { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5pt; }
+  .qbr div { border: 1px solid var(--line); border-left-width: 4pt; border-radius: 0 4pt 4pt 0; padding: 4pt 7pt; font-size: 8.3pt; line-height: 1.3; }
+  .qbr div:nth-child(1) { border-left-color: var(--green); } .qbr div:nth-child(2) { border-left-color: var(--navy); } .qbr div:nth-child(3) { border-left-color: var(--amber); }
+  .qbr b { display: block; font-size: 9pt; }
+  table.qt { width: 100%; border-collapse: collapse; font-size: 8.4pt; line-height: 1.3; }
+  .qt th { text-align: left; font-size: 6.8pt; letter-spacing: .08em; text-transform: uppercase; background: var(--navy); color: #fff; padding: 4pt 6pt; }
+  .qt td { padding: 4.5pt 6pt; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .qt td:first-child { font-weight: 700; width: 22%; }
+  .qt td:nth-child(2) { width: 25%; color: var(--navy); }
+  .qt td:last-child { width: 14%; }
+  .qt tr:nth-child(even) td { background: #f8f9fb; }
+  .r { display: inline-block; font-size: 6.8pt; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 1.5pt 5pt; border-radius: 3pt; margin: 0 1pt 2pt 0; border: 1.2pt solid; }
+  .r.coach { color: var(--green); border-color: var(--green); background: var(--green-soft); }
+  .r.esc { color: #fff; background: var(--red); border-color: var(--red); }
+  .r.flag { color: var(--navy); border-color: var(--navy); border-style: dashed; background: #fff; }
+  .r.fu { color: var(--amber); border-color: var(--amber); background: var(--amber-soft); border-radius: 99px; }
+  .r.inv { color: var(--muted); border-color: var(--muted); background: #fff; border-style: dotted; }
+  .qkey { font-size: 7.6pt; color: var(--muted); margin: 5pt 0 0; line-height: 1.8; }
+  .qkey .r { margin-right: 2pt; }
+  .qact { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5pt; }
+  .qact div { background: var(--bg); border-radius: 4pt; padding: 5pt 7pt; font-size: 8.2pt; line-height: 1.3; }
+  .qact b { display: block; color: var(--navy); font-size: 9pt; margin-bottom: 1pt; }
+  .qreach { font-size: 8.4pt; font-weight: 600; margin: 5pt 0 0; }
+  .qfoot { position: absolute; left: 0.55in; right: 0.55in; bottom: 0.3in; border-top: 1px solid var(--line); padding-top: 4pt; font-size: 7pt; color: var(--muted); line-height: 1.35; }
+
+  .qsub { color: #d6dfec; font-size: 10.5pt; margin: 2pt 0 0; }
+  .ccintro { font-size: 9.6pt; color: var(--muted); margin: 0 0 6pt; }
+  .moves { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5pt; margin-bottom: 6pt; }
+  .moves > div { border: 1.5pt solid var(--navy); border-radius: 7pt; padding: 7pt 8pt; display: flex; flex-direction: column; }
+  .mn { font-size: 12pt; font-weight: 700; color: var(--navy); margin: 0 0 1pt; display: flex; align-items: center; gap: 6pt; }
+  .mn span { width: 18pt; height: 18pt; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-size: 10pt; }
+  .mp { font-size: 8.4pt; font-weight: 600; margin: 0 0 5pt; }
+  .say { font-size: 8.4pt; line-height: 1.32; margin: 0 0 4pt; padding: 3pt 6pt; background: var(--navy-soft); border-radius: 4pt; color: var(--navy); }
+  .mw { font-size: 7.8pt; line-height: 1.3; color: var(--muted); margin: auto 0 0; padding-top: 5pt; border-top: 1px solid var(--line); }
+  .moments { display: grid; grid-template-columns: 1fr 1fr; gap: 6pt; }
+  .mo { border: 1px solid var(--line); border-radius: 6pt; padding: 5pt 9pt 3pt; background: #fff; }
+  .mt { font-size: 9.6pt; font-weight: 700; color: var(--navy); margin: 0 0 3pt; }
+  .ml { font-size: 8.3pt; line-height: 1.32; margin: 0 0 3pt; display: grid; grid-template-columns: 50pt 1fr; column-gap: 5pt; }
+  .ml b { font-size: 6.9pt; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 1.5pt; }
+  .ml i { color: var(--navy); }
+  .mnote { font-size: 8pt; line-height: 1.3; margin: 4pt 0 0; padding: 4pt 6pt; background: var(--amber-soft); border-radius: 4pt; }
+  .keep { background: var(--bg); border-radius: 7pt; padding: 5pt 10pt 4pt; }
+  .keep ul { font-size: 8.4pt; columns: 2; column-gap: 14pt; }
+  .keep li { break-inside: avoid; }
+</style>
+</head>
+<body>
+<div class="page qr">
+  <div class="qband">
+    <img src="assets/northstar-logo-white.png" alt="Northstar Home">
+    <div>
+      <p class="eyebrow">Lead companion · Use with the Lead Quick Reference</p>
+      <h1>WN7 Coaching Cues</h1>
+      <p class="qsub">A two-to-three-minute coaching conversation</p>
+    </div>
+  </div>
+
+  <p class="ccintro">Use it inside the call reviews and coaching you already do. One moment, one behavior, one next step.</p>
+
+  <div class="moves">
+    <div>
+      <p class="mn"><span>1</span>Notice</p>
+      <p class="mp">Name one specific moment.</p>
+      <p class="say">“Let's look at the part right after the serial check.”</p>
+      <p class="say">“I can see the check ran, but I can't tell what you saw next. Can you walk me through it?”</p>
+      <p class="mw">A recorded check isn't proof the Guide saw or understood the result.</p>
+    </div>
+    <div>
+      <p class="mn"><span>2</span>Diagnose</p>
+      <p class="mp">Find out what drove the decision.</p>
+      <p class="say">“Walk me through what you saw after you entered the serial.”</p>
+      <p class="say">“What did you think the next step was?”</p>
+      <p class="say">“Was anything stopping you?”</p>
+      <p class="mw">Knowledge, interpretation, access, process, or expectations. Not every miss is a training problem.</p>
+    </div>
+    <div>
+      <p class="mn"><span>3</span>Practice</p>
+      <p class="mp">Try the moment again, briefly.</p>
+      <p class="say">“Same call: the result comes back eligible. What do you do next?”</p>
+      <p class="say">“How would you tell the customer what's done and what's still open?”</p>
+      <p class="mw">Compare the answer with the Call Path and BH-4419. Don't make up new wording.</p>
+    </div>
+    <div>
+      <p class="mn"><span>4</span>Commit</p>
+      <p class="mp">Agree on one thing to do next time.</p>
+      <p class="say">“On your next WN7 call, what's the one thing you'll do differently?”</p>
+      <p class="say">“I'll listen for that in your next review.”</p>
+      <p class="mw">If the barrier is operational, the next step is escalation to its owner, not more practice.</p>
+    </div>
+  </div>
+
+  <div class="qsec">
+    <p class="qh"><span>?</span>Common coaching moments</p>
+    <div class="moments">
+      <div class="mo">
+        <p class="mt">Eligible, but kept troubleshooting</p>
+        <p class="ml"><b>You notice</b><span>Serial check recorded and eligible, then generic troubleshooting to the end.</span></p>
+        <p class="ml"><b>Ask</b><span><i>“What did the result tell you?”</i></span></p>
+        <p class="ml"><b>Move</b><span>Let the answer decide. Unsure of the next step: practice the decision on the Call Path. Felt expected to keep troubleshooting: once eligibility is verified, the restart loop stops. Couldn't open the order: escalate, don't coach.</span></p>
+      </div>
+      <div class="mo">
+        <p class="mt">Unsure which Orbit result counts</p>
+        <p class="ml"><b>You notice</b><span>During a call review or coaching conversation, the Guide expresses uncertainty about which Orbit result determines eligibility.</span></p>
+        <p class="ml"><b>Ask</b><span><i>“Show me where you looked, and what you took it to mean.”</i></span></p>
+        <p class="ml"><b>Move</b><span>Walk through the validated guidance together. If it doesn't answer the question, share the gap in the Lead thread. If it's an access problem, use the established route to Care Systems.</span></p>
+      </div>
+      <div class="mo">
+        <p class="mt">Replacement done, Plus still open</p>
+        <p class="ml"><b>You notice</b><span>Order confirmed; the applicable Plus action wasn't complete when the call ended.</span></p>
+        <p class="ml"><b>Ask</b><span><i>“When the call ended, what was still open, and who has it now?”</i></span></p>
+        <p class="ml"><b>Move</b><span>Practice the close: what's done, what's open, what happens next, with no timing promised.</span></p>
+        <p class="mnote">The call can close with explained, documented, owned follow-up. The Plus transaction is still outstanding; the recovery isn't finished.</p>
+      </div>
+      <div class="mo">
+        <p class="mt">Next step unclear or not documented</p>
+        <p class="ml"><b>You notice</b><span>The customer sounds unsure what happens next, or notes don't show what started.</span></p>
+        <p class="ml"><b>Ask</b><span><i>“If another Guide opened this case tomorrow, what would they know?”</i></span></p>
+        <p class="ml"><b>Move</b><span>Practice a three-part recap (done, pending, next) and add it to the notes. A missed recap can mean a callback: “the second Guide had to figure out what we had promised” (Dev, Sep 18).</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="keep">
+    <p class="qh" style="margin-bottom:4pt"><span>✓</span>Keep it going</p>
+    <ul>
+      <li>Coach one behavior at a time, against the six indicators that apply to the call.</li>
+      <li>Keep coaching needs separate from operational blockers.</li>
+      <li>Check the same behavior in your next existing call review.</li>
+      <li>Share recurring patterns in the Lead thread; use established escalation for blockers that need fixing now.</li>
+    </ul>
+    <p class="qreach" style="margin-top:4pt">Huddle attendance and scenario completion show reach, not proficiency.</p>
+  </div>
+
+  <div class="qfoot">Proposed coaching cues, not a required model or script. Learning owns this resource; Quality and Specialist Care validate operational accuracy before use. Beacon and BH-4419 remain authoritative. Plus validation: Account Systems and Product Ops (proposed), with Specialist Care; final policy authority unconfirmed. Fictional work sample.</div>
+</div>
+
+</body>
+</html>
