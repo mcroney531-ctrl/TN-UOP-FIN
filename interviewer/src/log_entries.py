@@ -110,6 +110,6 @@ GROUPS = [
   dict(title="Persuade, then navigate", status=None, refs="D131–D136",
    decision="Open the email with my needs assessment and the evidence, then the rationale, then the folders.",
    rationale="The email has to persuade Dana to open the materials, not just list them, so the performance problem and the reasoning come before the folder structure.",
-   result="Dana's pre-read email."),
+   result="Dana's pre-read email leads with the performance gap and supporting evidence, explains why the proposed approach goes beyond the original video request, and then guides her through the three-folder package. The structure establishes the case for the intervention before introducing the resources."),
  ]),
 ]
