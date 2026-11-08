@@ -1,0 +1,66 @@
+## Rollout & Reinforcement
+### Rollout Success
+Defining success across Guide execution, customer outcomes, and operational capacity
+Reviewed WN7 calls show more consistent recognition, eligibility verification, appropriate recovery decisions, and clearly documented follow-up than the pre-rollout baseline. Customer outcomes show promising improvement, while service capacity remains manageable.
+### Stakeholder Evidence
+“Once the path is live, the important questions will be: did they recognize the pattern, check eligibility, complete both transactions, and explain what happens next?”
+Malik, Quality reviewer, Sep 15 calibration comment
+### Observable Indicators of Successful Execution
+Defining the behaviors Leads and Quality look for when reviewing WN7 calls
+[TABLE]
+Dimension | What reviewers look for
+Recognition | Recognizes the potential WN7 pattern and moves toward verification
+Verification | Checks eligibility and correctly interprets the result
+Decision | Selects the appropriate path based on verified eligibility
+Recovery | Completes both applicable transactions—replacement and Plus—or establishes documented follow-up for unresolved work
+Communication | Accurately explains what was completed, what's pending, and what happens next
+Documentation | Records completed actions, outstanding work, and follow-up ownership
+[/TABLE]
+These indicators guide review of relevant behaviors in baseline and pilot calls. Apply them according to the circumstances of each call, distinguish observed behavior from system records, and investigate gaps before drawing conclusions.
+### Rollout Framework
+Designed backward from the success criteria above
+Each phase should answer: Does this phase make the desired Guide behavior possible, support its execution, or provide evidence that it's happening?
+Phases advance on evidence, not on a schedule. Each one ends at a decision point: proceed, adjust, or pause. Care leadership makes each call, informed by Quality, Workforce, Learning, and Specialist Care (see 04).
+Working framework, not the finished rollout plan. No dates, numeric targets, staffing commitments or sample sizes. Unresolved items are labeled Dependency or Open decision.
+### 1. Prepare
+Establish operational readiness
+[TABLE]
+Purpose | Ensure approved guidance, tools, ownership, Lead alignment, Guide support arrangements, and Workforce capacity are ready before introducing the intervention.
+Key activities | Confirm the Guide Call Path content against BH-4419 and approved guidance.Put approved Plus guidance or an authoritative escalation route in place (prerequisite).Confirm where the eligibility result appears in Orbit and that General Care has access (Dependency: Care Systems).Develop and validate the digital scenario; confirm Sana can assign it natively or by link (Dependency: Learning Operations).Run the Lead working meeting (01) for the pilot teams' Leads.Confirm Guide → Lead live support and an established fallback route; Specialist participation only as capacity allows (Dependency: Care leadership, Workforce, Specialist Care).Workforce selects the pilot teams and Guides and schedules practice time, accounting for queue and Specialist strain (see Pilot).Care leadership designates a participating Lead as the temporary thread Admin; the specific person is confirmed here (see 04).Baseline comparison approach: before launch, Quality sets how baseline and pilot calls will be compared (see the comparability note under Observe & Adjust). The established pre-rollout findings are the 204 eligible General Care calls reviewed Sep 21–30: 76 complete recoveries (37%), 13 incomplete (6%), 115 generic troubleshooting (56%). These aren't scores against the six indicators. Revisiting the underlying calls against the six indicators, where possible, isn't a launch prerequisite; it must be complete before pilot results are interpreted.Orbit video: optional, not a prerequisite.
+Evidence / outputs | Each readiness item confirmed by its owner, or flagged as missing.Comparison approach set by Quality; established baseline findings on hand.Pilot teams' Leads aligned on the recovery sequence and coaching cues.
+Decision point | Proceed: every required item is confirmed:Approved Call Path and authoritative Plus guidance or escalation routeValidated Orbit eligibility workflow and General Care accessConfirmed scenario delivery/access through Sana or an approved linkLead alignment and a functioning Guide → Lead support/fallback routeWorkforce-approved pilot group and scheduled practice timeAdjust: only optional items are outstanding (e.g., the Orbit video). Launch without them and label them pending.Pause: any required item is unconfirmed. Required items aren't bypassed or worked around.
+[/TABLE]
+### 2. Pilot
+Introduce and practice the intervention
+[TABLE]
+Purpose | Roll out the complete intervention to a limited, Workforce-approved group: Lead alignment, Guide team huddle and slide, Call Path, individual digital scenario practice, and live support.
+Key activities | Proposed pilot design: 2–3 Lead teams with a representative mix of Guides, not volunteers or only high performers. Workforce determines the final Guide count, team selection, and scheduling based on operational coverage. Not an approved staffing commitment.Leads run the team huddle with the sequence slide, introduce the Call Path, and launch the scenario.Guides complete the individual scenario during scheduled work time, through Sana (pending confirmation). It replaces only the previously proposed micro-huddle.Guides apply the Call Path on live WN7 contacts right away, with Guide → Lead as the primary support route.Observation window: Quality can begin observing and reviewing live WN7 calls as soon as they occur. Before drawing performance conclusions or recommending expansion, Guides need sufficient live-call exposure and Quality needs sufficient comparable evidence. The length isn't specified here.Leads bring questions and blockers to the shared Lead thread, where the Admin routes them. The thread coordinates Leads; it doesn't replace live Guide → Lead support or established escalation.
+Evidence / outputs | Huddle attendance and scenario access/completion recorded. These are delivery measures, not evidence of proficiency.Questions, blockers, and live-support requests logged.Early observations of live WN7 calls, held for interpretation in Observe & Adjust.
+Decision point | This gate checks whether the intervention is reaching Guides and its components are usable. Whether Guide execution is improving is evaluated in Observe & Adjust. Delivery measures such as scenario completion never stand in for demonstrated execution.Continue: each component is reaching Guides and is usable as designed. Observation continues; performance conclusions wait for sufficient live-call exposure and comparable evidence.Adjust: a component isn't landing (e.g., scenario access, Lead availability); fix it before drawing conclusions about execution.Pause: queue or Specialist capacity becomes unmanageable, or Guides lack a working support route.
+[/TABLE]
+### 3. Observe & Adjust
+Evaluate execution and identify breakdowns
+[TABLE]
+Purpose | Use the six observable indicators to examine real WN7 calls. Compare against baseline evidence, investigate gaps, gather Guide/Lead feedback, and refine guidance or support as needed.
+Key activities | Quality completes the needed baseline review before interpreting pilot results.Quality leads the evaluation of pilot WN7 calls against the six indicators, using the same criteria as the baseline. Leads contribute coaching observations and help diagnose gaps; Workforce provides capacity data.Diagnose breakdowns before coaching: next step unknown, Orbit result misread, access or process blocker, perceived pressure to keep troubleshooting.Coach, or escalate tool and access problems to their owners.Gather Guide and Lead feedback; review recurring issues in the Lead thread.Refine the Call Path, scenario, or coaching cues where evidence shows a gap.Read the evidence in three distinct layers:Guide execution: the six observable indicators.Customer recovery outcomes: complete and incomplete recovery; repeat contacts, where measurable. These show whether individual customers received the right resolution.Operational signals: average handle time; wait time and abandonment; Lead and Specialist support load. Useful for capacity, but they don't show whether a customer received the right resolution.Recovery and operational measures are proposed (Dependency: Quality and Workforce confirmation).
+Evidence / outputs | Indicator-based observations from reviewed pilot calls, compared with the baseline.Documented breakdown causes and the response to each.A log of refinements made.A readout of customer recovery outcomes and operational signals, read alongside the call reviews. Changes observed during the rollout don't by themselves show the intervention caused them.Partner recommendations to Care leadership (see 04).
+Decision point | Proceed to Expand: based on sufficient live-call exposure and comparable evidence, there is meaningful improvement in observable Guide execution, critical workflow blockers are resolved, and operational capacity is manageable. Customer recovery outcomes show promising directional evidence; not every operational signal needs to improve right away.Adjust: improvement is limited or mixed, or gaps trace to fixable causes. Refine and observe again. This is the usual response.Pause: reserved for serious operational strain, guidance that proves inaccurate or unusable, unresolved critical access or support problems, or other conditions that make continued rollout inappropriate.
+[/TABLE]
+Comparability: baseline and pilot reviews use comparable call-selection approaches, the eligibility branches that apply to each call, the same six indicators, and an explicit, consistent treatment of missing evidence. Review sampling and cadence aren't specified in this proposal.
+### 4. Expand
+Scale based on evidence and capacity
+[TABLE]
+Purpose | Extend the intervention beyond the pilot only when observed execution, resource readiness, and operational conditions support expansion.
+Key activities | Expand in successive waves of Lead teams, not one organization-wide release.Care leadership decides whether evidence supports expansion; Workforce approves each wave's composition, timing, scheduled practice coverage, and operational feasibility. Both are required before a wave proceeds.Each Lead is aligned before their Guides enter the rollout. This doesn't require all 18 Leads to take part before the initial pilot.Repeat the Prepare checks for each new wave (Lead alignment, support route, access).Carry pilot refinements into the Call Path, scenario, and coaching cues.Keep observing with the same six indicators.
+Evidence / outputs | Readiness confirmed for each new wave.Execution observed holding as waves are added.Capacity readout for each wave.
+Decision point | Each wave goes through the same evidence gate as the pilot.Proceed: Care leadership finds the evidence supports expansion and Workforce approves the wave.Adjust: new waves show different breakdowns; slow down and address them.Pause: queue or Specialist capacity is strained.
+[/TABLE]
+### 5. Sustain
+Maintain execution and reinforcement
+[TABLE]
+Purpose | Continue targeted Lead coaching, monitor recurring problems, maintain authoritative guidance, and revisit the intervention when procedures or operational conditions change.
+Key activities | Leads reinforce execution through existing call reviews and coaching, using the agreed cues.Quality monitors recurring execution gaps through existing reviews and shares findings.Learning updates the Call Path, scenario, slide, and Lead resources when BH-4419, Orbit, or Plus handling change, once the relevant owner has validated the change (see 04).Wind down temporary rollout support, such as the thread Admin role and Specialist participation in the thread, when normal coaching and escalation are enough.
+Evidence / outputs | Continued indicator-based observation in routine call reviews.Guidance and Call Path updates logged with an owner and review date.
+Decision point | Maintain: execution holds through routine coaching.Revisit: procedures change, or recurring breakdowns reappear.Retire: temporary supports, once routine coaching and escalation are enough.
+[/TABLE]
+

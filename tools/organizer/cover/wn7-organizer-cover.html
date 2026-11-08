@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WN7 | Needs Assessment &amp; Planning: cover</title>
+<style>
+  /* Northstar WN7 print system: navy #0F2E5E, cobalt #2E6BD1, ice #E9F1FB; Inter. */
+  @page { size: Letter; margin: 0; }
+  :root { --navy: #0F2E5E; --cobalt: #2E6BD1; --ice: #E9F1FB; --ink: #1d2433; --muted: #5a6376; --line: #d6dae3;
+          --ns-grad: linear-gradient(115deg, #08183a 0%, #0F2E5E 55%, #1d4686 100%); }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body { margin: 0; padding: 0; background: #888; }
+  body { font-family: "Inter", "Segoe UI", Arial, sans-serif; color: var(--ink); }
+  .page { width: 8.5in; height: 11in; background: #fff; position: relative; overflow: hidden; margin: 0 auto; }
+  @media print { html, body { background: #fff; } }
+
+  .hero { position: absolute; left: 0; right: 0; top: 0; height: 7.35in; background: var(--ns-grad); color: #fff; padding: 0.7in 0.85in 0; }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 5pt; background: linear-gradient(90deg, #2E6BD1 0%, #5b8fe0 60%, rgba(91,143,224,0) 100%); }
+  .deco { position: absolute; right: 0.65in; top: 1.78in; width: 2.2in; height: 2.5in; }
+
+  .lockup { position: relative; display: flex; align-items: center; gap: 16pt; }
+  .lockup img { height: 46pt; width: auto; display: block; padding-right: 16pt; border-right: 1px solid rgba(255,255,255,.45); }
+  .org b { display: block; font-size: 8pt; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #c6d4ec; }
+  .org span { display: block; font-size: 12.5pt; font-weight: 600; margin-top: 2pt; letter-spacing: -.005em; }
+
+  .titles { position: absolute; left: 0.85in; right: 0.85in; bottom: 0.72in; }
+  .kicker { width: 34pt; height: 3pt; background: var(--cobalt); border-radius: 2pt; margin-bottom: 16pt; }
+  h1 { margin: 0; font-weight: 700; letter-spacing: -.022em; line-height: 1.08; font-size: 38pt; }
+  h1 .wn7 { color: #a9c4f2; }
+  h1 .pipe { font-weight: 300; color: rgba(255,255,255,.42); position: relative; top: -2pt; }
+  .sub { margin: 14pt 0 0; font-size: 14.5pt; line-height: 1.38; font-weight: 400; color: #d9e3f3; max-width: 6.6in; }
+
+  .lower { position: absolute; left: 0.85in; right: 0.85in; top: 8.25in; }
+  .desc { margin: 0; padding-left: 14pt; border-left: 3pt solid var(--cobalt); font-size: 13pt; line-height: 1.5; color: var(--navy); font-weight: 500; max-width: 5.6in; }
+
+  .foot { position: absolute; left: 0.85in; right: 0.85in; bottom: 0.5in; border-top: 1px solid var(--line); padding-top: 7pt; font-size: 8.5pt; font-style: italic; color: var(--muted); }
+  .deco-img { object-fit: contain; object-position: center; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <!-- Decorative: Wi-Fi arcs radiating from a hub node, with a few connected nodes -->
+    <div class="lockup">
+      <img src="../../../deliverables/assets/northstar-logo-white.png" alt="Northstar Home">
+      <div class="org"><b>Northstar Home</b><span>Customer Care Enablement</span></div>
+    </div>
+    <div class="titles">
+      <div class="kicker"></div>
+      <h1><span class="wn7">WN7</span><span class="pipe"> | </span>Needs Assessment &amp; Planning</h1>
+      <p class="sub">Performance Analysis, Design Rationale &amp; Planning Organizer</p>
+    </div>
+  </div>
+  <div class="lower">
+    <p class="desc">A structured record of the needs assessment and planning work informing the proposed WN7 performance-support strategy.</p>
+  </div>
+  <div class="foot">Fictional learning design work sample · Northstar Home</div>
+</div>
+</body>
+</html>

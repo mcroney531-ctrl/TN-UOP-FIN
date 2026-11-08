@@ -1,0 +1,56 @@
+## Equipping Guides
+
+### What Guides need
+- Guides need to locate the correct guidance quickly without interrupting the customer interaction to search through Beacon.
+- Understanding of Plus-- what it does & doesn't do, transaction status, steps
+- Guidance for unavailable Orbit access, missing serial information, or results the Guide cannot interpret, including when to involve a Lead.
+- Customer Communication — Know what to say and how to move the call forward
+  - Guides need concise, actionable language for transitioning from the customer's complaint into verification and the appropriate next step.
+  - Customer-facing language for acknowledging disruption, explaining the next step, and setting accurate expectations.
+  - Guide feedback: “a few words that get me to the next action” and “I need to know what I click and what I say...”
+  - Possible customer-facing language: “We found an issue with some units, and I can check whether yours is included.” Requires approval.
+  - Practical verification prompt: Sofia suggested asking customers to check the label on the underside of the main unit. One reported example helped identify a WN7. Requires procedural verification before use.
+- Cues — Recognize when to act
+  - "If a customer says the whole house went down and then it came back, I do not know if that is their modem, the weather, or the WN7. I ask them to reboot because I need somewhere to start. If I skip it and it is a normal connection issue, I get asked why I did not use the basic steps." (Guide M., Sep 05)
+    - Guides may default to generic troubleshooting when they're unsure whether WN7 eligibility verification applies. Standard troubleshooting isn't wrong in itself, and it remains the right path when the pattern or serial doesn't fit.
+  - Ben Cruz's suggested recognition cue: “Whole home, brief drop, returns on its own, then model and serial.”
+  - Imani's refinement: Listen for and acknowledge the customer's impact before moving into verification.
+  - Important distinction: Recognizing the complaint pattern should trigger eligibility verification, not an assumption that the customer automatically qualifies for replacement.
+- Proper Sequence — Know what to do next
+  - Recognize → Verify → Decide → Complete → Explain & Document
+  - Verification support: Help Guides locate the device model and serial, use Orbit to check eligibility, and follow the appropriate recovery or standard-support path.
+  - The proposed Guide Call Path will support this sequence with concise action prompts, decision points, and direct links to Orbit and the authoritative Beacon guidance.
+  - The sequence must account for eligible, ineligible, and unclear cases, including unresolved Plus transactions and appropriate follow-up or escalation.
+- Knowing when recovery is complete
+  - Understand that placing a replacement order doesn't necessarily close the recovery if an applicable Plus action remains unresolved.
+  - Know how to confirm completed actions, identify unfinished work, arrange or escalate follow-up, and document the status for the next contact.
+  - Explain clearly to the customer what's been completed, what's still pending, and what happens next, using approved guidance.
+Working design notes, not learner-facing instructions. Ben's cue (Sep 10) and Imani's refinement were suggestions from a Team Lead preparation call; no wording was approved for callers, and neither is an approved Northstar procedure. Cues help Guides recognize when to act; the sequence helps them know what to do next.
+### Guide actions
+1. Attend the team huddle— Review the WN7 update, discuss the decision sequence with the Lead, and see the supporting slide and available resources.
+2. Locate and review the Guide Call Path — Understand the five-step sequence and where to access it during live calls.
+3. Complete the WN7 practice scenario* (proposed) — Work through a short, individually assigned digital scenario during scheduled work time. Write what you would do and say, then compare your responses with approved model answers. The scenario still needs development and content validation before launch.
+4. Confirm live support route — Before live WN7 calls, identify how to reach your assigned Lead during a call and which established escalation path to use if they're unavailable.
+5. Escalate unresolved issues — When a problem comes up on a call, bring unclear eligibility, missing information, tool access problems, or unresolved Plus actions to the appropriate Lead or support team.
+6. Apply the Call Path during live WN7 contacts — Verify eligibility, select the appropriate action, complete or arrange follow-up, and explain/document the outcome.
+7. Participate in follow-up coaching — Bring one decision, question, or uncertainty from the practice scenario to your next coaching conversation with your Lead. Address additional gaps identified through call reviews or observation.
+### Pending Approval / Readiness
+8. Watch the short Orbit serial-tool video (optional) — Supporting resource, conditional on approved screen access, validated procedures, and production. Available through the same launch communication if approved. Rollout doesn't depend on it.
+9. Locate the Plus FAQ in Beacon (pending approval) — Conditional on content approval and publication. The FAQ itself is pending, but an authoritative Plus support route is required either way (see Rollout Dependencies).
+### Rollout Dependencies
+*Items marked with an asterisk are related to or mentioned in the dependencies below.
+- Sana is the proposed assignment/access point for the scenario, pending Learning Operations confirmation of delivery capabilities.
+- Workforce must approve scheduled practice time. Care leadership and Workforce must also confirm Lead availability for live support and an established fallback route.
+- Required regardless of FAQ status: an authoritative Plus guidance or escalation route Guides can use before launch.
+### Guide resources 
+The Guide Call Path is the central resource. The others introduce it, practice it, or provide deeper authoritative guidance.
+[TABLE]
+Resource | Primary job
+Guide Call Path | In-call decision and execution support
+Team huddle slide | Introduce and visualize the sequence
+Digital practice scenario | Rehearse decisions and customer language
+Beacon Plus FAQ (pending approval) | Authoritative Plus answers
+Orbit video (optional) | Demonstrate serial-tool navigation
+[/TABLE]
+The live support route (#4) is an operational arrangement, not a resource.
+

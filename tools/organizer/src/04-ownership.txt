@@ -1,0 +1,54 @@
+## Ownership
+
+### Ownership & Decision Authority
+Who owns the work, who provides evidence, who validates procedures, and who authorizes progression
+Proposed responsibilities requiring organizational confirmation, not existing commitments.
+### Rollout Decision Authority
+Care leadership owns the final proceed / adjust / pause decision at each gate, informed by:
+[TABLE]
+Partner | Contribution
+Quality | Evaluates Guide execution against the six indicators, compares baseline and pilot findings, identifies recurring gaps, and recommends whether performance supports expansion.
+Workforce | Evaluates staffing coverage, queues, wait times, abandonment, and scheduled practice capacity; approves each wave's composition, timing, practice coverage, and operational feasibility.
+Learning | Confirms instructional readiness, examines practice and coaching feedback, identifies design changes, and recommends refinements.
+Specialist Care | Validates recovery procedures, identifies complex recovery issues, and evaluates whether Specialist support remains sustainable.
+Care leadership | Weighs the evidence, resolves competing priorities, and authorizes proceeding, adjusting, or pausing.
+[/TABLE]
+Expansion requires both: Care leadership decides that evidence supports expansion, and Workforce approves the wave's composition, timing, scheduled practice coverage, and operational feasibility.
+### Accountability by Area
+[TABLE]
+Area | Owns | Provides evidence / input | Validates or authorizes
+Rollout progression | Care leadership | Quality, Workforce, Learning, Specialist Care | Care leadership authorizes; each wave also needs Workforce approval
+Pilot and wave composition | Workforce (composition, timing, scheduled practice coverage, feasibility) | Coverage and capacity data | Workforce approves each wave
+Evaluation | Quality | Leads (coaching observations, gap diagnosis); Workforce (capacity data) | Recommendation to Care leadership
+Guide learning materials (Call Path, scenario, slide) | Learning | Quality findings; practice and coaching feedback | Specialist Care / policy owners (procedures, Plus); Care Systems (Orbit)
+Lead resources (one-pager, Coaching Cues) | Learning (production and maintenance) | Quality findings; Lead feedback | Quality and Specialist Care (relevant operational content)
+Scenario delivery (Sana) | Learning Operations (assignment, access, delivery, native or via approved link) | Learning (scenario content) | Learning Operations confirms
+Lead working meeting | Learning (facilitates) | Care leadership ensures participating Leads can attend | Specialist Care supports only with approval (see below)
+Live Guide support | Care leadership (support arrangement) | Leads provide first-line support; established fallback route stays in place | Workforce validates coverage; Specialist Care confirms escalation availability, subject to capacity
+Recovery procedures and Plus handling | Specialist Care / appropriate policy owners | Complex recovery issues from the field | Validated within their authority; published in Beacon
+Orbit access and tool behavior | Care Systems | Access and tool blockers raised by Leads | Care Systems validates
+Shared Lead thread | Temporary Admin (a participating Lead, confirmed during Prepare) | Lead questions and blockers | Care leadership designates the Admin
+Reinforcement | Care leadership and Leads | Call reviews and coaching | —
+[/TABLE]
+### Specialist Capacity Approvals
+Mateo (Specialist Care) approves Specialist involvement separately for:
+- (a) the Lead working meeting, and
+- (b) temporary shared-thread support.
+Neither approval implies the other.
+### Shared Lead Thread Administration
+Care leadership designates a participating Lead as the temporary thread Admin; the specific person is confirmed during Prepare. The Admin:
+- Coordinates questions and routes blockers to the appropriate owners.
+- Tracks unresolved issues and recurring patterns.
+- Circulates verified answers to participating Leads.
+- Doesn't personally own every procedural resolution.
+The thread is for Lead coordination. It doesn't replace live Guide → Lead support or established escalation routes, and it isn't a permanent new support channel. Specialist participation stays conditional on capacity, with no guaranteed real-time response.
+### Sustainment Ownership
+Instructional maintenance is separate from operational accuracy
+- Learning: maintains the Guide Call Path, digital scenario, huddle slide, Lead one-pager, Coaching Cues, and associated learning materials.
+- Quality: monitors recurring execution gaps through existing reviews and shares findings for coaching or resource updates; validates relevant operational content in the Lead resources, with Specialist Care.
+- Care Systems: validates Orbit access, tool behavior, and relevant system instructions.
+- Specialist Care / appropriate policy owners: validate recovery procedures and Plus handling within their authority.
+- Care leadership and Leads: reinforce approved guidance through team communication and existing coaching.
+- Beacon: remains the authoritative location for approved procedures.
+Learning doesn't independently approve operational policy.
+
