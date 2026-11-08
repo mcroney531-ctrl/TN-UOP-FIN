@@ -52,7 +52,7 @@ This is a proposal, not an approved rollout. Several pieces need their owners' c
 When we meet, I'd most like your reaction to the approach and to the assumptions behind it, especially where you see the evidence or the dependencies differently.
 
 Best,
-[Name]
+Trevor Newsome
 Learning Experience Design
 
 *Attachment: WN7 Proposal Package (ZIP). The proposal materials are in 01 - Proposal: 00 - Start Here, 01 - Needs Assessment and Planning, 02 - Learning Resources.*
