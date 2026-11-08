@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WN7 Practice: Make the Call</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f5f9; --surface: #ffffff; --ink: #1d2433; --muted: #566074; --line: #d6dae3;
+    --navy: #1f3a68; --navy-soft: #e7edf6; --on-navy: #ffffff;
+    --green: #2a7347; --green-soft: #e6f2ea; --amber: #8a5d0c; --amber-soft: #f8f0de;
+    --focus: #f2b51d;
+    --font: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #151a23; --surface: #1f2531; --ink: #e8ebf1; --muted: #a2abbd; --line: #343b49;
+      --navy: #9fb6e0; --navy-soft: #26324a; --on-navy: #10182a;
+      --green: #74c796; --green-soft: #1d3327; --amber: #e2b45e; --amber-soft: #382e1c; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #151a23; --surface: #1f2531; --ink: #e8ebf1; --muted: #a2abbd; --line: #343b49;
+    --navy: #9fb6e0; --navy-soft: #26324a; --on-navy: #10182a;
+    --green: #74c796; --green-soft: #1d3327; --amber: #e2b45e; --amber-soft: #382e1c; color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--font); }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+  a { color: var(--navy); }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+  header.top { background: #1f3a68; color: #fff; }
+  header.top .wrap { display: flex; align-items: center; gap: 14px; padding-top: 14px; padding-bottom: 14px; }
+  header.top img { height: 34px; width: auto; flex: none; }
+  header.top h1 { font-size: 20px; margin: 0; line-height: 1.2; }
+  header.top p { margin: 2px 0 0; font-size: 13px; color: #c9d4e8; }
+  main { padding: 16px 0 40px; }
+  .orbit .res span { white-space: nowrap; display: inline-block; }
+
+  /* Progress */
+  nav.prog { display: none; margin: 0 0 14px; }
+  .sp-ready nav.prog { display: block; }
+  nav.prog ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  nav.prog button { width: 100%; font: inherit; font-size: 13px; font-weight: 600; border: 2px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 10px; padding: 6px 4px; cursor: pointer; }
+  nav.prog button[aria-current="step"] { border-color: var(--navy); color: var(--navy); background: var(--navy-soft); }
+  nav.prog button:disabled { cursor: not-allowed; opacity: .55; }
+  nav.prog .done::before { content: "✓ "; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin-bottom: 14px; }
+  .card h2 { font-size: 20px; margin: 0 0 6px; }
+  .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
+  .lede { color: var(--muted); margin: 0 0 10px; }
+  .btn { font: inherit; font-weight: 600; border-radius: 10px; padding: 10px 16px; cursor: pointer; border: 2px solid var(--navy); background: var(--navy); color: var(--on-navy); }
+  .btn.ghost { background: var(--surface); color: var(--navy); }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+  /* The call */
+  .call { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-bottom: 14px; }
+  .call summary { cursor: pointer; padding: 12px 16px; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 8px; }
+  .call summary::-webkit-details-marker { display: none; }
+  .call summary::after { content: "Hide"; font-weight: 600; font-size: 13px; color: var(--navy); }
+  .call:not([open]) summary::after { content: "Show"; }
+  .call .body { padding: 0 16px 14px; }
+  .bubble { background: var(--bg); border-radius: 12px; padding: 10px 12px; margin: 0 0 8px; }
+  .bubble b { display: block; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .orbit { border: 2px dashed var(--navy); border-radius: 12px; padding: 10px 14px; margin: 10px 0 4px; }
+  .orbit .sim { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); }
+  .orbit .res { font-size: 20px; font-weight: 700; margin: 4px 0 0; }
+  .orbit .res span { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--navy-soft); color: var(--navy); padding: 2px 8px; border-radius: 6px; }
+  .fine { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+
+  /* Moments */
+  .moment { scroll-margin-top: 16px; }
+  .sp-ready .moment:not(.is-current) { display: none; }
+  .sp-ready #intro:not(.is-current), .sp-ready #reflect:not(.is-current), .sp-ready #variation:not(.is-current) { display: none; }
+  .ask { font-size: 18px; font-weight: 700; margin: 6px 0 4px; }
+  label.lab { display: block; font-weight: 600; font-size: 14px; margin: 10px 0 4px; }
+  textarea { width: 100%; font: inherit; border: 2px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--surface); color: var(--ink); resize: vertical; min-height: 96px; }
+  textarea:focus-visible { border-color: var(--navy); }
+  textarea[aria-invalid="true"] { border-color: var(--amber); }
+  .say { font-size: 14px; color: var(--amber); font-weight: 600; margin: 6px 0 0; }
+  .say:empty { display: none; }
+  details.model { margin-top: 12px; border: 2px solid var(--green); border-radius: 12px; overflow: hidden; }
+  details.model > summary { padding: 10px 14px; font-weight: 700; color: var(--green); background: var(--green-soft); cursor: pointer; }
+  .sp-ready details.model > summary { display: none; }
+  .sp-ready details.model:not([open]) { display: none; }
+  .cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  @media (max-width: 640px) { .cmp { grid-template-columns: 1fr; } }
+  .cmp > div { padding: 12px 14px; }
+  .cmp > div + div { border-left: 1px solid var(--line); }
+  @media (max-width: 640px) { .cmp > div + div { border-left: 0; border-top: 1px solid var(--line); } }
+  .cmp h3 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+  .yours { white-space: pre-wrap; font-style: italic; color: var(--ink); }
+  .yours:empty::before { content: "(You didn't write a response.)"; color: var(--muted); }
+  .nojs-yours { display: none; }
+  .sp-ready .nojs-yours { display: block; }
+  .model ul { margin: 0; padding-left: 20px; }
+  .model li { margin-bottom: 4px; }
+  .why { margin: 0; padding: 12px 14px; background: var(--amber-soft); border-top: 1px solid var(--line); }
+  .why b { color: var(--amber); }
+  .src { font-size: 12px; color: var(--muted); padding: 0 14px 10px; margin: 0; background: var(--amber-soft); }
+  .check { font-size: 14px; color: var(--muted); margin: 10px 0 0; }
+
+  .reflect li { margin-bottom: 6px; }
+  .note { border-left: 4px solid var(--navy); background: var(--navy-soft); border-radius: 0 10px 10px 0; padding: 10px 12px; margin: 12px 0 0; }
+  footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 12px; }
+  footer p { margin: 0 0 6px; }
+  .js-only { display: none; }
+  .sp-ready .js-only { display: revert; }
+  .sp-ready .no-js-only { display: none; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <img src="assets/northstar-logo-white.png" alt="Northstar Home" width="104" height="42">
+    <div>
+      <h1>Make the Call: WN7 practice</h1>
+      <p>About 5–7 minutes · Practice only · Nothing you type is saved or sent</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <nav class="prog" aria-label="Practice progress">
+    <ol>
+      <li><button type="button" data-go="m1">1 of 3</button></li>
+      <li><button type="button" data-go="m2" disabled>2 of 3</button></li>
+      <li><button type="button" data-go="m3" disabled>3 of 3</button></li>
+      <li><button type="button" data-go="reflect" disabled>Wrap-up</button></li>
+    </ol>
+  </nav>
+
+  <section class="card" id="intro" aria-labelledby="h-intro">
+    <p class="eyebrow">Before you start</p>
+    <h2 id="h-intro">One call, three decisions</h2>
+    <p>You'll handle a WN7 call. At each step, write a short answer in your own words, then compare it with a model response. There's no score. The point is to think the call through.</p>
+    <p class="fine"><b>This is a fictionalized practice call.</b> It's informed by a documented ineligible WN7 call (Sep 24), but it isn't a reconstruction of that conversation. The customer, their symptoms and the Orbit result are made up for practice. Keep the WN7 Call Path open if you like.</p>
+    <div class="row js-only"><button type="button" class="btn" data-go="m1">Start</button></div>
+  </section>
+
+  <details class="call" id="call" open>
+    <summary>The call so far</summary>
+    <div class="body">
+      <p class="bubble"><b>Customer</b>“Every few days the Wi-Fi drops for the whole house for a minute or two, then it comes back by itself. It's a WN7 hub.”</p>
+      <p class="bubble"><b>Customer</b>“My friend has the same hub and Northstar sent them a new one. I want a replacement too. This keeps knocking me off work calls.”</p>
+      <p class="bubble"><b>You</b>You've asked for the hub serial from the Northstar app and entered it in Orbit's WN7 eligibility panel.</p>
+      <div class="orbit" role="group" aria-label="Simulated Orbit result">
+        <div class="sim">Simulated result · practice only · not a real record</div>
+        <p class="res">WN7 eligibility: <span>Not eligible</span></p>
+      </div>
+      <p class="fine">Fictionalized practice scenario, informed by (not a reconstruction of) a documented ineligible WN7 call in the Sep 24 Quality listening notes. The WN7 symptoms, the friend's replacement and the dialogue are invented for practice. The real Orbit screen may look different.</p>
+    </div>
+  </details>
+
+  <!-- Moment 1 -->
+  <section class="card moment" id="m1" aria-labelledby="h-m1">
+    <p class="eyebrow">Moment 1 of 3 · Recognize and verify</p>
+    <h2 id="h-m1">What do you know right now?</h2>
+    <p class="ask">What do the symptoms tell you, and what does the Orbit result establish?</p>
+    <label class="lab" for="t1">Your answer</label>
+    <textarea id="t1" rows="4" autocomplete="off" placeholder="A sentence or two is enough."></textarea>
+    <p class="say" id="s1" role="status" aria-live="polite"></p>
+    <div class="row js-only"><button type="button" class="btn" data-compare="1">Compare my response</button></div>
+    <details class="model" id="r1">
+      <summary>Compare with the model response</summary>
+      <div class="cmp">
+        <div class="nojs-yours"><h3>Your response</h3><p class="yours" id="y1"></p></div>
+        <div><h3>Model response</h3>
+          <ul>
+            <li>The symptoms fit the WN7 pattern, so they were the right trigger to <b>check eligibility</b>.</li>
+            <li>Orbit says <b>Not eligible</b> for this serial. That result decides the path.</li>
+            <li>The model, the symptoms and the friend's experience don't change it. No replacement or Plus benefit is on offer through this path.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="why"><b>Why this matters:</b> recognizing the pattern means <i>check</i>, not <i>qualifies</i>. The model code alone doesn't establish eligibility; only the serial result does.</p>
+      <p class="src">Source: PO-117 via BH-4419 (“eligible only when Orbit returns Eligible… The model code alone does not establish eligibility”).</p>
+      <div class="row js-only">
+        <button type="button" class="btn ghost" data-revise="1">Revise my response</button>
+        <button type="button" class="btn" data-go="m2">Next: choose the action</button>
+      </div>
+    </details>
+  </section>
+
+  <!-- Moment 2 -->
+  <section class="card moment" id="m2" aria-labelledby="h-m2">
+    <p class="eyebrow">Moment 2 of 3 · Decide</p>
+    <h2 id="h-m2">They still want a replacement</h2>
+    <p class="bubble"><b>Customer</b>“So you're not going to replace it? It's the same hub my friend had.”</p>
+    <p class="ask">What do you do next, and why?</p>
+    <label class="lab" for="t2">Your answer</label>
+    <textarea id="t2" rows="4" autocomplete="off" placeholder="What you'd do, and your reason."></textarea>
+    <p class="say" id="s2" role="status" aria-live="polite"></p>
+    <div class="row js-only"><button type="button" class="btn" data-compare="2">Compare my response</button></div>
+    <details class="model" id="r2">
+      <summary>Compare with the model response</summary>
+      <div class="cmp">
+        <div class="nojs-yours"><h3>Your response</h3><p class="yours" id="y2"></p></div>
+        <div><h3>Model response</h3>
+          <ul>
+            <li>Acknowledge the disruption to their work calls. Don't brush it off.</li>
+            <li>Continue the appropriate standard troubleshooting, or escalation, for the drops they're reporting, using the standard Beacon guidance.</li>
+            <li>Don't promise a replacement or the Plus benefit, and don't hint that one might come later.</li>
+            <li>If the issue continues after standard support, follow the established escalation for the reported problem.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="why"><b>Why this matters:</b> the drops are real even though this hub isn't eligible, and other causes of whole-home drops exist. They still need help, just not the recovery path. A product name isn't a promise.</p>
+      <p class="src">Source: PO-117 (“If Orbit returns Not eligible, continue appropriate troubleshooting or escalation for the reported issue. Do not promise the replacement or free service year”); Sep 24 notes.</p>
+      <div class="row js-only">
+        <button type="button" class="btn ghost" data-revise="2">Revise my response</button>
+        <button type="button" class="btn ghost" data-go="m1">Back</button>
+        <button type="button" class="btn" data-go="m3">Next: explain and document</button>
+      </div>
+    </details>
+  </section>
+
+  <!-- Moment 3 -->
+  <section class="card moment" id="m3" aria-labelledby="h-m3">
+    <p class="eyebrow">Moment 3 of 3 · Explain and document</p>
+    <h2 id="h-m3">Close the loop</h2>
+    <p class="ask">What would you tell the customer, and what would you note for the next Guide?</p>
+    <label class="lab" for="t3a">What you'd say (in your own words)</label>
+    <textarea id="t3a" rows="3" autocomplete="off"></textarea>
+    <label class="lab" for="t3b">What you'd note</label>
+    <textarea id="t3b" rows="3" autocomplete="off"></textarea>
+    <p class="say" id="s3" role="status" aria-live="polite"></p>
+    <div class="row js-only"><button type="button" class="btn" data-compare="3">Compare my response</button></div>
+    <details class="model" id="r3">
+      <summary>Compare with the model response</summary>
+      <div class="cmp">
+        <div class="nojs-yours"><h3>Your response</h3><p class="yours" id="y3"></p></div>
+        <div><h3>A strong answer covers</h3>
+          <ul>
+            <li><b>Impact:</b> acknowledge that the drops are disrupting their work.</li>
+            <li><b>Result:</b> their hub's serial isn't in the group covered by the replacement, so you can't offer one through this path. Don't say every WN7 is affected.</li>
+            <li><b>Next steps:</b> only what's confirmed, such as the troubleshooting you're doing now or the escalation you've opened.</li>
+            <li><b>Notes:</b> the eligibility result, what you tried, and any open follow-up with its owner.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="why"><b>Why this matters:</b> in the documented call, the Guide said she couldn't offer a replacement through this path and recapped the next step. Clear notes mean the next Guide doesn't have to rebuild what happened. Check that the customer understands the next step.</p>
+      <p class="src">Source: Sep 24 listening notes; PO-117 (“Do not say every WN7 is affected”). Use your own words; this isn't an approved script.</p>
+      <div class="row js-only">
+        <button type="button" class="btn ghost" data-revise="3">Revise my response</button>
+        <button type="button" class="btn ghost" data-go="m2">Back</button>
+        <button type="button" class="btn" data-go="reflect">Finish</button>
+      </div>
+    </details>
+  </section>
+
+  <!-- Wrap-up -->
+  <section class="card" id="reflect" aria-labelledby="h-ref">
+    <p class="eyebrow">Wrap-up</p>
+    <h2 id="h-ref">Before your next WN7 call</h2>
+    <ol class="reflect">
+      <li>What cue told you to check eligibility?</li>
+      <li>What did the result establish, and what didn't it?</li>
+      <li>What will you do on a real call when Orbit says Not eligible?</li>
+    </ol>
+    <p>Keep the <b>WN7 Call Path</b> handy on calls. If you're unsure on a live call, ask your Lead.</p>
+    <p class="note">Finishing this practice shows you took part. It doesn't measure how you handle live calls; your Lead looks at that through normal call reviews and coaching.</p>
+    <div class="row js-only">
+      <button type="button" class="btn ghost" data-go="m1">Review from the start</button>
+      <button type="button" class="btn ghost" data-go="variation">Optional: Orbit won't load (1–2 min)</button>
+    </div>
+  </section>
+
+  <!-- Optional variation -->
+  <section class="card" id="variation" aria-labelledby="h-var">
+    <p class="eyebrow">Optional variation</p>
+    <h2 id="h-var">Same call, but Orbit won't load</h2>
+    <p>The customer describes the same drops. You have the serial, but the WN7 eligibility panel won't load.</p>
+    <p class="ask">What do you do, and what do you tell the customer?</p>
+    <label class="lab" for="t4">Your answer</label>
+    <textarea id="t4" rows="3" autocomplete="off"></textarea>
+    <p class="say" id="s4" role="status" aria-live="polite"></p>
+    <div class="row js-only"><button type="button" class="btn" data-compare="4">Compare my response</button></div>
+    <details class="model" id="r4">
+      <summary>Compare with the model response</summary>
+      <div class="cmp">
+        <div class="nojs-yours"><h3>Your response</h3><p class="yours" id="y4"></p></div>
+        <div><h3>Model response</h3>
+          <ul>
+            <li>Don't guess eligibility either way.</li>
+            <li>Ask your Lead if you're unsure what to do.</li>
+            <li>If the tool stays unavailable, open an eligibility review case as BH-4419 describes.</li>
+            <li>Tell the customer what happens next, without promising a time you can't confirm.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="why"><b>Why this matters:</b> a guess either way creates a wrong promise or a missed recovery.</p>
+      <p class="src">Source: PO-117 (“If the serial cannot be located or the tool is unavailable, open an eligibility review case… Do not guess”). The follow-up expectation for a review case still needs Product Ops confirmation.</p>
+      <div class="row js-only">
+        <button type="button" class="btn ghost" data-revise="4">Revise my response</button>
+        <button type="button" class="btn" data-go="reflect">Back to wrap-up</button>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <p><b>Practice resource, not a procedure or an assessment.</b> BH-4419 and the Product Operations reference it links to (PO-117) are authoritative. Answers aren't scored, saved or sent anywhere.</p>
+    <p>Before release: Quality and Specialist Care validate the model responses; Learning Operations confirms delivery through Sana or an approved link; Workforce approves practice time. Fictional work sample; Northstar Home and its data are synthetic.</p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  try {
+    var order = ['intro', 'm1', 'm2', 'm3', 'reflect', 'variation'];
+    var screens = {};
+    order.forEach(function (id) { screens[id] = document.getElementById(id); if (!screens[id]) throw new Error('missing ' + id); });
+    var call = document.getElementById('call');
+    var progBtns = Array.prototype.slice.call(document.querySelectorAll('nav.prog button'));
+    var reached = { m1: true };
+    var fields = { 1: ['t1'], 2: ['t2'], 3: ['t3a', 't3b'], 4: ['t4'] };
+
+    function go(id) {
+      order.forEach(function (k) { screens[k].classList.toggle('is-current', k === id); });
+      if (id !== 'intro') reached[id] = true;
+      if (id === 'm2' || id === 'm3') reached[id] = true;
+      call.hidden = (id === 'intro' || id === 'reflect');
+      progBtns.forEach(function (b) {
+        var t = b.getAttribute('data-go');
+        b.disabled = !reached[t];
+        if (t === id) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+        var n = t === 'reflect' ? null : t.slice(1);
+        b.classList.toggle('done', !!(n && document.getElementById('r' + n).open));
+      });
+      var h = screens[id].querySelector('h2');
+      h.setAttribute('tabindex', '-1');
+      h.focus({ preventScroll: true });
+      window.scrollTo(0, 0);
+    }
+
+    function compare(n) {
+      var ids = fields[n];
+      var text = ids.map(function (i) { return document.getElementById(i).value.trim(); });
+      var msg = document.getElementById('s' + n);
+      var labels = { t3a: 'what you\'d say to the customer', t3b: 'what you\'d note for the next Guide' };
+      ids.forEach(function (i) { document.getElementById(i).removeAttribute('aria-invalid'); });
+      var missing = ids.filter(function (i, k) { return text[k] === ''; });
+      if (missing.length) {
+        if (ids.length > 1) {
+          msg.textContent = 'Add a few words for ' + missing.map(function (i) { return labels[i]; }).join(' and ') + ' first.';
+        } else {
+          msg.textContent = 'Write your answer first, even a few words.';
+        }
+        missing.forEach(function (i) { document.getElementById(i).setAttribute('aria-invalid', 'true'); });
+        document.getElementById(missing[0]).focus();
+        return;
+      }
+      msg.textContent = '';
+      document.getElementById('y' + n).textContent = ids.length > 1 ? 'Say: ' + (text[0] || '—') + '\nNote: ' + (text[1] || '—') : text[0];
+      var r = document.getElementById('r' + n);
+      r.open = true;
+      var h = r.querySelector('h3');
+      h.setAttribute('tabindex', '-1');
+      h.focus();
+      if (n === 1) reached.m2 = true;
+      if (n === 2) reached.m3 = true;
+      if (n === 3) reached.reflect = true;
+      progBtns.forEach(function (b) { var t = b.getAttribute('data-go'); b.disabled = !reached[t]; });
+      var pb = progBtns[n - 1]; if (pb && n < 4) pb.classList.add('done');
+    }
+
+    function revise(n) {
+      var f = document.getElementById(fields[n][0]);
+      f.focus();
+      f.setSelectionRange(f.value.length, f.value.length);
+    }
+
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-go],[data-compare],[data-revise]');
+      if (!t) return;
+      if (t.hasAttribute('data-go')) go(t.getAttribute('data-go'));
+      else if (t.hasAttribute('data-compare')) compare(Number(t.getAttribute('data-compare')));
+      else revise(Number(t.getAttribute('data-revise')));
+    });
+
+    // Initialise: close all model answers (they stay open-able without script via <details>).
+    Array.prototype.forEach.call(document.querySelectorAll('details.model'), function (d) { d.open = false; });
+    order.forEach(function (k) { screens[k].classList.toggle('is-current', k === 'intro'); });
+    call.hidden = true;
+    root.classList.add('sp-ready');
+  } catch (err) {
+    root.classList.remove('sp-ready');
+  }
+})();
+</script>
+</body>
+</html>
