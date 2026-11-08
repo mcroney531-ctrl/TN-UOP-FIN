@@ -6,8 +6,8 @@ from urllib.parse import quote
 R = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 D, I = f'{R}/deliverables', f'{R}/interviewer'
 out = os.path.abspath(sys.argv[1]); root_name = 'WN7 Proposal Package'
-P, U = '01 — Proposal', '02 — UOP Interviewer Notes'
-SH, NA, LR = f'{P}/00 — Start Here', f'{P}/01 — Needs Assessment and Planning', f'{P}/02 — Learning Resources'
+P, U = '01 - Proposal', '02 - UOP Interviewer Notes'
+SH, NA, LR = f'{P}/00 - Start Here', f'{P}/01 - Needs Assessment and Planning', f'{P}/02 - Learning Resources'
 FILES = {  # packaged path : source
     f'{SH}/Resource Overview.html': f'{D}/wn7-resource-overview.html',
     f'{SH}/Rollout Plan Overview.html': f'{D}/wn7-rollout-overview.html',
