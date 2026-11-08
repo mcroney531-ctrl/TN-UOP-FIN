@@ -115,7 +115,7 @@
   /* Matrix */
   table.mx { width: 100%; border-collapse: collapse; font-size: 7.7pt; line-height: 1.28; }
   .mx th { text-align: left; font-size: 6.6pt; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: var(--navy); padding: 4pt 6pt; }
-  .mx td { padding: 2.2pt 6pt; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .mx td { padding: var(--mxpad, 2.2pt) 6pt; border-bottom: 1px solid var(--line); vertical-align: top; }
   .mx tr:nth-child(even) td { background: #f8f9fb; }
   .mx td:first-child { font-weight: 700; width: 21%; }
   .two { display: grid; grid-template-columns: 1.1fr 1fr; gap: 8pt; margin-top: 7pt; }
@@ -175,7 +175,7 @@
       <div class="rp"><span class="n">4</span><b>Expand</b><span>Successive Lead-team waves, dual approval</span></div><div class="rg"><i></i></div>
       <div class="rp"><span class="n">5</span><b>Sustain</b><span>Existing coaching and maintained guidance</span></div>
     </div>
-    <div class="legend"><i></i> Proceed · adjust · pause. Care leadership makes each call, informed by Quality, Workforce, Learning, and Specialist Care. No fixed dates or durations.</div>
+    <div class="legend"><i></i> At each decision gate: Proceed · Adjust · Pause. Care leadership makes each call, informed by Quality, Workforce, Learning, and Specialist Care. No fixed dates or durations.</div>
   </div>
 
   <div class="pfoot"><span>Northstar Home · WN7 Rollout &amp; Reinforcement Plan</span><span>1 / 5</span></div>
@@ -399,14 +399,14 @@
     <div class="layers">
       <div style="--c:var(--muted)"><b>Delivery</b>Huddle attendance; scenario access and completion.<em>Shows reach. Not proficiency.</em></div>
       <div style="--c:var(--navy)"><b>Guide execution</b>The six indicators, from reviewed calls.<em>Shows what Guides did on the call.</em></div>
-      <div style="--c:var(--green)"><b>Customer recovery</b>Complete and incomplete recovery; repeat contacts, where measurable.<em>Shows documented recovery; repeat contacts help test whether it lasted.</em></div>
+      <div style="--c:var(--green)"><b>Customer recovery</b>Complete and incomplete recovery; repeat contacts, where measurable.<em>Shows whether the recovery was documented as complete; repeat contacts may indicate whether the resolution held.</em></div>
       <div style="--c:var(--amber)"><b>Operational signals</b>Handle time; wait and abandonment; Lead and Specialist load.<em>Shows capacity, not whether a customer got the right resolution.</em></div>
     </div>
     <p class="sm muted" style="margin:4pt 0 0">Recovery and operational measures are proposed, pending Quality and Workforce confirmation.</p>
   </div>
 
   <div class="sec box">
-    <h3>What the evaluation will and won't claim</h3>
+    <h3>What the Evidence Can (and Can't) Tell Us</h3>
     <ul class="claims">
       <li class="ok">Same indicators, comparable call selection, applicable eligibility branches, and explicit treatment of missing evidence.</li>
       <li class="ok">Observation starts with the first live calls; conclusions wait for sufficient exposure and comparable evidence.</li>
@@ -434,10 +434,10 @@
 <!-- PAGE 5 -->
 <div class="page">
   <p class="eyebrow">Ownership &amp; dependencies</p>
-  <h2>Who owns what</h2>
+  <h2>Responsibilities Across the Rollout</h2>
   <p class="lede" style="margin-bottom:6pt">Proposed responsibilities, pending confirmation. Beacon remains authoritative for procedures.</p>
 
-  <table class="mx">
+  <table class="mx" style="--mxpad: 1.5pt">
     <thead><tr><th>Area</th><th>Owns</th><th>Contributes</th><th>Validates / approves</th></tr></thead>
     <tbody>
       <tr><td>Rollout progression</td><td>Care leadership (proceed, adjust, pause)</td><td>Quality, Workforce, Learning, Specialist Care</td><td>Care leadership; each wave also needs Workforce approval</td></tr>
@@ -456,7 +456,7 @@
     </tbody>
   </table>
 
-  <div class="two">
+  <div class="two" style="grid-template-columns: 1fr 1.25fr">
     <div class="box">
       <h3>Two separate Specialist approvals</h3>
       <p class="sm muted" style="margin:0">Mateo (Specialist Care) decides each separately; neither implies the other.</p>
@@ -468,6 +468,7 @@
     </div>
     <div class="box">
       <h3>Temporary shared Lead thread</h3>
+      <p class="sm" style="margin:0 0 3pt">During the initial rollout, Leads need a shared place to surface questions, resolve conflicting guidance, and identify recurring blockers. A temporary coordination thread keeps those discussions visible and routes them to the appropriate owners, rather than creating another informal source of answers.</p>
       <p class="sm" style="margin:0 0 3pt">The Admin coordinates questions, routes blockers to owners, tracks recurring patterns, and circulates verified answers.</p>
       <p class="sm muted" style="margin:0">For Lead coordination only. It doesn't replace live Guide → Lead support or established escalation, and it isn't a permanent channel. It winds down in Sustain.</p>
     </div>
