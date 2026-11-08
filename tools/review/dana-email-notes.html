@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dana Email Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f6f9; --paper: #ffffff; --ink: #1b1c1e; --soft: #43474e; --muted: #6b6f76; --line: #dcdfe4;
+    --navy: #1f3a68; --navy-deep: #0a1529; --hl: #fde68a; --hl-active: #fbbf24; --tint: #eef3f9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #10141b; --paper: #171c25; --ink: #e8eaee; --soft: #c3c8d0; --muted: #9aa1ab; --line: #2b3240; --navy: #8fb0e6; --hl: #6b5512; --hl-active: #8a6d10; --tint: #1c2533; }
+  }
+  :root[data-theme="dark"] { --bg: #10141b; --paper: #171c25; --ink: #e8eaee; --soft: #c3c8d0; --muted: #9aa1ab; --line: #2b3240; --navy: #8fb0e6; --hl: #6b5512; --hl-active: #8a6d10; --tint: #1c2533; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--ink); font: 400 16px/1.6 "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+  button { font: inherit; cursor: pointer; }
+  .top { background: linear-gradient(115deg, #0a1529 0%, #12254a 45%, #1f3a68 100%); color: #fff; padding: 18px 16px; }
+  .top .in { max-width: 1240px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
+  .top h1 { margin: 0; font-size: 20px; font-weight: 700; }
+  .top p { margin: 0; font-size: 14px; opacity: .85; }
+  .layout { max-width: 1240px; margin: 0 auto; padding: 20px 16px 120px; display: grid; gap: 20px; }
+  @media (min-width: 980px) { .layout { grid-template-columns: minmax(0, 1fr) 380px; align-items: start; } }
+
+  .paper { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 28px 32px 32px; }
+  @media (max-width: 560px) { .paper { padding: 20px 18px 24px; } }
+  .meta { margin: 0 0 18px; padding-bottom: 14px; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--soft); }
+  .meta div { margin: 2px 0; } .meta b { color: var(--ink); }
+  #email { font-size: 16.5px; line-height: 1.7; }
+  #email p { margin: 0 0 14px; }
+  #email h2 { margin: 26px 0 8px; font-size: 17px; color: var(--navy); }
+  #email ul { margin: 0 0 14px; padding-left: 22px; }
+  #email li { margin: 0 0 6px; }
+  #email ::selection { background: #bfdbfe; color: #111; }
+  ::highlight(notes) { background-color: var(--hl); }
+  ::highlight(active-note) { background-color: var(--hl-active); }
+
+  .side { position: sticky; top: 16px; display: grid; gap: 14px; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .card h2 { margin: 0 0 4px; font-size: 15px; }
+  .hint { margin: 0; font-size: 13.5px; color: var(--muted); }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .btn { border: 1px solid var(--navy); background: var(--navy); color: #fff; border-radius: 8px; padding: 7px 12px; font-size: 14px; font-weight: 600; }
+  :root[data-theme="dark"] .btn, .btn { }
+  .btn.ghost { background: transparent; color: var(--navy); }
+  .btn:focus-visible, textarea:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+  textarea { width: 100%; min-height: 64px; resize: vertical; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font: inherit; font-size: 14.5px; background: var(--paper); color: var(--ink); }
+  .notes { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; max-height: 58vh; overflow: auto; }
+  @media (max-width: 979px) { .notes { max-height: none; } .side { position: static; } }
+  .note { border: 1px solid var(--line); border-left: 4px solid var(--hl-active); border-radius: 8px; padding: 10px 12px; background: var(--paper); }
+  .note.active { box-shadow: 0 0 0 2px var(--hl-active); }
+  .note blockquote { margin: 0 0 8px; font-size: 13.5px; color: var(--soft); cursor: pointer; }
+  .note blockquote::before { content: "“"; } .note blockquote::after { content: "”"; }
+  .note .row { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+  .note .num { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .06em; }
+  .link { border: 0; background: none; color: var(--muted); font-size: 13px; padding: 2px 4px; text-decoration: underline; }
+  .empty { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+
+  .pop { position: absolute; z-index: 10; display: none; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 12px 32px -12px rgba(0,0,0,.35); padding: 10px; width: min(340px, calc(100vw - 24px)); }
+  .pop.show { display: block; }
+  .pop .q { margin: 0 0 8px; font-size: 13px; color: var(--muted); max-height: 3.2em; overflow: hidden; }
+  .addbtn { position: absolute; z-index: 9; display: none; border: 0; border-radius: 999px; padding: 6px 12px; background: var(--navy); color: #fff; font-size: 13.5px; font-weight: 600; box-shadow: 0 8px 20px -8px rgba(0,0,0,.5); }
+  :root[data-theme="dark"] .addbtn { color: #0a1529; }
+  .addbtn.show { display: inline-block; }
+  .toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: #0a1529; color: #fff; padding: 8px 14px; border-radius: 8px; font-size: 14px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<header class="top"><div class="in"><h1>Dana pre-read email · review notes</h1><p>Select any text in the email to add a note. Then copy all notes for GPT.</p></div></header>
+
+<div class="layout">
+  <article class="paper" aria-label="Email draft">
+    <div class="meta">
+      <div><b>To:</b> Dana Ortiz, Director of Customer Care</div>
+      <div><b>From:</b> Learning Experience Design</div>
+      <div><b>Subject:</b> <span id="subject">WN7 calls: what the evidence shows, and a proposed Lead-first response (pre-read)</span></div>
+    </div>
+    <div id="email">
+<p>Hi Dana,</p>
+<p>Thank you for sending Renee's Orbit exports and the background. I've reviewed your request for a short video to help Guides navigate difficult customer conversations, along with the data, internal discussions, and feedback from Guides and Leads. Before recommending a solution, I wanted to better understand the underlying performance challenges and what might be contributing to them.</p>
+<p>Overall, my needs assessment suggests that the challenge extends beyond helping Guides manage upset callers. The WN7 call data reveals a gap between identifying eligible customers and completing recovery, while feedback across Guides, Leads and leadership offers insight into the challenges contributing to that gap. Addressing that gap will likely require more than a single training intervention, which is why I'm recommending a phased approach that begins with aligning Leads, supported by targeted learning resources and operational coordination. Below is the evidence behind that, and a guide to the attached proposal package.</p>
+<h2>What the evidence shows</h2>
+<p>In a systematic Orbit sample of 204 eligible General Care calls from September 21–30, 115 (56%) went through generic troubleshooting instead of recovery. Even among the 159 calls with a serial check recorded, 70 still ended in generic troubleshooting.</p>
+<p>A recorded check can't tell us what the Guide saw or understood, so this isn't a proven root cause. But awareness alone doesn't appear to explain the gap. The gap may involve recognizing the pattern, interpreting the Orbit result, and translating that result into the right recovery action. That matters for upset callers too: a customer asked to repeat restarts they've already tried has good reason to be frustrated.</p>
+<h2>Beyond training alone</h2>
+<p>While a short video could communicate the recovery process, I don't believe explanation alone will be enough to change what happens during live calls. In a September shift feedback session, one Guide described going on hold to ask a Lead because they couldn't recall whether the offer included a subscription or a discount. Priya characterized the broader challenge as "a search problem, an eligibility problem, a conversation problem, and a completion problem."</p>
+<p>Only part of that is a training problem. Guides also need consistent recovery guidance, alignment on Plus handling, a working Orbit workflow and access, a reliable route to their Lead when they're stuck, and reinforcement based on what happens on real calls. That's why the package is <strong>a small set of connected supports rather than one course</strong>. It also aligns with Marisol's October 1 guidance: additional learning time is worth considering if it improves Guide performance without compromising service levels, provided there's evidence to support the approach.</p>
+<h2>Building alignment through Leads</h2>
+<p>Guides go to their Leads for answers mid-call, so any gap in what Leads know shows up directly on calls. With roughly 900 hourly Guides on rotating schedules and limited Specialist capacity, pulling everyone into a session at once would cost real phone time without telling us whether it works.</p>
+<p>The proposed rollout begins by establishing a shared understanding among Leads of the recovery process, coaching expectations, and escalation routes. A 25-minute working meeting built on two cases (one documented call, one composite drawn from the call data) is where that happens: Leads leave with one standard for a complete recovery and for when to coach or escalate. Leads then introduce the sequence in the huddles they already run, using a single slide. Guides complete a short individual practice during scheduled work time and use the proposed Guide Call Path as an in-the-moment reference during live calls. Rather than assigning broad, one-size-fits-all training across all 900 Guides, I recommend targeted support and a pilot with two or three Lead teams, subject to Workforce approval, to evaluate what changes before expanding. As the approach scales, the goal is to strengthen General Care's ability to resolve eligible WN7 calls independently, gradually reducing avoidable escalations to Mateo's Specialists.</p>
+<h2>What&#x27;s included</h2>
+<p>The package is organized in three folders.</p>
+<p><em>01 — Start Here.</em> Three short overviews to read first:</p>
+<ul><li><strong>Resource Overview:</strong> each resource, who it's for, and how they fit together.</li><li><strong>Rollout Plan Overview:</strong> the five proposed phases and what decides each step forward.</li><li><strong>Ownership Map Overview:</strong> who owns what, what's confirmed versus proposed, and what's still open.</li></ul>
+<p><em>02 — Detailed Planning.</em> The full <strong>WN7 Rollout &amp; Reinforcement Plan</strong> (PDF): the rationale, phases and gates, evaluation approach, and the dependencies to confirm before launch.</p>
+<p><em>03 — Learning Resources.</em> The proposed materials. For Leads: the <strong>Lead Meeting Plan</strong>, <strong>Lead Quick Reference</strong> and <strong>Coaching Cues</strong>. For Guides: the <strong>Guide Call Path</strong> for live calls and <strong>Make the Call</strong>, an individual practice built around the harder Not eligible case. Leads use the <strong>Huddle Sequence Slide</strong> to introduce the shared sequence in their existing huddles.</p>
+<h2>Where to start</h2>
+<p>As you review the proposal, I recommend beginning with 01 — Start Here. The three overviews provide a quick orientation before you explore the full plan or individual resources.</p>
+<p>This is a proposal, not an approved rollout. Several pieces need their owners' confirmation before any Guide sees them; the Ownership Map lists them. The rollout is staged, so pilot evidence decides whether it expands, and it's modular: Guides use the Call Path and individual practice, while Leads use the meeting and coaching materials and introduce the shared sequence through existing huddles.</p>
+<p>When we meet, I'd most like your reaction to the approach and to the assumptions behind it, especially where you see the evidence or the dependencies differently.</p>
+<p>Best,<br>[Name]<br>Learning Experience Design</p>
+    </div>
+  </article>
+
+  <aside class="side" aria-label="Notes">
+    <div class="card">
+      <h2>Your notes <span id="count" class="hint"></span></h2>
+      <p class="hint">Highlight a phrase, then click <b>Add note</b>. Click a quote to jump to it.</p>
+      <ol class="notes" id="notes"></ol>
+      <p class="empty" id="empty">No notes yet.</p>
+    </div>
+    <div class="card">
+      <h2>General notes</h2>
+      <p class="hint">Anything not tied to a specific line.</p>
+      <textarea id="general" aria-label="General notes" placeholder="e.g. tone feels a little formal overall"></textarea>
+      <div class="actions">
+        <button class="btn" id="copy" type="button">Copy all notes</button>
+        <button class="btn ghost" id="download" type="button">Download .md</button>
+        <button class="btn ghost" id="clear" type="button">Clear all</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<button class="addbtn" id="addbtn" type="button">+ Add note</button>
+<div class="pop" id="pop" role="dialog" aria-label="Add a note">
+  <p class="q" id="popq"></p>
+  <textarea id="poptext" aria-label="Note" placeholder="Your note on this passage"></textarea>
+  <div class="actions"><button class="btn" id="save" type="button">Save note</button><button class="btn ghost" id="cancel" type="button">Cancel</button></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var KEY = 'dana-email-notes-v1';
+  var emailEl = document.getElementById('email');
+  var notesEl = document.getElementById('notes');
+  var general = document.getElementById('general');
+  var addbtn = document.getElementById('addbtn'), pop = document.getElementById('pop');
+  var popq = document.getElementById('popq'), poptext = document.getElementById('poptext');
+  var state = { notes: [], general: '' };
+  var pending = null, activeId = null;
+  var hasHL = !!(window.CSS && CSS.highlights && window.Highlight);
+
+  function load() { try { var s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && s.notes) state = s; } catch (e) {} }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  function toast(t) { var el = document.getElementById('toast'); el.textContent = t; el.classList.add('show'); setTimeout(function () { el.classList.remove('show'); }, 1600); }
+
+  // Map the email's text to text nodes so a saved quote can be found again after reload.
+  function textIndex() {
+    var w = document.createTreeWalker(emailEl, NodeFilter.SHOW_TEXT), n, parts = [], pos = 0;
+    while ((n = w.nextNode())) { parts.push({ node: n, start: pos }); pos += n.nodeValue.length; }
+    return { parts: parts, text: parts.map(function (p) { return p.node.nodeValue; }).join('') };
+  }
+  function norm(s) { return s.replace(/\s+/g, ' ').trim(); }
+  function rangeFor(note) {
+    var idx = textIndex(), flat = idx.text, q = note.quote;
+    var at = flat.indexOf(q);
+    if (at < 0) return null;
+    function pt(off) { for (var i = idx.parts.length - 1; i >= 0; i--) if (idx.parts[i].start <= off) return { node: idx.parts[i].node, off: off - idx.parts[i].start }; }
+    var a = pt(at), b = pt(at + q.length);
+    var r = document.createRange(); r.setStart(a.node, a.off); r.setEnd(b.node, b.off); return r;
+  }
+  function section(r) {
+    var el = r.startContainer.parentElement, h = null, cur = el && el.closest('#email > *');
+    while (cur) { if (cur.tagName === 'H2') { h = cur.textContent; break; } cur = cur.previousElementSibling; }
+    return h || 'Opening';
+  }
+
+  function paint() {
+    if (!hasHL) return;
+    var all = [], act = [];
+    state.notes.forEach(function (n) { var r = rangeFor(n); if (r) { (n.id === activeId ? act : all).push(r); } });
+    CSS.highlights.set('notes', new Highlight(...all));
+    CSS.highlights.set('active-note', new Highlight(...act));
+  }
+
+  function render() {
+    notesEl.innerHTML = '';
+    var list = state.notes.slice().sort(function (a, b) { return a.pos - b.pos; });
+    list.forEach(function (n, i) {
+      var li = document.createElement('li'); li.className = 'note' + (n.id === activeId ? ' active' : '');
+      var bq = document.createElement('blockquote'); bq.textContent = n.quote.length > 220 ? n.quote.slice(0, 217) + '…' : n.quote; bq.title = 'Jump to this passage';
+      bq.addEventListener('click', function () { focusNote(n.id, true); });
+      var ta = document.createElement('textarea'); ta.value = n.text; ta.setAttribute('aria-label', 'Note ' + (i + 1));
+      ta.addEventListener('input', function () { n.text = ta.value; save(); });
+      ta.addEventListener('focus', function () { if (activeId !== n.id) { activeId = n.id; paint(); markActive(); } });
+      var row = document.createElement('div'); row.className = 'row';
+      var num = document.createElement('span'); num.className = 'num'; num.textContent = (i + 1) + ' · ' + n.section;
+      var del = document.createElement('button'); del.className = 'link'; del.type = 'button'; del.textContent = 'Delete';
+      del.addEventListener('click', function () { state.notes = state.notes.filter(function (x) { return x.id !== n.id; }); save(); render(); paint(); });
+      row.appendChild(num); row.appendChild(del);
+      li.appendChild(bq); li.appendChild(ta); li.appendChild(row); li.dataset.id = n.id;
+      notesEl.appendChild(li);
+    });
+    document.getElementById('empty').style.display = list.length ? 'none' : 'block';
+    document.getElementById('count').textContent = list.length ? '(' + list.length + ')' : '';
+  }
+  function markActive() { [].forEach.call(notesEl.children, function (li) { li.classList.toggle('active', li.dataset.id === activeId); }); }
+  function focusNote(id, scroll) {
+    activeId = id; paint(); markActive();
+    var n = state.notes.filter(function (x) { return x.id === id; })[0]; if (!n || !scroll) return;
+    var r = rangeFor(n); if (r) { var b = r.getBoundingClientRect(); window.scrollTo({ top: window.scrollY + b.top - 120, behavior: 'smooth' }); }
+  }
+
+  function hideAdd() { addbtn.classList.remove('show'); }
+  document.addEventListener('mouseup', function (e) { if (pop.contains(e.target) || e.target === addbtn) return; setTimeout(checkSel, 10); });
+  document.addEventListener('keyup', function (e) { if (e.shiftKey || e.key === 'Shift') setTimeout(checkSel, 10); });
+  document.addEventListener('selectionchange', function () { if (!pop.classList.contains('show')) setTimeout(checkSel, 250); });
+  function checkSel() {
+    var sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.rangeCount) { hideAdd(); return; }
+    var r = sel.getRangeAt(0);
+    if (!emailEl.contains(r.commonAncestorContainer)) { hideAdd(); return; }
+    var q = sel.toString();
+    if (!norm(q)) { hideAdd(); return; }
+    var b = r.getBoundingClientRect();
+    addbtn.style.top = (window.scrollY + b.bottom + 8) + 'px';
+    addbtn.style.left = Math.max(8, Math.min(window.scrollX + b.left, document.documentElement.clientWidth - 140)) + 'px';
+    addbtn.classList.add('show');
+    var idx = textIndex(), pre = document.createRange(); pre.setStart(emailEl, 0); pre.setEnd(r.startContainer, r.startOffset);
+    pending = { quote: r.toString(), pos: pre.toString().length, section: section(r), rect: b };
+  }
+  addbtn.addEventListener('mousedown', function (e) { e.preventDefault(); });
+  addbtn.addEventListener('click', function () {
+    if (!pending) return;
+    hideAdd();
+    popq.textContent = '“' + norm(pending.quote) + '”';
+    poptext.value = '';
+    pop.style.top = (window.scrollY + pending.rect.bottom + 8) + 'px';
+    pop.style.left = Math.max(12, Math.min(window.scrollX + pending.rect.left, document.documentElement.clientWidth - pop.offsetWidth - 12 || 12)) + 'px';
+    pop.classList.add('show'); poptext.focus();
+  });
+  function closePop() { pop.classList.remove('show'); pending = null; }
+  document.getElementById('cancel').addEventListener('click', closePop);
+  document.getElementById('save').addEventListener('click', function () {
+    if (!pending) return;
+    var n = { id: 'n' + Date.now().toString(36), quote: pending.quote, pos: pending.pos, section: pending.section, text: poptext.value.trim() };
+    state.notes.push(n); save(); closePop(); window.getSelection().removeAllRanges();
+    render(); focusNote(n.id, false); toast('Note saved');
+  });
+  pop.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePop();
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) document.getElementById('save').click();
+  });
+
+  general.addEventListener('input', function () { state.general = general.value; save(); });
+
+  function exportText() {
+    var subj = document.getElementById('subject').textContent;
+    var out = ['# My notes on the Dana pre-read email', '', 'Email subject: ' + subj, ''];
+    var list = state.notes.slice().sort(function (a, b) { return a.pos - b.pos; });
+    if (list.length) {
+      out.push('## Line notes', '');
+      list.forEach(function (n, i) {
+        out.push((i + 1) + '. **' + n.section + '**');
+        out.push('   > ' + norm(n.quote));
+        out.push('   Note: ' + (n.text || '(no comment; flagged)'), '');
+      });
+    }
+    if (norm(state.general || '')) out.push('## General notes', '', state.general.trim(), '');
+    out.push('---', '', '## Current email text', '', emailText());
+    return out.join('\n');
+  }
+  function emailText() {
+    return [].map.call(emailEl.children, function (el) {
+      if (el.tagName === 'H2') return '**' + el.textContent + '**';
+      if (el.tagName === 'UL') return [].map.call(el.children, function (li) { return '- ' + norm(li.textContent); }).join('\n');
+      return norm(el.innerText || el.textContent);
+    }).join('\n\n');
+  }
+  document.getElementById('copy').addEventListener('click', function () {
+    var t = exportText();
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () { toast('Copied notes and email text'); }, function () {
+      var ta = document.createElement('textarea'); ta.value = t; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); toast('Copied notes and email text'); } catch (e) { toast('Copy failed: use Download'); }
+      ta.remove();
+    });
+  });
+  // Download goes through the artifact viewer's downloads capability; hidden if this view can't offer it.
+  var dlBtn = document.getElementById('download'), downloads = null;
+  dlBtn.hidden = true;
+  if (window.claude && typeof window.claude.use === 'function') {
+    window.claude.use('downloads').then(function (d) { downloads = d; if (d) dlBtn.hidden = false; }, function () {});
+  }
+  dlBtn.addEventListener('click', function () {
+    if (!downloads) return;
+    downloads.save({ filename: 'dana-email-notes.md', data: exportText() }).then(function () { toast('Saved'); }, function () { toast('Download not saved'); });
+  });
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!state.notes.length && !state.general) return;
+    if (!confirm('Delete all notes on this page?')) return;
+    state = { notes: [], general: '' }; general.value = ''; save(); render(); paint();
+  });
+
+  load(); general.value = state.general || ''; render(); paint();
+})();
+</script>
+</body>
+</html>
