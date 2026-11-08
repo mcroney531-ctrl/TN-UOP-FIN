@@ -26,7 +26,7 @@ jobs = {
  'wn7-lead-quick-reference-print.html': [('<p class="qwarn">', '<p class="qwarn ns-ico ns-i-info">')],
  'wn7-coaching-cues-print.html': [('<p class="mnote">', '<p class="mnote ns-ico ns-i-info">')],
  'wn7-guide-call-path-print.html': [('<p class="nt"><b>Listen for the impact first.</b>', '<p class="nt ns-ico ns-i-headset"><b>Listen for the impact first.</b>'),
-                                     ('<p class="nt"><b>Running the check', '<p class="nt ns-ico ns-i-info"><b>Running the check')],
+                                     ('<p class="nt ns-ico ns-i-info"><b>Running the check', '<p class="nt ns-ico ns-i-info-warm"><b>Running the check')],
 }
 for f, hooks in jobs.items():
     p = os.path.join(D, f); s = open(p).read()
@@ -35,7 +35,7 @@ for f, hooks in jobs.items():
 
 p = os.path.join(D, 'wn7-guide-call-path.html'); s = open(p).read()
 for o, n in [('<p class="note"><b>Listen for the impact first.</b>', '<p class="note ns-ico ns-i-headset"><b>Listen for the impact first.</b>'),
-             ('<p class="note"><b>Running the check', '<p class="note ns-ico ns-i-info"><b>Running the check'),
+             ('<p class="note ns-ico ns-i-info"><b>Running the check', '<p class="note ns-ico ns-i-info-warm"><b>Running the check'),
              ('<p class="tip">The pattern tells you', '<p class="tip ns-info ns-ico ns-i-info">The pattern tells you'),
              ('<p class="note"><b>Check that the customer understands', '<p class="note ns-ico ns-i-clip"><b>Check that the customer understands')]:
     s = hook(s, o, n)
