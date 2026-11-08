@@ -29,10 +29,10 @@ assert len(ov) == total, (len(ov), total)
 for i, page in enumerate(w.pages):
     if labels[i] is not None: page.merge_page(ov[i])
 w.add_metadata({'/Title': 'WN7 | Needs Assessment & Planning', '/Subject': 'Performance Analysis, Design Rationale & Planning Organizer', '/Author': 'Northstar Home · Customer Care Enablement (fictional work sample)'})
-# bookmarks for each stop
+# bookmarks: cover first, then each stop
+w.add_outline_item('Cover', 0)
 start = 1
 for num, f, title in stops:
     w.add_outline_item(f'{num} {title}', start); start += len(PdfReader(f'{O}/build/{f}.nofoot.pdf').pages)
-w.add_outline_item('Cover', 0)
 with open(out, 'wb') as fh: w.write(fh)
 print('pages', total)

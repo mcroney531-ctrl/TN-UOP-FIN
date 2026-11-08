@@ -1,4 +1,4 @@
-# Dana pre-read email — DRAFT (not sent)
+# Dana pre-read email — DRAFT — NOT SENT
 
 **To:** Dana Ortiz, Director of Customer Care
 **From:** Learning Experience Design
@@ -32,20 +32,20 @@ The proposed rollout begins by establishing a shared understanding among Leads o
 
 **What's included**
 
-The package is organized in three folders.
+The proposal materials are in the **01 — Proposal** folder, organized in three sections.
 
-*01 — Start Here.* Three short overviews to read first:
+*Start Here.* Three short overviews to read first:
 - **Resource Overview:** each resource, who it's for, and how they fit together.
 - **Rollout Plan Overview:** the five proposed phases and what decides each step forward.
-- **Ownership Map Overview:** who owns what, what's confirmed versus proposed, and what's still open.
+- **Ownership Map:** who owns what, what's confirmed versus proposed, and what's still open.
 
-*02 — Detailed Planning.* The full **WN7 Rollout & Reinforcement Plan** (PDF): the rationale, phases and gates, evaluation approach, and the dependencies to confirm before launch.
+*Needs Assessment & Planning.* The **Full Rollout Plan** (PDF), the WN7 Rollout & Reinforcement Plan: the rationale, phases and gates, evaluation approach, and the dependencies to confirm before launch. Alongside it are the **Needs Assessment & Planning Organizer** (PDF), a structured record of the needs assessment and planning work behind this proposal, and **AI Extensions** (PDF), two optional future concepts that aren't part of the proposed rollout.
 
-*03 — Learning Resources.* The proposed materials. For Leads: the **Lead Meeting Plan**, **Lead Quick Reference** and **Coaching Cues**. For Guides: the **Guide Call Path** for live calls and **Make the Call**, an individual practice built around the harder Not eligible case. Leads use the **Huddle Sequence Slide** to introduce the shared sequence in their existing huddles.
+*Learning Resources.* The proposed materials, in Leads and Guides folders. For Leads: the **Lead Alignment Meeting Plan**, **Lead Quick Reference** and **Lead Coaching Cues**. For Guides: the **WN7 Call Path** for live calls and **Make the Call**, an individual practice built around the harder Not eligible case. Leads use the **Huddle Sequence Slide** to introduce the shared sequence in their existing huddles.
 
 **Where to start**
 
-As you review the proposal, I recommend beginning with 01 — Start Here. The three overviews provide a quick orientation before you explore the full plan or individual resources.
+As you review the proposal, I recommend beginning with Start Here. The three overviews provide a quick orientation before you explore the full plan or individual resources.
 
 This is a proposal, not an approved rollout. Several pieces need their owners' confirmation before any Guide sees them; the Ownership Map lists them. The rollout is staged, so pilot evidence decides whether it expands, and it's modular: Guides use the Call Path and individual practice, while Leads use the meeting and coaching materials and introduce the shared sequence through existing huddles.
 
@@ -55,7 +55,7 @@ Best,
 [Name]
 Learning Experience Design
 
-*Attachment: Northstar WN7 package (ZIP), folders 01 — Start Here, 02 — Detailed Planning, 03 — Learning Resources.*
+*Attachment: WN7 Proposal Package (ZIP). The proposal materials are in 01 — Proposal: Start Here, Needs Assessment & Planning, Learning Resources.*
 
 ---
 *Fictional work sample; Northstar Home, its people and its data are synthetic.*
