@@ -32,8 +32,8 @@
   p { margin: 0 0 12px; }
   .soft { color: var(--ink-soft); }
   .muted { color: var(--ink-muted); }
-  blockquote.pull { margin: 16px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background: var(--paper); border-radius: 0 var(--radius) var(--radius) 0; }
-  blockquote.pull p { margin: 0; font-size: 17px; }
+  blockquote.pull { margin: 16px 0; padding: 14px 18px; border-left: 4px solid var(--accent); background: var(--tint); border-radius: 0 var(--radius) var(--radius) 0; }
+  blockquote.pull p { margin: 0; font-size: 17px; font-style: italic; }
   @media print { blockquote.pull { margin: 10px 0; padding: 8px 12px; } blockquote.pull p { font-size: 11pt; } ul.tight li { margin-bottom: 3px; } p { margin-bottom: 8px; } }
   blockquote.pull cite { display: block; margin-top: 6px; font-style: normal; font-size: 13px; color: var(--ink-muted); }
   ul.tight { margin: 0 0 12px; padding-left: 20px; }
