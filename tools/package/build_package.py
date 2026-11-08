@@ -6,8 +6,8 @@ from urllib.parse import quote
 R = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 D, I = f'{R}/deliverables', f'{R}/interviewer'
 out = os.path.abspath(sys.argv[1]); root_name = 'WN7 Proposal Package'
-P, U = '01 — Proposal', '02 — UOP'
-SH, NA, LR = f'{P}/Start Here', f'{P}/Needs Assessment & Planning', f'{P}/Learning Resources'
+P, U = '01 — Proposal', '02 — UOP Interviewer Notes'
+SH, NA, LR = f'{P}/00 — Start Here', f'{P}/01 — Needs Assessment and Planning', f'{P}/02 — Learning Resources'
 FILES = {  # packaged path : source
     f'{SH}/Resource Overview.html': f'{D}/wn7-resource-overview.html',
     f'{SH}/Rollout Plan Overview.html': f'{D}/wn7-rollout-overview.html',
@@ -26,11 +26,7 @@ FILES = {  # packaged path : source
     f'{U}/Interviewer\'s Note.pdf': f'{I}/wn7-behind-the-design.pdf',
     f'{U}/Design Decision Log.pdf': f'{I}/wn7-design-decision-log.pdf',
 }
-ASSETS = {  # assets each HTML folder needs (from its own src="assets/..." references)
-    f'{SH}/assets': ['ro-guide-call-path.jpg', 'ro-guide-practice.jpg', 'ro-huddle-slide.jpg', 'ro-lead-coaching-cues.jpg', 'ro-lead-meeting.jpg', 'ro-lead-quick-reference.jpg'],
-    f'{LR}/Leads/assets': ['northstar-logo-white.png'],
-    f'{LR}/Guides/assets': ['northstar-logo-white.png'],
-}
+ASSETS = {}  # images are embedded in each HTML (item 160), so no assets/ folders ship
 src_to_pkg = {os.path.basename(v): k for k, v in FILES.items()}
 def rel_href(from_pkg, to_pkg):
     r = os.path.relpath(to_pkg, os.path.dirname(from_pkg))
@@ -49,6 +45,12 @@ for pkg, src in FILES.items():
                 return f'{m.group(1)}"{rel_href(pkg, src_to_pkg[target])}"'
             return m.group(0)
         s2, n = re.subn(r'(href=)"(wn7-[\w.-]+\.(?:pdf|html))"', fix, s)
+        import base64, mimetypes
+        def inline(m):
+            f = os.path.join(D, m.group(2)); mt = mimetypes.guess_type(f)[0]
+            return f'{m.group(1)}"data:{mt};base64,{base64.b64encode(open(f, "rb").read()).decode()}"'
+        s2, k = re.subn(r'(src=)"(assets/[\w.-]+\.(?:png|jpe?g))"', inline, s2)
+        assert 'src="assets/' not in s2, pkg
         unresolved = re.findall(r'href="(wn7-[\w.-]+\.(?:pdf|html))"', s2)
         assert not unresolved, (pkg, unresolved)
         open(dst, 'w', encoding='utf-8').write(s2); changes[pkg] = n

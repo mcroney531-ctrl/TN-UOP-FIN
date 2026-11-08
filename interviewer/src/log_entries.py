@@ -104,7 +104,7 @@ GROUPS = [
  ]),
  ("H", "Packaging and communication", [
   dict(title="Three high-level overviews before the detail", status=None, refs="D115, D116, D117, D131",
-   decision="Organize the package in two top-level sections: 01 — Proposal (Start Here with three high-level overviews, Needs Assessment & Planning, Learning Resources) and 02 — UOP (the interviewer material). This structure was refined during final assembly from an earlier three-folder plan.",
+   decision="Organize the package in two top-level sections: 01 — Proposal (00 — Start Here with three high-level overviews, 01 — Needs Assessment and Planning, 02 — Learning Resources) and 02 — UOP Interviewer Notes (the interviewer material). This structure was refined during final assembly from an earlier three-folder plan.",
    rationale="Dana should be able to orient herself in minutes before the five-page plan.",
    result="The package structure and the email's navigation."),
   dict(title="Persuade, then navigate", status=None, refs="D131–D136",
